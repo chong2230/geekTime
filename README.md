@@ -22,6 +22,7 @@ React Native
 2. npm install
 3. npm start
 4. 使用Expo App打开RN应用
+5. 由于RN版本更新，需将tools目录下ViewPager.js和DefaultViewPageIndicator.js覆盖node_modules/react-native-viewpager下对应文件
 
 ### 屏幕截图
 <img src="https://github.com/chong2230/geekTime/blob/master/screenshot/1.jpg">
