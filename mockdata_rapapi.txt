@@ -1,0 +1,431 @@
+// banner轮播图
+'/discover/banner' :
+{
+    "msg": "SUCCESS",
+    "code": 0,
+    "data": [
+        {
+            "id": 1,
+            "description": "\u8bad\u7ec31\u63cf\u8ff0",
+            "icon": "banner/1.jpg",
+            "name": "\u8bad\u7ec311"
+        },
+        {
+            "id": 5,
+            "description": "\u8bad\u7ec35\u63cf\u8ff0",
+            "icon": "banner/5.jpg",
+            "name": "\u8bad\u7ec35"
+        },
+        {
+            "id": 2,
+            "description": "\u8bad\u7ec32\u63cf\u8ff0",
+            "icon": "banner/2.jpg",
+            "name": "\u8bad\u7ec32"
+        }
+    ]
+},
+
+// 发现列表
+'/discover/list' :
+{
+    "msg": "SUCCESS",
+    "code": 0,
+    "data": {
+
+        list : [
+            {
+                title: "极客新闻",
+                key: "news",
+                contents : [
+                    {id: 1, "description": "苏宁易购乔新亮：最有效的研发管理经验",audio: ""},
+                    {id: 2, "description": "HAP新方法：容器比虚拟机更安全",audio: ""},
+                    {id: 3, "description": "敏捷测试需要注意的五种危险行为",audio: ""},
+                    {id: 4, "description": "赛灵思收购深鉴科技，AI芯片并购加速",audio: ""}
+                ],
+            },
+            {
+                title: "精品专栏",
+                key: "subjects",
+                contents : [
+                    {
+                        "id": 1,
+                        "name": "机器学习40讲",
+                        "description": "帮你打通机器学习的任督二脉",
+                        "icon": "home/1.jpg",
+                        "is_new": true,
+                        "title": "21 | 基函数扩展：属性的非线性...",
+                        "author": "王天一",
+                        "honor": "工学博士，副教授",
+                        "cost": 68,     // 花费
+                        "period": 40,   // 多少期
+                        "times": 600    // 分钟
+                    },
+                    {
+                        "id": 2,
+                        "name": "从0开始学游戏开发",
+                        "description": "你的游戏开发入门第一课",
+                        "icon": "home/2.jpg",
+                        "is_new": true,
+                        "title": "第25讲 | 热点剖析（六）：AR和...",
+                        "author": "蔡能",
+                        "honor": "原网易游戏引擎架构师，资深...",
+                        "cost": 68,     // 花费
+                        "period": 36,   // 多少期
+                        "times": 600    // 分钟
+                    },
+                    {
+                        "id": 3,
+                        "name": "Java核心技术36讲",
+                        "description": "Oracle首席工程师带你修炼Java内功",
+                        "icon": "home/3.jpg",
+                        "is_new": true,
+                        "title": "第33讲 | 后台服务出现明显“变...",
+                        "author": "杨晓峰",
+                        "honor": "Oracle首席工程师",
+                        "cost": 68,     // 花费
+                        "period": 36,   // 多少期
+                        "times": 0    // 分钟
+                    },
+                ],
+            },
+            {
+                title: "视频课程",
+                key: "courses",
+                contents : [
+                    {
+                        "id": 101,
+                        "name": "快速上手Kotlin开发",
+                        "description": "Java/Android开发者的实战指南",
+                        "icon": "home/3.jpg",
+                        "author": "张涛",
+                        "honor": "资深Android工程师",
+                        "cost": 129,     // 花费
+                        "period": 36,   // 多少课时
+                        "times": 550    // 分钟
+                    },
+                    {
+                        "id": 102,
+                        "name": "React实战进阶45讲",
+                        "description": "掌握当下最热门的前端利器",
+                        "icon": "home/3.jpg",
+                        "author": "王沛",
+                        "honor": "eBay资深技术专家",
+                        "cost": 199,     // 花费
+                        "period": 45,   // 多少课时
+                        "times": 500    // 分钟
+                    },
+                    {
+                        "id": 103,
+                        "name": "零基础学Python",
+                        "description": "掌握AI时代的编程语言",
+                        "icon": "home/3.jpg",
+                        "author": "尹会生",
+                        "honor": "金山软件西山居技术经理",
+                        "cost": 199,     // 花费
+                        "period": 71,   // 多少课时
+                        "times": 600    // 分钟
+                    },
+                ]
+            }
+
+        ]                        
+    }
+},
+
+// 发现列表 for rapapi
+'/discover/list' :
+{
+    "msg": "SUCCESS",
+    "code": 0,
+    "data": {
+
+        list : [
+            {
+                title: "极客新闻",
+                key: "news",
+                contents : [
+                    {
+                        id: 1, 
+                        "name": "机器学习40讲",
+                        "description": "苏宁易购乔新亮：最有效的研发管理经验",
+                        "icon": "home/1.jpg",
+                        "is_new": false,
+                        "title": "",
+                        "author": "",
+                        "honor": "",
+                        "cost": 0,     // 花费
+                        "period": 0,   // 多少期
+                        "times": 0,    // 分钟
+                        audio: ""
+                    },
+                    {
+                        id: 2, 
+                        "name": "机器学习40讲",
+                        "description": "HAP新方法：容器比虚拟机更安全",
+                        "icon": "home/2.jpg",
+                        "is_new": false,
+                        "title": "",
+                        "author": "",
+                        "honor": "",
+                        "cost": 0,     // 花费
+                        "period": 0,   // 多少期
+                        "times": 0,    // 分钟
+                        audio: ""
+                    },
+                    {
+                        id: 3, 
+                        "name": "机器学习40讲",
+                        "description": "敏捷测试需要注意的五种危险行为",
+                        "icon": "home/3.jpg",
+                        "is_new": false,
+                        "title": "",
+                        "author": "",
+                        "honor": "",
+                        "cost": 0,     // 花费
+                        "period": 0,   // 多少期
+                        "times": 0,    // 分钟
+                        audio: ""
+                    },
+                    {
+                        id: 4, 
+                        "name": "机器学习40讲",
+                        "description": "赛灵思收购深鉴科技，AI芯片并购加速",
+                        "icon": "home/4.jpg",
+                        "is_new": false,
+                        "title": "",
+                        "author": "",
+                        "honor": "",
+                        "cost": 0,     // 花费
+                        "period": 0,   // 多少期
+                        "times": 0,    // 分钟
+                        audio: ""
+                    }                    
+                ],
+            },
+            {
+                title: "精品专栏",
+                key: "subjects",
+                contents : [
+                    {
+                        "id": 1,
+                        "name": "机器学习40讲",
+                        "description": "帮你打通机器学习的任督二脉",
+                        "icon": "home/1.jpg",
+                        "is_new": true,
+                        "title": "21 | 基函数扩展：属性的非线性...",
+                        "author": "王天一",
+                        "honor": "工学博士，副教授",
+                        "cost": 68,     // 花费
+                        "period": 40,   // 多少期
+                        "times": 600,    // 分钟
+                        audio: ""
+                    },
+                    {
+                        "id": 2,
+                        "name": "从0开始学游戏开发",
+                        "description": "你的游戏开发入门第一课",
+                        "icon": "home/2.jpg",
+                        "is_new": true,
+                        "title": "第25讲 | 热点剖析（六）：AR和...",
+                        "author": "蔡能",
+                        "honor": "原网易游戏引擎架构师，资深...",
+                        "cost": 68,     // 花费
+                        "period": 36,   // 多少期
+                        "times": 600,    // 分钟
+                        audio: ""
+                    },
+                    {
+                        "id": 3,
+                        "name": "Java核心技术36讲",
+                        "description": "Oracle首席工程师带你修炼Java内功",
+                        "icon": "home/3.jpg",
+                        "is_new": true,
+                        "title": "第33讲 | 后台服务出现明显“变...",
+                        "author": "杨晓峰",
+                        "honor": "Oracle首席工程师",
+                        "cost": 68,     // 花费
+                        "period": 36,   // 多少期
+                        "times": 0,    // 分钟
+                        audio: ""
+                    },
+                ],
+            },
+            {
+                title: "视频课程",
+                key: "courses",
+                contents : [
+                    {
+                        "id": 101,
+                        "name": "快速上手Kotlin开发",
+                        "description": "Java/Android开发者的实战指南",
+                        "icon": "home/3.jpg",
+                        "author": "张涛",
+                        "honor": "资深Android工程师",
+                        "cost": 129,     // 花费
+                        "period": 36,   // 多少课时
+                        "times": 550,    // 分钟
+                        audio: ""
+                    },
+                    {
+                        "id": 102,
+                        "name": "React实战进阶45讲",
+                        "description": "掌握当下最热门的前端利器",
+                        "icon": "home/3.jpg",
+                        "author": "王沛",
+                        "honor": "eBay资深技术专家",
+                        "cost": 199,     // 花费
+                        "period": 45,   // 多少课时
+                        "times": 500,    // 分钟
+                        audio: ""
+                    },
+                    {
+                        "id": 103,
+                        "name": "零基础学Python",
+                        "description": "掌握AI时代的编程语言",
+                        "icon": "home/3.jpg",
+                        "author": "尹会生",
+                        "honor": "金山软件西山居技术经理",
+                        "cost": 199,     // 花费
+                        "period": 71,   // 多少课时
+                        "times": 600,    // 分钟
+                        audio: ""
+                    },
+                ]
+            },
+            {
+                title: "极客商城",
+                key: "mall",
+                contents : [
+                    {
+                        "id": 301,
+                        "name": "",
+                        "description": "《算法》算法领域的经典参考书",
+                        "icon": "home/1.jpg",
+                        "author": "",
+                        "honor": "",
+                        "cost": 78.9,     // 花费
+                        "period": 0,   // 多少课时
+                        "times": 0,    // 分钟
+                        audio: ""
+                    },
+                    {
+                        "id": 302,
+                        "name": "",
+                        "description": "《算法图解》像小说一样的算法书",
+                        "icon": "home/2.jpg",
+                        "author": "",
+                        "honor": "",
+                        "cost": 38.9,     // 花费
+                        "period": 0,   // 多少课时
+                        "times": 0,    // 分钟
+                        audio: ""
+                    },
+                    {
+                        "id": 303,
+                        "name": "",
+                        "description": "极客时间限量200件T恤",
+                        "icon": "home/3.jpg",
+                        "author": "",
+                        "honor": "",
+                        "cost": 149,     // 花费 
+                        "period": 0,   // 多少课时
+                        "times": 0,    // 分钟
+                        audio: ""
+                    }
+                ]
+            },
+            {
+                title: "精品微课",
+                key: "microclass",
+                contents : [
+                    {
+                        "id": 501,
+                        "name": "Service Mesh实践指南",
+                        "description": "来自一线大厂的第一手经验总结",
+                        "icon": "home/1.jpg",
+                        "author": "",
+                        "honor": "",
+                        "cost": 9,     // 花费
+                        "period": 6,   // 多少课时
+                        "times": 0,    // 分钟/字数
+                        audio: ""
+                    },
+                    {
+                        "id": 502,
+                        "name": "深入浅出gRPC",
+                        "description": "详解gRPC运行机制与原理",
+                        "icon": "home/2.jpg",
+                        "author": "",
+                        "honor": "",
+                        "cost": 9,     // 花费
+                        "period": 6,   // 多少课时
+                        "times": 45000,    // 分钟
+                        audio: ""
+                    },
+                    {
+                        "id": 503,
+                        "name": "性能优化面面观",
+                        "description": "来自业界顶尖的最佳实践",
+                        "icon": "home/3.jpg",
+                        "author": "尹会生",
+                        "honor": "",
+                        "cost": 6,     // 花费
+                        "period": 5,   // 多少课时
+                        "times": 0,    // 分钟
+                        audio: ""
+                    },
+                ]
+            },
+            {
+                title: "热点专题",
+                key: "hots",
+                contents : [
+                    {
+                        "id": 601,
+                        "name": "",
+                        "description": "",
+                        "icon": "home/1.jpg",
+                        "is_new": true,
+                        "title": "",
+                        "author": "",
+                        "honor": "",
+                        "cost": 0,     // 花费
+                        "period": 0,   // 多少期
+                        "times": 0,    // 分钟
+                        audio: ""
+                    },
+                    {
+                        "id": 602,
+                        "name": "",
+                        "description": "",
+                        "icon": "home/2.jpg",
+                        "is_new": true,
+                        "title": "",
+                        "author": "",
+                        "honor": "",
+                        "cost": 0,     // 花费
+                        "period": 0,   // 多少期
+                        "times": 0,    // 分钟
+                        audio: ""
+                    },
+                    {
+                        "id": 603,
+                        "name": "",
+                        "description": "",
+                        "icon": "home/3.jpg",
+                        "is_new": true,
+                        "title": "",
+                        "author": "",
+                        "honor": "",
+                        "cost": 0,     // 花费
+                        "period": 0,   // 多少期
+                        "times": 0,    // 分钟
+                        audio: ""
+                    }
+                ],
+            },
+
+        ]                        
+    }
+},
+
