@@ -24,15 +24,15 @@ React Native
 4. 使用Expo App打开RN应用
 
 ### 屏幕截图
-<img src="https://github.com/chong2230/screenshot/discover_1.jpg">
+<img src="https://github.com/chong2230/geekTime/blob/master/screenshot/discover_1.jpg">
 
-<img src="https://github.com/chong2230/screenshot/discover_2.jpg">
+<img src="https://github.com/chong2230/geekTime/blob/master/screenshot/discover_2.jpg">
 
-<img src="https://github.com/chong2230/screenshot/discover_3.jpg">
+<img src="https://github.com/chong2230/geekTime/blob/master/screenshot/discover_3.jpg">
 
-<img src="https://github.com/chong2230/screenshot/subject_1.jpg">
+<img src="https://github.com/chong2230/geekTime/blob/master/screenshot/subject_1.jpg">
 
-<img src="https://github.com/chong2230/screenshot/account_1.jpg">
+<img src="https://github.com/chong2230/geekTime/blob/master/screenshot/account_1.jpg">
 
 #### 参与贡献
 
