@@ -491,7 +491,7 @@ const Mockdata = {
             ]
         }    
     },
-    // 新闻
+    // 极客新闻
     '/news' : {
         "msg": "SUCCESS",
         "code": 0,
@@ -555,6 +555,68 @@ const Mockdata = {
                 }
             ]
         }    
+    },
+    '/discover/detail' : {
+        "msg": "SUCCESS",
+        "code": 0,
+        "data": {
+            "author_header" : "https://static001.geekbang.org/resource/image/c4/9c/c4289562a7f9fe318831393b2b2c309c.jpg",
+            "author_intro" : "京东成都研究院技术专家",
+            "author_name" : "胡峰",
+            "column_begin_time" : 1532620800,
+            "column_bgcolor" : "#c2c7c3",
+            "column_cover" : "https://static001.geekbang.org/resource/image/4e/90/4ebac909a273eecd46f33edd88108a90.jpg",
+            "column_cover_inner" : "https://static001.geekbang.org/resource/image/4f/aa/4fcf7ff0762edfdb46adbf47800297aa.jpg",
+            "column_cover_wxlite" : "https://static001.geekbang.org/resource/image/3e/e2/3e3fc6ba9c5a105c76822b09fb24cfe2.jpg",
+            "column_ctime" : 1532673079,
+            "column_end_time" : 1545580800,
+            "column_intro" : '<p>如何才能持续成长，是每一个程序员都绕不开的话题。</p>↵<p>入行之初，你可能会困惑于技能选择的方向和掌握的方法；编程前期，你可能会苦恼于Bug的调试与修复；技术水平达到瓶颈期，你可能又急于寻求突破和上升。除此之外，职业倦怠了，如何去面对？技术停滞了，如何去解决？人到中年，是选择工作还是选择生活？换工作？换城市？换方向？如是种种，磨蚀着曾经的乐观和现在的不甘，是放任自流还是逆流而上？</p>↵<p>但，还好“永远有走在你前面的人”，别人留下的 “脚印” 和路径可以给予正在成长阶段的你很多启发与指引。</p>↵<p>在这个专栏里，胡峰将结合十余年从业经验，设身处地去思索、去剖析、去拆解程序员不同阶段可能面临的实际困惑和问题，并给出可供参考的答案。本专栏是胡峰长时间的资源积累，字字珠玑，有着清晰的路径和完整的体系，去启发、去指引，由“知” 改变 “行”，让你的程序之路走得更稳、更远。不仅传授知识，而且授人以渔——提供为程序员量身定做的进阶路径。</p>↵<h2>作者简介</h2>↵<p>胡峰，京东成都研究院技术专家，TGO会员。目前承担京东咚咚产品线技术架构工作，专注于 Java 后端分布式系统技术架构相关领域。</p>↵<p>工作至今十多年，毕业后先后进入金融、电信行业写程序，成为了一名程序员。七年前加入京东，跟随互联网电商行业的高速发展，快速成长，也一路从程序员成长为了架构师。除了技术工作，近年他也开始领导研究院技术委员会，负责人才识别，晋升选拔，关注人才梯队层次建设和个人成长发展。</p>↵<h2>专栏模块</h2>↵<p>本专栏共62期，分为六大模块。</p>↵<ol>↵<li>征途：启程之初。入行之初，需要具备哪些最基础的技能？会面临怎样的困惑？最初的感受如何？找到走上程序之路的初心，成就更好的自己。</li>↵<li>修炼：程序之术。程序之路前期，多会是以编程（炼术）为主：程序系统的架构与设计，功能模块的开发与编码，缺陷 Bug 的调试与修复。</li>↵<li>修行：由术入道。除了编程写代码之外，还有一些其他维度的修行道路：计划的体系，精进的思维，习惯的养成，展现的形式，上升的阶梯，工程的方法。</li>↵<li>徘徊：道中彷徨。行道中途，会面临成长平台期的困惑，该如何选择？</li>↵<li>寻路：路在何方。前路多分岔，关于方向、角色、自省与定位，该如何决断？</li>↵<li>蜕变：破茧成蝶。成长之路不连续，有阻挡你蜕变的边界与断层，该如何跨越？</li>↵</ol>↵<h2>专栏目录</h2>↵<p><img src="https://static001.geekbang.org/resource/image/6a/cf/6ad07ebe5c023b86517653f7d056e1cf.jpg" alt="" /></p>↵<h2>适宜人群</h2>↵<p>也许你正处于下面的某个阶段：</p>↵<ul>↵<li>入行之初，困惑于技能选择的方向和掌握的方法？</li>↵<li>编程前期，苦恼于只能写出Bug不断的挖坑代码？</li>↵<li>快速成长期，纠结于无法建立出自己的精进体系？</li>↵<li>进阶瓶颈期，迫切于做出改变、寻求突破和上升？</li>↵<li>面对成长断层，迷茫于停滞不前、无法跃迁成长？</li>↵</ul>↵<p>不管你处于何种阶段，也不管你是学生、初级开发人员、技术主管，或者是架构师，甚至是对程序相关领域感兴趣的人士，都可以利用专栏中所提及的框架体系和思维方法去践行，有所得、有所获。</p>↵<h2 class="js-audit">订阅须知</h2>↵<ol class="js-audit">↵<li>本专栏为订阅专栏，更新时间为2018年8月3日至2018年12月24日。订阅成功后，即可通过“极客时间”App端、小程序端、<a href="https://time.geekbang.org/columns">Web端</a> 永久阅读。</li>↵<li>  本专栏更新时间为每周一、三、五，形式为图文 + 音频，共计 62 期。</li>↵<li>本专栏为虚拟商品，一经订阅，概不退款。</li>↵<li>在专栏阅读过程中，如有任何问题，请邮件联系service@geekbang.org。</li>↵</ol>↵',
+            "column_poster" : "https://static001.geekbang.org/resource/image/cf/f6/cfb66959bb0739b53d5ab32869d18af6.jpg",
+            "column_poster_wxlite" : "https://static001.geekbang.org/resource/image/b0/e6/b0207623c798ada63524f38fbec85be6.jpg",
+            "column_price" : 6800,
+            "column_price_market" : 9900,
+            "column_share_title" : "胡峰 · 程序员进阶攻略",
+            "column_sharesale" : 1,
+            "column_sharesale_data" : '{"promo_pic_url":"https:\/\/static001.geekbang.org\/resource\/image\/60\/e0\/60bb75bca78bfa0a5acbe9a52d87c6e0.jpg","promo_pic_color":"595656","original_pic_url":"https:\/\/static001.geekbang.org\/resource\/image\/50\/13\/50c80af032b7fec654cd3a5663924c13.jpg","original_pic_color":"FFFFFF","share_sale_price":2400,"share_sale_guest_price":0}',
+            "column_sku" : 100012101,
+            "column_subtitle" : "每个程序员都应该知道的成长法则",
+            "column_title" : "程序员进阶攻略",
+            "column_type" : 1,
+            "column_unit" : "62期",
+            "column_utime" : 1533030347,
+            "column_video_cover" : "",
+            "column_video_media" : "",
+            "column_wxlite_code" : "https://static001.geekbang.org/product/wxa/trans-wxa_sku/100012101.png",
+            "had_sub" : false,
+            "id" : 111,
+            "is_experience" : false,
+            "is_include_audio" : true,
+            "is_include_preview" : true,
+            "is_onborad" : true,
+            "is_preorder" : true,
+            "is_shareget" : false,
+            "is_sharesale" : true,
+            "sub_count" : 2174,
+            "update_frequency" : "8月3日正式更新"
+        }
+    },
+    '/discover/latest' : {
+        "msg": "SUCCESS",
+        "code": 0,
+        "data": {
+            list : {
+                article_could_preview : true,
+                article_cover : "https://static001.geekbang.org/resource/image/c6/4c/c665f31c352cdfd55825f9e23c77024c.jpg",
+                article_ctime:1532939400,
+                article_subtitle:"无",
+                article_summary:"程序员的成长道路没那么平坦和舒适，会面临各种问题与困惑，一路上充满了崎岖、障碍和迷雾。所以，这个专栏会围绕程序这个行业、程序员这个职业，画出一条清晰的成长路径。",
+                article_title:"开篇词 | 程序行知：走在同样的路上，遇见自己的风景",
+                chapter_id:"0",
+                had_viewed:false,
+                id:12148,
+                score : 1532939400
+            }
+        }
     }
 }
 

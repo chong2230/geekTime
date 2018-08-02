@@ -1,6 +1,3 @@
-/**
- * Created by cluo on 2017/12/27.
- */
 import React, { Component } from 'react';
 import {
     Platform,
@@ -25,65 +22,104 @@ export default class Detail extends Component<{}> {
     // 构造
     constructor(props) {
         super(props);
-        this.onLoad = this.onLoad.bind(this);
-        this.onProgress = this.onProgress.bind(this);
-        this.onBuffer = this.onBuffer.bind(this);
-        // 初始状态
         this.state = {
-            rate: 1,
-            volume: 1,
-            muted: false,
-            resizeMode: 'contain',
-            duration: 0.0,
-            currentTime: 0.0,
-            controls: false,
-            paused: true,
-            skin: 'custom',
-            ignoreSilentSwitch: null,
-            isBuffering: false,
-            description: '',
-            count: '100',
-            keyPoints: ''
+            detail : {},
+            latest : []
         };
+        
     }
 
     componentWillMount() {
         //Orientation.lockToLandscape();
         const { params } = this.props.navigation.state;
         //var data = JSON.parse(params.data);
-        Common.getTrainDetail(params.id, (result)=>{
+        Common.getDetail(params.id, params.type, (result)=>{
             this.setState({
-                description : result.description,
-                count : result.count,
-                keyPoints : result.key_points
+                detail : result
+            });
+        });
+        Common.getLatest(params.id, params.type, (result)=>{
+            this.setState({
+                latest : result.list
             });
         });
     }
 
-    onLoad(data) {
-        console.log('On load fired!');
-        this.setState({duration: data.duration});
+    _header = () => {
+        return (
+            <Text>最近更新</Text>
+        );
     }
 
-    onProgress(data) {
-        this.setState({currentTime: data.currentTime});
+    _footer = () => {
+        return <Text style={{height:5,backgroundColor:'#ECEFF2'}}></Text>;
     }
 
-    onBuffer({ isBuffering }: { isBuffering: boolean }) {
-        this.setState({ isBuffering });
+    _separator = () => {
+        return <View style={styles.separator} />;
+    }
+
+    _renderItem = () => {
+        return (
+            <View>
+                <Icon.Button
+                  name="file-audio-o"
+                  color="#898989"
+                  backgroundColor="white"
+                  size={20}
+                  top={8}
+                  right={5}
+                  onPress={this._fetchDetail}
+                  >
+                </Icon.Button>    
+                
+            </View>
+        );
     }
 
     render() {
+        let detail = this.state.detail;
         return (
             <View style={styles.container}>
-                <View style={styles.content}>
-                    <Text style={styles.title}>介绍</Text>
-                    <Text style={styles.desc}>{this.state.description}</Text>
-                    <Text style={styles.title}>动作次数</Text>
-                    <Text style={styles.desc}>{this.state.count}次</Text>
-                    <Text style={styles.title}>要点</Text>
-                    <Text style={styles.desc}>{this.state.keyPoints}</Text>
+                <StatusBar
+                    animated={true}
+                    hidden={false}
+                    backgroundColor={'white'}
+                    translucent={true}
+                    barStyle={'dark-content'}>
+                </StatusBar>    
+                <View style={styles.header}>
+                    <Text style={styles.headerTitle}>{detail.column_title}</Text>
                 </View>
+                <View style={styles.author}>
+                    <View style={styles.authorAvatar}>
+                        <Image resizeMode={'stretch'} source={{uri:Common.baseUrl + rowData.avatar_image}}
+                            style={styles.avatarImage}/>
+                    </View>
+                    <View style={styles.authorInfo}>
+                       <Text style={styles.authorName}>{detail.author_name}</Text>
+                       <Text style={styles.authorHonor}>{detail.author_intro}</Text> 
+                    </View>
+                    <Text>{detail.sub_count}购买</Text>
+                </View>
+                <View>
+                    <Text>{detail.column_intro}</Text>
+                </View>
+                <FlatList 
+                    style={styles.list}
+                    ref={(flatList)=>this._flatList = flatList}
+                    keyExtractor={(item, index) => {return item.id.toString();}}
+                    ListHeaderComponent={this._header}
+                    ListFooterComponent={this._footer}
+                    ItemSeparatorComponent={this._separator}
+                    renderItem={this._renderItem}
+                    refreshing={false}
+                    onEndReachedThreshold={0.1}
+                    onEndReached={
+                        this._onload
+                    }
+                    data={this.state.latest}>                                        
+                </FlatList>
             </View>
         )
     }
@@ -94,29 +130,18 @@ var styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column'
     },
-    backgroundVideo: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
+    header: {
+        backgroundColor:'white',
         width: deviceW,
-        height: 210,
-        //resizeMode: 'stretch'
-
+        height: 55
     },
-    content: {
-        position: 'absolute',
-        marginTop: 210,
-    },
-    item: {
-
-    },
-    title: {
-        fontSize: 15,
-        marginLeft: 10,
-        marginTop: 15
-    },
-    desc: {
-        marginLeft: 10,
-        marginTop: 10
+    headerTitle : {
+        width: deviceW,
+        height: 30,
+        marginTop: 25,
+        fontSize: 20,
+        color: 'black',
+        fontWeight: '400',
+        textAlign: 'center'
     },
 });
