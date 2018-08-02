@@ -7,8 +7,7 @@ import {
     View,
     StatusBar,
     Alert,
-    ListView,
-    TouchableWithoutFeedback,
+    FlatList,
     Dimensions
 } from 'react-native';
 
@@ -18,7 +17,7 @@ import Common from '../../utils/Common';
 
 const deviceW = Dimensions.get('window').width;
 
-export default class Detail extends Component<{}> {
+export default class MicroDetail extends Component<{}> {
     // 构造
     constructor(props) {
         super(props);
@@ -72,7 +71,7 @@ export default class Detail extends Component<{}> {
                   onPress={this._fetchDetail}
                   >
                 </Icon.Button>    
-                
+
             </View>
         );
     }
@@ -93,7 +92,7 @@ export default class Detail extends Component<{}> {
                 </View>
                 <View style={styles.author}>
                     <View style={styles.authorAvatar}>
-                        <Image resizeMode={'stretch'} source={{uri:Common.baseUrl + rowData.avatar_image}}
+                        <Image resizeMode={'stretch'} source={{uri:Common.baseUrl + detail.author_header}}
                             style={styles.avatarImage}/>
                     </View>
                     <View style={styles.authorInfo}>

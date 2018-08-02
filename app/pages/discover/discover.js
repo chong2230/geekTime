@@ -98,10 +98,26 @@ export default class Discover extends React.Component {
         // navigate("SubjectSub", { id:data.id, title: data.name });
     }
 
-    _onItemClick(key, data) {
-        console.log('onItemClick ' + key);
+    // type: 2 subjects:精品专栏 3 courses:视频课程 4 mall:极客商城 5 microclass:精品微课 6 hots:热点专题 7 videos:二叉树视频
+    _onItemClick(type, id) {
         const { navigate } = this.props.navigation;
-        // navigate("List", { data: JSON.stringify(data), title: data.name });
+        switch(type) {
+            case 2:
+                navigate("SubjectDetail", {id: id, type: type});
+                break;
+            case 3:
+                navigate("CourseDetail", {id: id, type: type});
+                break;
+            case 4:
+                break;
+            case 5:
+                navigate("MicroDetail", {id: id, type: type});
+                break;        
+            case 6:
+                break;
+            case 7:
+                break;        
+        }
     }
 
     refreshing(){
@@ -121,6 +137,7 @@ export default class Discover extends React.Component {
             data.contents[i].key = '' + (i+1);
         }
         // news:极客新闻 subjects:精品专栏 courses:视频课程 mall:极客商城 microclass:精品微课 hots:热点专题 videos:二叉树视频
+        // 对应类型type分别为1~7
         switch (data.key) {
             case 'news':
                 return this._renderNews(data);
@@ -183,7 +200,7 @@ export default class Discover extends React.Component {
     _renderSubjectItem = (item) => {
         let rowData = item.item;
         return (
-            <TouchableWithoutFeedback onPress={()=>{this._onItemClick(item.key, rowData.id)}}>
+            <TouchableWithoutFeedback onPress={()=>{this._onItemClick(2, rowData.id)}}>
                 <View style={styles.subjectItem}>
                     <Image resizeMode={'stretch'} source={{uri:Common.baseUrl + rowData.icon}}
                            style={styles.subjectImg}/>
@@ -228,7 +245,7 @@ export default class Discover extends React.Component {
     _renderCourseItem = (item) => {
         let rowData = item.item;
         return (
-            <TouchableWithoutFeedback onPress={()=>{this._onItemClick(item.key, rowData.id)}}>
+            <TouchableWithoutFeedback onPress={()=>{this._onItemClick(3, rowData.id)}}>
                 <View style={styles.courseItem}>
                     <Image resizeMode={'stretch'} source={{uri:Common.baseUrl + rowData.icon}}
                            style={styles.courseImg}/>
@@ -274,10 +291,10 @@ export default class Discover extends React.Component {
     _renderMallItem = (item) => {
         let rowData = item.item;
         return (
-            <TouchableWithoutFeedback onPress={()=>{this._onItemClick(item.key, rowData.id)}}>
+            <TouchableWithoutFeedback onPress={()=>{this._onItemClick(4, rowData.id)}}>
                 <View style={styles.item}>
                     <View style={styles.mallBox}>
-                        <Image resizeMode={'stretch'} source={require('../../images/book/1.jpg')}
+                        <Image resizeMode={'stretch'} source={{uri: Common.baseUrl + rowData.icon}}
                                style={styles.mallImg}/>
                     </View>
                     <Text numberOfLines={2} style={[styles.name, styles.mallName]}>{rowData.description}</Text>
@@ -311,9 +328,9 @@ export default class Discover extends React.Component {
     _renderMicroclassItem = (item) => {
         let rowData = item.item;
         return (
-            <TouchableWithoutFeedback onPress={()=>{this._onItemClick(item.key, rowData.id)}}>
+            <TouchableWithoutFeedback onPress={()=>{this._onItemClick(5, rowData.id)}}>
                 <View style={styles.courseItem}>
-                    <Image resizeMode={'stretch'} source={require('../../images/micro/1.jpg')}
+                    <Image resizeMode={'stretch'} source={{uri: Common.baseUrl + rowData.icon}}
                            style={styles.microImg}/>
                     <View style={{marginLeft: 10}}>
                         <Text style={styles.name}>{rowData.name}</Text>                    
@@ -354,7 +371,7 @@ export default class Discover extends React.Component {
     _renderHotItem = (item) => {
         let rowData = item.item;
         return (
-            <TouchableWithoutFeedback onPress={()=>{this._onItemClick(item.key, rowData.id)}}>
+            <TouchableWithoutFeedback onPress={()=>{this._onItemClick(6, rowData.id)}}>
                 <View style={styles.hotItem}>
                     <Image resizeMode={'stretch'} source={require('../../images/hot/1.jpg')}
                            style={styles.hotImg}/>
@@ -389,7 +406,7 @@ export default class Discover extends React.Component {
     _renderVideoItem = (item) => {
         let rowData = item.item;
         return (
-            <TouchableWithoutFeedback onPress={()=>{this._onItemClick(item.key, rowData.id)}}>
+            <TouchableWithoutFeedback onPress={()=>{this._onItemClick(7, rowData.id)}}>
                 <View style={styles.videoItem}>
                     <View>
                         <Image resizeMode={'stretch'} source={{uri:Common.baseUrl + rowData.icon}}

@@ -6,8 +6,10 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Main from './main';
 import Course from './app/pages/discover/course';
 import News from './app/pages/discover/news';
+import CourseDetail from './app/pages/discover/courseDetail';
+import MicroDetail from './app/pages/discover/microDetail';
+import SubjectDetail from './app/pages/subject/subjectDetail';
 // import List from './app/pages/discover/list';
-// import Detail from './app/pages/discover/detail';
 // import SubjectSub from './app/pages/subject/sub';
 // import SubjectList from './app/pages/subject/list';
 // import SubjectDetail from './app/pages/subject/detail';
@@ -59,12 +61,16 @@ const App = createStackNavigator({
         screen: News,
         navigationOptions: ({navigation}) => StackOptions({navigation})
     },
+    CourseDetail: {
+        screen: CourseDetail,
+        navigationOptions: ({navigation}) => StackOptions({navigation})
+    },
+    SubjectDetail: {
+        screen: SubjectDetail,
+        navigationOptions: ({navigation}) => StackOptions({navigation})
+    },
     // List: {
     //     screen: List,
-    //     navigationOptions: ({navigation}) => StackOptions({navigation})
-    // },
-    // Detail: {
-    //     screen: Detail,
     //     navigationOptions: ({navigation}) => StackOptions({navigation})
     // },
     // SubjectSub: {

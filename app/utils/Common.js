@@ -133,6 +133,28 @@ export default class Common {
         })
     }
 
+    // 获取课程详情
+    static getDetail(id, type, cb) {
+        Common.httpRequest('/discover/detail', {
+            id : id,
+            type : type
+        }).then((result)=>{
+            console.log(result);
+            cb(result);
+        })
+    }
+
+    // 获取最新课程列表
+    static getLatest(id, type, cb) {
+        Common.httpRequest('/discover/latest', {
+            id : id,
+            type : type
+        }).then((result)=>{
+            console.log(result);
+            cb(result);
+        })
+    }
+
     // static getSubjectChapter(id, cb) {
     //     Common.httpRequest('/subject/chapter', {
     //         id : id
@@ -140,16 +162,7 @@ export default class Common {
     //         console.log(result);
     //         cb(result);
     //     })
-    // }
-
-    // static getSubjectDetail(id, cb) {
-    //     Common.httpRequest('/subject/chapterDetail', {
-    //         id : id
-    //     }).then((result)=>{
-    //         console.log(result);
-    //         cb(result);
-    //     })
-    // }
+    // }    
 
     static parseObj(obj) {
         var str = '';
