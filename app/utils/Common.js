@@ -139,7 +139,7 @@ export default class Common {
             id : id,
             type : type
         }).then((result)=>{
-            console.log(result);
+            // console.log(result);
             cb(result);
         })
     }

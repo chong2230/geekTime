@@ -46,7 +46,7 @@ export default class Subject extends Component<{}> {
     _renderItem = (item) => {
         let rowData = item.item;
         return (
-            <TouchableWithoutFeedback onPress={()=>{this._onItemClick(rowData.id)}}>
+            <TouchableWithoutFeedback onPress={()=>{this._onItemClick(rowData.id, 2)}}>
                 <View style={styles.item}>                    
                     <View style={styles.info}>
                         <View style={styles.author}>
@@ -76,9 +76,9 @@ export default class Subject extends Component<{}> {
         );
     }
 
-    _onItemClick(id, name) {
+    _onItemClick(id, type) {
         const { navigate } = this.props.navigation;
-        // navigate("SubjectSub", { id:id, title: name });
+        navigate("SubjectDetail", {id: id, type: type});
     }
 
     _header = () => {
@@ -98,10 +98,10 @@ export default class Subject extends Component<{}> {
     }
 
     refreshing(){
-        let timer =  setTimeout(()=>{
-            clearTimeout(timer)
-            alert('刷新成功')
-        },1500)
+        // let timer =  setTimeout(()=>{
+        //     clearTimeout(timer)
+        //     alert('刷新成功')
+        // },1500)
     }
 
     render() {

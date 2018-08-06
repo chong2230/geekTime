@@ -69,6 +69,10 @@ const App = createStackNavigator({
         screen: SubjectDetail,
         navigationOptions: ({navigation}) => StackOptions({navigation})
     },
+    MicroDetail: {
+        screen: MicroDetail,
+        navigationOptions: ({navigation}) => StackOptions({navigation})
+    },
     // List: {
     //     screen: List,
     //     navigationOptions: ({navigation}) => StackOptions({navigation})

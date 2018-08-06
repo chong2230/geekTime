@@ -25,9 +25,7 @@ import Orientation from 'react-native-orientation';
 
 import Button from '../../components/Button';
 import Common from '../../utils/Common';
-// import NewsItem from './newsItem';
 import DiscoverNews from './discoverNews';
-// import SubjectSub from '../subject/sub';
 
 const deviceW = Dimensions.get('window').width;
 const bannerHeight = deviceW*319/671;
@@ -53,7 +51,6 @@ export default class Discover extends React.Component {
         let dataSource = new ViewPager.DataSource({
             pageHasChanged: (p1, p2) => p1 !== p2
         });
-        //this._onBannerClick = this._onBannerClick.bind(this);
         this._onItemClick = this._onItemClick.bind(this);
         let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         // 实际的DataSources存放在state中
@@ -75,7 +72,7 @@ export default class Discover extends React.Component {
             })
         });
 
-        Common.getDiscoverList((result)=>{        
+        Common.getDiscoverList((result)=>{ 
             this.setState({listData: result.list});
         });
 
@@ -93,9 +90,8 @@ export default class Discover extends React.Component {
         );
     }
 
-    _onBannerClick(data, pageID) {
-        const { navigate } = this.props.navigation;
-        // navigate("SubjectSub", { id:data.id, title: data.name });
+    _onBannerClick = (data, pageID) => {
+        this._onItemClick(data.id, data.type);
     }
 
     // type: 2 subjects:精品专栏 3 courses:视频课程 4 mall:极客商城 5 microclass:精品微课 6 hots:热点专题 7 videos:二叉树视频
@@ -103,6 +99,7 @@ export default class Discover extends React.Component {
         const { navigate } = this.props.navigation;
         switch(type) {
             case 2:
+            case 5:
                 navigate("SubjectDetail", {id: id, type: type});
                 break;
             case 3:
@@ -110,21 +107,17 @@ export default class Discover extends React.Component {
                 break;
             case 4:
                 break;
-            case 5:
-                navigate("MicroDetail", {id: id, type: type});
-                break;        
             case 6:
                 break;
             case 7:
-                break;        
+                break;    
+            default:
+                break;    
         }
     }
 
     refreshing(){
-        let timer =  setTimeout(()=>{
-            clearTimeout(timer)
-            alert('刷新成功')
-        },1500)
+        
     }
 
     _onload(){
@@ -138,27 +131,27 @@ export default class Discover extends React.Component {
         }
         // news:极客新闻 subjects:精品专栏 courses:视频课程 mall:极客商城 microclass:精品微课 hots:热点专题 videos:二叉树视频
         // 对应类型type分别为1~7
-        switch (data.key) {
-            case 'news':
+        switch (data.type) {
+            case 1:
                 return this._renderNews(data);
-            case 'subjects':
+            case 2:
                 return this._renderSubjects(data);
-            case 'courses':
+            case 3:
                 return this._renderCourses(data);
-            case 'mall':
+            case 4:
                return this._renderMall(data);
-            case 'microclass':
+            case 5:
                return this._renderMicroclass(data);
-            case 'hots':
+            case 6:
                return this._renderHots(data);
-            case 'videos':
+            case 7:
                return this._renderVideos(data);         
         }
     }
 
     _getTitleBar = (item) => {
         let btnTxt = "查看全部 >";
-        if (item.key == 'mall') btnTxt = "进入商城 >";
+        if (item.type == 4) btnTxt = "进入商城 >";
         return (
             <View style={styles.titleBar}>
                 <Text style={styles.title}>{item.title}</Text>
@@ -186,11 +179,7 @@ export default class Discover extends React.Component {
                     onRefresh={this.refreshing}
                     refreshing={false}
                     horizontal={true}
-                    showsHorizontalScrollIndicator={false}
-                    onEndReachedThreshold={0}
-                    onEndReached={
-                        this._onload
-                    }
+                    showsHorizontalScrollIndicator={false}                
                     data={item.contents}>
                 </FlatList>
             </View>
@@ -231,11 +220,7 @@ export default class Discover extends React.Component {
                     style={styles.list}
                     renderItem={this._renderCourseItem}
                     onRefresh={this.refreshing}
-                    refreshing={false}
-                    onEndReachedThreshold={0}
-                    onEndReached={
-                        this._onload
-                    }
+                    refreshing={false}                    
                     data={item.contents}>
                 </FlatList>
             </View>
@@ -277,11 +262,7 @@ export default class Discover extends React.Component {
                     onRefresh={this.refreshing}
                     refreshing={false}
                     horizontal={true}
-                    showsHorizontalScrollIndicator={false}
-                    onEndReachedThreshold={0}
-                    onEndReached={
-                        this._onload
-                    }
+                    showsHorizontalScrollIndicator={false}                    
                     data={item.contents}>
                 </FlatList>
             </View>
@@ -314,11 +295,7 @@ export default class Discover extends React.Component {
                     renderItem={this._renderMicroclassItem}
                     onRefresh={this.refreshing}
                     refreshing={false}
-                    showsHorizontalScrollIndicator={false}
-                    onEndReachedThreshold={0}
-                    onEndReached={
-                        this._onload
-                    }
+                    showsHorizontalScrollIndicator={false}                    
                     data={item.contents}>
                 </FlatList>
             </View>
@@ -357,11 +334,7 @@ export default class Discover extends React.Component {
                     onRefresh={this.refreshing}
                     refreshing={false}
                     horizontal={true}
-                    showsHorizontalScrollIndicator={false}
-                    onEndReachedThreshold={0}
-                    onEndReached={
-                        this._onload
-                    }
+                    showsHorizontalScrollIndicator={false}                    
                     data={item.contents}>
                 </FlatList>
             </View>
@@ -392,11 +365,7 @@ export default class Discover extends React.Component {
                     onRefresh={this.refreshing}
                     refreshing={false}
                     horizontal={true}
-                    showsHorizontalScrollIndicator={false}
-                    onEndReachedThreshold={0}
-                    onEndReached={
-                        this._onload
-                    }
+                    showsHorizontalScrollIndicator={false}                    
                     data={item.contents}>
                 </FlatList>
             </View>
@@ -445,26 +414,26 @@ export default class Discover extends React.Component {
 
     _viewAll = (item) => {
         const { navigate } = this.props.navigation;
-        switch (item.key) {
-            case 'news':
-                navigate("News", {isVisible: true, title: "极客新闻", type: "news"});
+        switch (item.type) {
+            case 1:
+                navigate("News", {isVisible: true, title: "极客新闻", type: 1});
                 break;
-            case 'subjects':
+            case 2:
                 this.props.main.setState({selectedTab: 'subject'})
                 break;
-            case 'courses':
-                navigate("Course", {isVisible: true, title: "视频课程", type: "courses"});
+            case 3:
+                navigate("Course", {isVisible: true, title: "视频课程", type: 3});
                 break;
-            case 'mall':
+            case 4:
                 Alert.alert('', '程序猿们正在快马加鞭，敬请期待噢~');
                break;
-            case 'microclass':
-                navigate("Course", {isVisible: true, title: "精品微课", type: "microclass"});
+            case 5:
+                navigate("Course", {isVisible: true, title: "精品微课", type: 5});
                break;
-            case 'hots':
+            case 6:
                 Alert.alert('', '程序猿们正在快马加鞭，敬请期待噢~');
                break;
-            case 'videos':
+            case 7:
                 Alert.alert('', '程序猿们正在快马加鞭，敬请期待噢~');
                break;
         }
@@ -486,6 +455,7 @@ export default class Discover extends React.Component {
                 <FlatList 
                     style={styles.list}
                     ref={(flatList)=>this._flatList = flatList}
+                    keyExtractor={(item, index) => {return '' + item.type}}
                     ListHeaderComponent={this._header.bind(this)}
                     ListFooterComponent={this._footer}
                     ItemSeparatorComponent={this._separator}

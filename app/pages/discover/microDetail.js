@@ -5,13 +5,16 @@ import {
     Text,
     Image,
     View,
+    ScrollView,
     StatusBar,
     Alert,
+    WebView,
     FlatList,
     Dimensions
 } from 'react-native';
 
 import Orientation from 'react-native-orientation';
+import HTMLView from 'react-native-htmlview';
 
 import Common from '../../utils/Common';
 
@@ -79,7 +82,7 @@ export default class MicroDetail extends Component<{}> {
     render() {
         let detail = this.state.detail;
         return (
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
                 <StatusBar
                     animated={true}
                     hidden={false}
@@ -87,8 +90,8 @@ export default class MicroDetail extends Component<{}> {
                     translucent={true}
                     barStyle={'dark-content'}>
                 </StatusBar>    
-                <View style={styles.header}>
-                    <Text style={styles.headerTitle}>{detail.column_title}</Text>
+                <View>
+                    <Image source={{uri:detail.column_cover_inner}} style={styles.headerImg} />
                 </View>
                 <View style={styles.author}>
                     <View style={styles.authorAvatar}>
@@ -101,25 +104,9 @@ export default class MicroDetail extends Component<{}> {
                     </View>
                     <Text>{detail.sub_count}购买</Text>
                 </View>
-                <View>
-                    <Text>{detail.column_intro}</Text>
-                </View>
-                <FlatList 
-                    style={styles.list}
-                    ref={(flatList)=>this._flatList = flatList}
-                    keyExtractor={(item, index) => {return item.id.toString();}}
-                    ListHeaderComponent={this._header}
-                    ListFooterComponent={this._footer}
-                    ItemSeparatorComponent={this._separator}
-                    renderItem={this._renderItem}
-                    refreshing={false}
-                    onEndReachedThreshold={0.1}
-                    onEndReached={
-                        this._onload
-                    }
-                    data={this.state.latest}>                                        
-                </FlatList>
-            </View>
+                <HTMLView value={detail.column_intro} style={styles.htmlStyle} />
+                
+            </ScrollView>
         )
     }
 }
@@ -143,4 +130,13 @@ var styles = StyleSheet.create({
         fontWeight: '400',
         textAlign: 'center'
     },
+    headerImg: {
+        width: deviceW,
+        height:200,
+        justifyContent:'center',
+        alignItems:'center'
+    },
+    htmlStyle: {
+        padding: 10
+    }
 });
