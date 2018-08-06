@@ -15,10 +15,9 @@ export default class SettingItem extends Component {
     render() {
         return (
             <TouchableOpacity  onPress={this.props.onPress}>
-                <View style={{flexDirection:'row',alignItems:'center',marginTop:10,marginBottom:5,marginLeft:5}}>
-                    <Text>{this.props.txt1}</Text>
-                    <Text style={{fontSize:11,color:'#CCCCCC',position:'absolute',right:15}}>{this.props.txt2}</Text>
-                    <Image source={require('../../images/account/大于号.png')} style={{width:10,height:10,position:'absolute',right:5}} />
+                <View style={styles.item}>
+                    <Text style={{marginLeft: 10}}>{this.props.txt1}</Text>
+                    <Image source={require('../../images/account/right-arrow.png')} style={styles.rightIcon} />
                 </View>
             </TouchableOpacity>
         );
@@ -26,10 +25,20 @@ export default class SettingItem extends Component {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        width:80,
-        height:80,
-        justifyContent:'center',
-        alignItems:'center'
+    item: {
+        flexDirection:'row',
+        alignItems: 'center',
+        paddingTop: 15,
+        paddingBottom: 15,
+        paddingLeft: 10,
+        borderBottomColor: '#e0e0e0',
+        borderBottomWidth: 1,
+        backgroundColor: 'white'
+    },
+    rightIcon: {
+        width: 10,
+        height: 10,
+        position: 'absolute',
+        right: 20
     }
 });

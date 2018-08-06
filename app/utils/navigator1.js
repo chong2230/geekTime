@@ -17,7 +17,7 @@ export default class Navigator1 extends Component {
         return (
             <View style={styles.container}>
                 <TouchableOpacity style={{marginLeft:20}} onPress={()=>this.props.leftAction()}>
-                    <Text style={{color:'#FFC125'}}>{this.props.leftText}</Text>
+                    <Text style={{color:'#565656'}}>{this.props.leftText}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity>
                     <Text style={{fontWeight:'400',fontSize:20}}>{this.props.centerText}</Text>

@@ -7,7 +7,6 @@ import Main from './main';
 import Course from './app/pages/discover/course';
 import News from './app/pages/discover/news';
 import CourseDetail from './app/pages/discover/courseDetail';
-import MicroDetail from './app/pages/discover/microDetail';
 import SubjectDetail from './app/pages/subject/subjectDetail';
 // import List from './app/pages/discover/list';
 // import SubjectSub from './app/pages/subject/sub';
@@ -69,29 +68,6 @@ const App = createStackNavigator({
         screen: SubjectDetail,
         navigationOptions: ({navigation}) => StackOptions({navigation})
     },
-    MicroDetail: {
-        screen: MicroDetail,
-        navigationOptions: ({navigation}) => StackOptions({navigation})
-    },
-    // List: {
-    //     screen: List,
-    //     navigationOptions: ({navigation}) => StackOptions({navigation})
-    // },
-    // SubjectSub: {
-    //     screen: SubjectSub,
-    //     navigationOptions: ({navigation}) => StackOptions({navigation})
-    // },
-    // SubjectList: {
-    //     screen: SubjectList,
-    //     navigationOptions: ({navigation}) => StackOptions({navigation})
-    // },
-    // SubjectDetail: {
-    //     screen: SubjectDetail,
-    //     navigationOptions: ({navigation}) => StackOptions({navigation})
-    // },
-    // Play: {
-    //     screen: Play,
-    // },
     Login: {
         screen: Login
     },

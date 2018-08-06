@@ -105,18 +105,13 @@ export default class Login extends Component {
     }
 
     leftAction =() =>{
-        // this.props.navigator.pop({})
-        const { navigate } = this.props.navigation;
-        navigate('Mine');
+        const {goBack} = this.props.navigation;
+        goBack();
     }
 
     rightAction = () =>{
 
     }
-
-
-
-
 }
 
 const styles = StyleSheet.create({
