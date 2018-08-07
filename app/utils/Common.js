@@ -155,14 +155,14 @@ export default class Common {
         })
     }
 
-    // static getSubjectChapter(id, cb) {
-    //     Common.httpRequest('/subject/chapter', {
-    //         id : id
-    //     }).then((result)=>{
-    //         console.log(result);
-    //         cb(result);
-    //     })
-    // }    
+    static getRechargeList(cb) {
+        Common.httpRequest('/recharge/list', {
+            
+        }).then((result)=>{
+            console.log(result);
+            cb(result);
+        })
+    }    
 
     static parseObj(obj) {
         var str = '';

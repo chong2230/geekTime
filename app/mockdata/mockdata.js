@@ -635,7 +635,71 @@ const Mockdata = {
             }
             ]
         }
-    }
+    },
+    '/recharge/list' : {
+        "msg": "SUCCESS",
+        "code": 0,
+        "data": {
+            list : [
+            {
+                "id": "com.redatoms.imojo.sg.r001",
+                "name": "60元宝",
+                "money": "6",
+                "rm": "60",
+                "discount_money": "6",
+                "discount": null,
+                "description": null,
+                "type": "1",
+                "status": 0,
+                "sub_id": null,
+                "first_recharge_month": 1,
+                "first_recharge_factor": 2
+            },
+            {
+                "id": "com.redatoms.imojo.sg.r002",
+                "name": "320元宝",
+                "money": "30",
+                "rm": "320",
+                "discount_money": "30",
+                "discount": null,
+                "description": null,
+                "type": "1",
+                "status": 0,
+                "sub_id": null,
+                "first_recharge_month": 1,
+                "first_recharge_factor": 2
+            },
+            {
+                "id": "com.redatoms.imojo.sg.r003",
+                "name": "750元宝",
+                "money": "68",
+                "rm": "750",
+                "discount_money": "68",
+                "discount": null,
+                "description": null,
+                "type": "1",
+                "status": 0,
+                "sub_id": null,
+                "first_recharge_month": 1,
+                "first_recharge_factor": 2
+            },
+            {
+                "id": "com.redatoms.imojo.sg.r004",
+                "name": "2300元宝",
+                "money": "198",
+                "rm": "2300",
+                "discount_money": "198",
+                "discount": null,
+                "description": null,
+                "type": "1",
+                "status": 0,
+                "sub_id": null,
+                "first_recharge_month": 1,
+                "first_recharge_factor": 2
+            },
+            ]
+        }
+    },
 }
 
 export default Mockdata;
