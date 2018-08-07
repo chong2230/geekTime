@@ -81,8 +81,9 @@ export default class Account_logined extends Component {
 
     }
 
-    loginAction = () => {
-        console.log('login')
+    login = () => {
+        const { navigate } = this.props.navigation;
+        navigate('Login', { transition: 'forVertical' });
     }
 
     goSetting = () => {
@@ -97,7 +98,7 @@ export default class Account_logined extends Component {
                     <Image source={require('../../images/account/person_bg.jpg')} style={styles.person} />
                 </View>
                 <ScrollView>
-                    <TouchableOpacity onPress={()=>this.loginAction()}>
+                    <TouchableOpacity onPress={()=>this.login()}>
                         <View style={styles.avatar}>
                             <Image source={require('../../images/defaultAvatar.jpg')} style={styles.avatarIcon} />
                             <View style={styles.avatarInfo}>

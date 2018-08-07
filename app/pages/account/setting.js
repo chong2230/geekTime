@@ -25,9 +25,25 @@ export default class Setting extends Component {
         super(props);
 
         this.state = ({
-            cache:0   //缓存大小
+            cache: 0,   //缓存大小
+            access_token: null
 
         })
+    }
+
+    componentDidMount() {
+        //获取用户的uid
+        //取出本地化的access_token
+        AsyncStorage.getItem(
+            'access_token',
+            (error,result)=>{
+                if (!error){
+                    this.setState({
+                        access_token:result
+                    })
+                }
+            }
+        )
     }
 
     _setAccount = () => {
@@ -63,6 +79,16 @@ export default class Setting extends Component {
     }
 
     render() {
+        let logoutView;
+        if (this.state.access_token != null) {
+            logoutView = (
+                <TouchableOpacity  onPress={()=> this._logout()}>
+                        <View style={styles.bottom}>
+                            <Text style={styles.logoutBtn}>退出当前账号</Text>
+                        </View>
+                    </TouchableOpacity>
+            );
+        }
         return (
             <View style={styles.container}>
                 <Navigator1 leftText = '<' centerText = '设置'  rightText = '  ' leftAction = {()=>this.leftAction()} rightAction = {() => this.rightAction()}/>
@@ -80,11 +106,7 @@ export default class Setting extends Component {
                     <SettingItem txt1 = '推荐给好友' onPress={this._recommend}/>
                     <View style={{backgroundColor:'#F0F0F0',height:20}}></View>
                     
-                    <TouchableOpacity  onPress={()=> this._logout()}>
-                        <View style={styles.bottom}>
-                            <Text style={styles.logoutBtn}>退出当前账号</Text>
-                        </View>
-                    </TouchableOpacity>
+                    {logoutView}
                 </ScrollView>
             </View>
         );
