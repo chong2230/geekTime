@@ -162,6 +162,15 @@ export default class Common {
             console.log(result);
             cb(result);
         })
+    }   
+
+    static changePwd(oldPwd, newPwd, cb) {
+        Common.httpRequest('/account/changePwd', {
+            oldPwd: oldPwd,
+            newPwd: newPwd
+        }).then((result)=>{
+            cb(result);
+        })
     }    
 
     static parseObj(obj) {

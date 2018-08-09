@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import SafeAccountItem from './safeAccountItem';
 
-export default class Setting extends Component {
+export default class SafeAccount extends Component {
 
     constructor(props) {
         super(props);
@@ -35,7 +35,7 @@ export default class Setting extends Component {
 
     render() {
         return (
-            <View}>
+            <View>
                 <SafeAccountItem txt1 = '修改密码' onPress={this._changePwd}/>
                 <SafeAccountItem txt1 = '更换手机号' onPress={this._changePhone}/>
                 <SafeAccountItem txt1 = '绑定微信' onPress={this._bindWx}/>
