@@ -13,6 +13,9 @@ import SubjectDetail from './app/pages/subject/subjectDetail';
 // import SubjectList from './app/pages/subject/list';
 // import SubjectDetail from './app/pages/subject/detail';
 import Login from './app/pages/account/login';
+import Recharge from './app/pages/account/recharge';
+import SafeAccount from './app/pages/account/safeAccount';
+import UpdatePassword from './app/pages/account/updatePassword';
 import Setting from './app/pages/account/setting';
 
 
@@ -72,7 +75,20 @@ const App = createStackNavigator({
         screen: Login
     },
     Setting: {
-        screen: Setting
+        screen: Setting,
+        navigationOptions: ({navigation}) => StackOptions({navigation})
+    },
+    Recharge: {
+        screen: Recharge,
+        navigationOptions: ({navigation}) => StackOptions({navigation})
+    },
+    SafeAccount: {
+        screen: SafeAccount,
+        navigationOptions: ({navigation}) => StackOptions({navigation})
+    },
+    UpdatePassword: {
+        screen: UpdatePassword,
+        navigationOptions: ({navigation}) => StackOptions({navigation})
     }
 }, {
     navigationOptions:{

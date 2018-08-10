@@ -25,12 +25,12 @@ export default class RechargeItem extends Component {
         // this.setState({
         //     textStyle : { color: '#ea642e' }
         // });
-        this.props.onPress(this.props.item.id);
+        this.props.onPress(this.props.data.id);
     }
 
     render() {
         let textStyle = {}
-        if (this.props.selectedNews == this.props.item.id) textStyle = { color: '#ea642e' };
+        if (this.props.selectId == this.props.data.id) textStyle = { color: '#ea642e' };
         let data = this.props.data;
         return (
             <TouchableWithoutFeedback onPress={()=>{this._onItemClick()}}>
@@ -46,8 +46,15 @@ export default class RechargeItem extends Component {
 
 const styles = StyleSheet.create({    
     item: {
+        flex: 1,
         flexDirection: 'column',
-        height: 100
+        width: width/3 - 20,
+        height: 60,
+        margin: 10,
+        borderColor: '#e0e0e0',
+        borderWidth: 1,
+        alignItems: 'center',  
+        justifyContent: 'center'
     },
     text: {
 

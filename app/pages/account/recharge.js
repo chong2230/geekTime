@@ -15,23 +15,31 @@ import {
 
 import HTMLView from 'react-native-htmlview';
 import Button from '../../components/Button';
+import Common from '../../utils/Common';
+import RechargeItem from './rechargeItem';
 
-// var CalendarManager = NativeModules.CalendarManager;  //导入iOS端原生
+const { deviceW } = Dimensions.get('window');
 
 export default class Recharge extends Component {
     constructor(props) {
         super(props);
 
         this.state = ({
+            selectedId: null,
             listData: []
-
         })
     }
 
     componentWillMount() {
-        Common.getDiscoverList((result)=>{ 
+        Common.getRechargeList((result)=>{ 
             this.setState({listData: result.list});
         });
+    }
+
+    _onPress = (id) => {        
+        this.setState({
+            selectId: id
+        })
     }
 
     pay = () => {
@@ -42,8 +50,9 @@ export default class Recharge extends Component {
         let listView = [];
         for (let i=0; i<this.state.listData.length; i++) {
             let data = this.state.listData[i];
+            console.log(data.id);
             let item = (
-                <RechargeItem data={data} />
+                <RechargeItem key={data.id} data={data} selectId={this.state.selectId} onPress={this._onPress} />
             );
             listView.push(item);
         }  
@@ -59,7 +68,9 @@ export default class Recharge extends Component {
                         <Text>充值</Text>
                         <Text>充值金额仅限{Platform.OS === 'ios' ? 'iOS' : 'Android'} App使用</Text>
                     </View>
-                    { listView }
+                    <View style={styles.listView}>
+                        { listView }
+                    </View>
                 </View>
                 <Button text="确认支付" onPress={this.pay} 
                         style={styles.payBtn} containerStyle={styles.payContainer} />
@@ -77,17 +88,11 @@ const styles = StyleSheet.create({
     container: {
         // backgroundColor: 'white'
     },
-    bottom: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: 50,
-        backgroundColor: 'white'        
-    },
-    logoutBtn: {
-        color: '#ea642e',
-        marginTop: 5,
-        marginBottom: 5,
-        fontWeight: '500'
+    listView: {
+        justifyContent: 'space-around',  
+        flexDirection: 'row',  
+        flexWrap: 'wrap'
+        // width: deviceW
     },
     payContainer: {
         borderColor: '#ea642e',
@@ -104,7 +109,7 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 16,
         textAlign: 'center'
-    }
+    },
     htmlStyle: {
         marginTop: 10,
         padding: 10,

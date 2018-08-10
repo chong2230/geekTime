@@ -8,10 +8,10 @@ import {
     TouchableOpacity,
     Dimensions
 } from 'react-native';
-export default class SettingItem extends Component {
+export default class SafeAccountItem extends Component {
     render() {
         return (
-            <TouchableOpacity  onPress={this.props.onPress}>
+            <TouchableOpacity  onPress={this.props.onPress} style={this.props.style}>
                 <View style={styles.item}>
                     <Text style={{marginLeft: 10}}>{this.props.txt1}</Text>
                     <Text style={{fontSize:11,color:'#CCCCCC'}}>{this.props.txt2}</Text>

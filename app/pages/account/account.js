@@ -78,7 +78,8 @@ export default class Account_logined extends Component {
     }
 
     _showBalance = () => {
-
+        const { navigate } = this.props.navigation;
+        navigate('Recharge', {isVisiable: true, title: '账户'});
     }
 
     login = () => {
@@ -88,7 +89,7 @@ export default class Account_logined extends Component {
 
     goSetting = () => {
         const { navigate } = this.props.navigation;
-        navigate('Setting');
+        navigate('Setting', {isVisiable: true, title: '设置'});
     }
 
     render() {

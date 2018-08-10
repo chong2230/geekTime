@@ -43,15 +43,6 @@ export default class Setting extends Component {
         //     console.log('安卓清除缓存未实现')
     }
 
-    leftAction =() =>{
-        const { goBack } = this.props.navigation;
-        goBack();
-    }
-
-    rightAction =() =>{
-
-    }
-
     //清除缓存
     clearCache =() =>{
         /*
@@ -70,8 +61,9 @@ export default class Setting extends Component {
             */
     }
 
-    _setAccount = () => {
-
+    _safeAccount = () => {
+        const { navigate } = this.props.navigation;
+        navigate('SafeAccount', {isVisible: true, title: "账户安全"});
     }
 
     _setPull = () => {
@@ -115,9 +107,8 @@ export default class Setting extends Component {
         }
         return (
             <View style={styles.container}>
-                <Navigator1 leftText = '<' centerText = '设置'  rightText = '  ' leftAction = {()=>this.leftAction()} rightAction = {() => this.rightAction()}/>
                 <ScrollView style={{marginBottom:0}}>
-                    <SettingItem txt1 = '账号安全' onPress={this._setAccount}/>
+                    <SettingItem txt1 = '账号安全' onPress={this._safeAccount}/>
                     <View style={styles.separator}></View>
                     <SettingItem txt1 = '推送设置' onPress={this._setPull}/>
                     <SettingItem txt1 = '播放和下载' onPress={this._setPlay}/>

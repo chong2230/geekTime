@@ -16,14 +16,14 @@ export default class Navigator1 extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <TouchableOpacity style={{marginLeft:20}} onPress={()=>this.props.leftAction()}>
-                    <Text style={{color:'#565656'}}>{this.props.leftText}</Text>
+                <TouchableOpacity style={styles.leftStyle} onPress={()=>this.props.leftAction()}>
+                    <Text style={styles.leftText}>{this.props.leftText}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity>
-                    <Text style={{fontWeight:'400',fontSize:20}}>{this.props.centerText}</Text>
+                    <Text style={styles.centerText}>{this.props.centerText}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={{marginRight:20}} onPress={()=>this.props.rightAction()}>
-                    <Text style={{color:'#FFC125'}}>{this.props.rightText}</Text>
+                <TouchableOpacity style={styles.rightStyle} onPress={()=>this.props.rightAction()}>
+                    <Text style={styles.rightText}>{this.props.rightText}</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -40,6 +40,26 @@ const styles = StyleSheet.create({
         justifyContent:'space-between',
         borderBottomWidth:1,
         borderColor:'#C1CDCD'
+    },
+    leftStyle: {
+        marginLeft:20,
+        width: 50,
+        height: 50,
+        backgroundColor: 'black'
+    },
+    leftText: {
+        color:'#565656', 
+        fontSize: 25, 
+        top: 10
+    },
+    centerText: {
+        fontWeight:'400',fontSize:20
+    },
+    rightStyle: {
+        marginRight:20
+    },
+    rightText: {
+        color:'#FFC125'
     }
 });
 

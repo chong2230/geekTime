@@ -697,9 +697,41 @@ const Mockdata = {
                 "first_recharge_month": 1,
                 "first_recharge_factor": 2
             },
+            {
+                "id": "com.redatoms.imojo.sg.r005",
+                "name": "750元宝",
+                "money": "68",
+                "rm": "750",
+                "discount_money": "68",
+                "discount": null,
+                "description": null,
+                "type": "1",
+                "status": 0,
+                "sub_id": null,
+                "first_recharge_month": 1,
+                "first_recharge_factor": 2
+            },
+            {
+                "id": "com.redatoms.imojo.sg.r006",
+                "name": "2300元宝",
+                "money": "198",
+                "rm": "2300",
+                "discount_money": "198",
+                "discount": null,
+                "description": null,
+                "type": "1",
+                "status": 0,
+                "sub_id": null,
+                "first_recharge_month": 1,
+                "first_recharge_factor": 2
+            },
             ]
         }
     },
+    '/account/changePwd': {
+        "msg": "SUCCESS",
+        "code": 0
+    }
 }
 
 export default Mockdata;

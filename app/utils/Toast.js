@@ -18,7 +18,7 @@ import {
 
 import PropTypes from 'prop-types';
 const ViewPropTypes = RNViewPropTypes || View.propTypes;
-export const DURATION = { 
+const DURATION = { 
     LENGTH_LONG: 2000,
     LENGTH_SHORT: 500,
     FOREVER: 0,
@@ -94,7 +94,7 @@ export default class Toast extends Component {
                 pos = this.props.positionValue;
                 break;
             case 'center':
-                pos = height / 2;
+                pos = height / 2 - 20;
                 break;
             case 'bottom':
                 pos = height - this.props.positionValue;
