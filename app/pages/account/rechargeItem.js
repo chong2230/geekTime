@@ -17,7 +17,8 @@ export default class RechargeItem extends Component {
         super(props);
         // 初始状态
         this.state = {
-            textStyle: {}
+            // textStyle: {},
+            // borderStyle: {}
         };
     }
 
@@ -30,13 +31,17 @@ export default class RechargeItem extends Component {
 
     render() {
         let textStyle = {}
-        if (this.props.selectId == this.props.data.id) textStyle = { color: '#ea642e' };
+        let borderStyle = {}
+        if (this.props.selectId == this.props.data.id) {
+            textStyle = { color: '#ea642e' };
+            borderStyle = { borderColor: '#ea642e', borderWidth: 1 };
+        }
         let data = this.props.data;
         return (
             <TouchableWithoutFeedback onPress={()=>{this._onItemClick()}}>
-                <View style={styles.item}>
-                    <Text> ￠ {data.rm}</Text>
-                    <Text style={[styles.text, textStyle]}> ¥ {data.money}</Text>
+                <View style={[styles.item, borderStyle]}>
+                    <Text style={[styles.rm, textStyle]}> ￠ {data.rm}</Text>
+                    <Text style={[styles.money, textStyle]}> ¥ {data.money}</Text>
                 </View>
             </TouchableWithoutFeedback>
         );
@@ -46,7 +51,6 @@ export default class RechargeItem extends Component {
 
 const styles = StyleSheet.create({    
     item: {
-        flex: 1,
         flexDirection: 'column',
         width: width/3 - 20,
         height: 60,
@@ -56,8 +60,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',  
         justifyContent: 'center'
     },
-    text: {
-
+    rm: {
+        fontSize: 13
+    },
+    money: {
+        fontSize: 12,
+        color: '#828282'
     }
 });
 

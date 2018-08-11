@@ -7,19 +7,16 @@ import {
     StyleSheet,
     Text,
     View,
-    AsyncStorage,
     Image,
-    Dimensions,
     TouchableOpacity,
-    Navigator,
-    ScrollView
+    ScrollView,
+    Alert
 } from 'react-native';
 
-var {width,height} = Dimensions.get('window');
-// import Navigator1 from '../../utils/navigator1'
 import AccountItem from './accountItem';
-// import Info from './infoItem'
-// import Setting from './setting'
+import Common from '../../utils/Common';
+import Storage from '../../utils/Storage';
+
 export default class Account_logined extends Component {
 
     // 构造
@@ -27,69 +24,80 @@ export default class Account_logined extends Component {
         super(props);
         // 初始状态
         this.state = {
-            access_token:null,
-            statuses_count:0, //微博数
-            friends_count:0,  //关注数
-            followers_count:0, //粉丝
-            name:'',  //用户名
-            avatar_large:'https://s3.amazonaws.com/media-p.slid.es/uploads/alexanderfarennikov/images/1198519/reactjs.png', //头像
-            description:'',  //个人描述
-            // money: 0,   // 账户余额
-            // ticket: 0   // 礼券
+            token: null,
+            info: {}
         };
     }
 
     componentDidMount() {
-        //获取用户的uid
-        //取出本地化的access_token
-        AsyncStorage.getItem(
-            'access_token',
-            (error,result)=>{
-                if (!error){
-                    this.setState({
-                        access_token:result
-                    })
-                }
+        let self = this;
+        //取出本地化的token
+        Storage.get('token').then((val)=>{
+            if (val) {
+                self._getAccount(val);
             }
-        )
-        AsyncStorage.getItem(
-            'uid',
-            (error,result)=>{
-                if (!error){
-                    let url = 'https://api.weibo.com/2/users/show.json?access_token=' + this.props.access_token + '&uid=' + result
-                    fetch(url)
-                        .then((response) => response.json())
-                        .then((json) => {
-                            if(!json.error){
-                                this.setState({
-                                    avatar_large:json.avatar_large,
-                                    statuses_count:json.statuses_count,
-                                    friends_count:json.friends_count,
-                                    followers_count:json.followers_count,
-                                    name:json.name,
-                                    avatar_large:json.avatar_large,
-                                    description:json.description == ''? '简介: 暂无介绍' : json.description
-                                })
-                            }
-                        })
-                }
+        });
+    }
+
+    _getAccount = (token) => {
+        Common.getAccount(token, (data)=>{
+            this.setState({
+                token: token,
+                info : data
+            });
+        });
+    }
+
+    _onPress = (type) => {
+        if (this.state.token == null) {
+            this._goLogin();
+            return;
+        }
+        const { navigate } = this.props.navigation;
+        switch (type) {
+            case 0:
+                break;
+            case 1:
+                navigate('Recharge', {isVisiable: true, title: '账户'});
+                break;
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+                Alert.alert('', '程序猿们正在快马加鞭，敬请期待噢~');
+                break;
+        }
+    }
+
+    _showInfo = () => {
+
+    }
+
+    _goLogin = () => {
+        const { navigate } = this.props.navigation;
+        navigate('Login', { isVisiable: true, title: '密码登录', transition: 'forVertical', refresh: (token)=>{
+            if (token != null) {
+                this._getAccount(token);
             }
-        )
+        }});
     }
 
-    _showBalance = () => {
+    _goSetting = () => {
         const { navigate } = this.props.navigation;
-        navigate('Recharge', {isVisiable: true, title: '账户'});
-    }
-
-    login = () => {
-        const { navigate } = this.props.navigation;
-        navigate('Login', { transition: 'forVertical' });
-    }
-
-    goSetting = () => {
-        const { navigate } = this.props.navigation;
-        navigate('Setting', {isVisiable: true, title: '设置'});
+        navigate('Setting', {isVisiable: true, title: '设置', refresh: (token)=>{
+            if (token == null) {
+                this.setState({
+                    token: token,
+                    info: {}
+                });
+            } else {
+                this._getAccount(token);
+            }
+            
+        }});
     }
 
     render() {
@@ -99,28 +107,28 @@ export default class Account_logined extends Component {
                     <Image source={require('../../images/account/person_bg.jpg')} style={styles.person} />
                 </View>
                 <ScrollView>
-                    <TouchableOpacity onPress={()=>this.login()}>
+                    <TouchableOpacity onPress={()=>this._onPress(0)}>
                         <View style={styles.avatar}>
                             <Image source={require('../../images/defaultAvatar.jpg')} style={styles.avatarIcon} />
                             <View style={styles.avatarInfo}>
-                                <Text style={styles.name}>{this.state.name || '未登录'}</Text>
-                                <Text style={styles.description}>{this.state.description || '点击头像登录'}</Text>
+                                <Text style={styles.name}>{this.state.info.uname || '未登录'}</Text>
+                                <Text style={styles.description}>{this.state.phone || '点击头像登录'}</Text>
                             </View>
                         </View>    
                     </TouchableOpacity>                    
                     <View style={styles.separator}></View>
-                    <AccountItem txt1 = "账户" count={this.state.money} source = {require('../../images/account/mine01.png')} onPress={this._showBalance}/>
-                    <AccountItem txt1 = "已购" source = {require('../../images/account/mine02.png')}/>
-                    <AccountItem txt1 = "礼券" count={this.state.ticket} source = {require('../../images/account/mine03.png')}/>
-                    <AccountItem txt1 = "分享有赏" source = {require('../../images/account/mine04.png')}/>
+                    <AccountItem txt1 = "账户" count={this.state.money} source = {require('../../images/account/mine01.png')} onPress={()=>this._onPress(1)} />
+                    <AccountItem txt1 = "已购" source = {require('../../images/account/mine02.png')} onPress={()=>this._onPress(2)} />
+                    <AccountItem txt1 = "礼券" count={this.state.ticket} source = {require('../../images/account/mine03.png')} onPress={()=>this._onPress(3)} />
+                    <AccountItem txt1 = "分享有赏" source = {require('../../images/account/mine04.png')} onPress={()=>this._onPress(4)} />
                     <View style={styles.separator}></View>                    
                     
-                    <AccountItem txt1 = "我的笔记" source = {require('../../images/account/mine05.png')}/>
-                    <AccountItem txt1 = "我的留言" source = {require('../../images/account/mine06.png')}/>
-                    <AccountItem txt1 = "我的收藏" source = {require('../../images/account/mine07.png')}/>
-                    <AccountItem txt1 = "我的下载" source = {require('../../images/account/mine08.png')}/>
+                    <AccountItem txt1 = "我的笔记" source = {require('../../images/account/mine05.png')} onPress={()=>this._onPress(5)} />
+                    <AccountItem txt1 = "我的留言" source = {require('../../images/account/mine06.png')} onPress={()=>this._onPress(6)} />
+                    <AccountItem txt1 = "我的收藏" source = {require('../../images/account/mine07.png')} onPress={()=>this._onPress(7)} />
+                    <AccountItem txt1 = "我的下载" source = {require('../../images/account/mine08.png')} onPress={()=>this._onPress(8)} />
                     <View style={styles.separator}></View>
-                    <AccountItem txt1 = "设置" source = {require('../../images/account/mine09.png')} onPress={this.goSetting}/>                    
+                    <AccountItem txt1 = "设置" source = {require('../../images/account/mine09.png')} onPress={this._goSetting}/>                    
                 </ScrollView>
             </View>
         );

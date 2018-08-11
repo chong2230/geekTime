@@ -12,8 +12,10 @@ import {
     NativeModules,
     AsyncStorage
 } from 'react-native';
-import Navigator1 from '../../utils/navigator1'
-import SettingItem from './settingItem'
+
+import Navigator1 from '../../utils/navigator1';
+import Storage from '../../utils/Storage';
+import SettingItem from './settingItem';
 
 // var CalendarManager = NativeModules.CalendarManager;  //导入iOS端原生
 
@@ -23,11 +25,17 @@ export default class Setting extends Component {
 
         this.state = ({
             cache: 0,   //缓存大小
-            access_token: null
-
-        })
+            token: null
+        });
     }
     componentWillMount() {
+        Storage.get('token').then((val)=>{
+            if (val) {
+                this.setState({
+                    token: val
+                });
+            }
+        });
         //通过原生计算缓存大小
         // Platform.OS === 'ios' ?
         //     CalendarManager.cacheSize((error, events) => {
@@ -63,7 +71,11 @@ export default class Setting extends Component {
 
     _safeAccount = () => {
         const { navigate } = this.props.navigation;
-        navigate('SafeAccount', {isVisible: true, title: "账户安全"});
+        if (this.state.token == null) {
+            navigate('Login', { isVisiable: true, title: '密码登录', transition: 'forVertical' });
+        } else {
+            navigate('SafeAccount', {isVisible: true, title: "账户安全"});    
+        }        
     }
 
     _setPull = () => {
@@ -91,12 +103,22 @@ export default class Setting extends Component {
     }
 
     _logout = () => {
-        
+        Storage.delete('token').then(()=>{
+            const { navigate, state } = this.props.navigation;
+            setTimeout(function() {
+                if (state.params.refresh) state.params.refresh(null);
+                navigate('Login', { isVisiable: true, title: '密码登录', from: 'setting', transition: 'forVertical', refresh: (token)=>{
+                    if (token != null) {
+                        state.params.refresh(token);
+                    }
+                }});
+            }, 400);
+        });   
     }
 
     render() {
         let logoutView;
-        if (this.state.access_token != null) {
+        if (this.state.token != null) {
             logoutView = (
                 <TouchableOpacity  onPress={()=> this._logout()}>
                         <View style={styles.bottom}>
@@ -132,6 +154,7 @@ export default class Setting extends Component {
 const styles = StyleSheet.create({
     container: {
         // backgroundColor: 'white'
+        flex: 1
     },
     bottom: {
         justifyContent: 'center',

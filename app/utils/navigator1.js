@@ -44,13 +44,12 @@ const styles = StyleSheet.create({
     leftStyle: {
         marginLeft:20,
         width: 50,
-        height: 50,
-        backgroundColor: 'black'
+        height: 50
     },
     leftText: {
         color:'#565656', 
-        fontSize: 25, 
-        top: 10
+        fontSize: 20, 
+        top: 15
     },
     centerText: {
         fontWeight:'400',fontSize:20

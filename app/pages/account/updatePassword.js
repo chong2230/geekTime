@@ -12,8 +12,6 @@ import Button from '../../components/Button';
 import Common from '../../utils/Common';
 import Toast from '../../utils/Toast';
 
-const {deviceW, deviceH} = Dimensions.get('window');
-
 export default class UpdatePassword extends Component {
 
     constructor(props) {
@@ -27,7 +25,7 @@ export default class UpdatePassword extends Component {
 
     _checkPwd = () => {
         if (this.state.oldPwd == '' || this.state.newPwd == '') {
-            this.refs.toast.show('请填写密码');
+            this.refs.toast.show('请输入密码');
             return false;
         } else if (!this._checkLength(this.state.oldPwd) || !this._checkLength(this.state.newPwd)) {
             this.refs.toast.show('请输入6-24位的密码');
@@ -95,7 +93,6 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         borderWidth: 1,
         backgroundColor: '#ea642e',
-        width: deviceW - 20,
         height: 40,
         margin: 10,
         justifyContent: 'center',

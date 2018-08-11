@@ -139,7 +139,6 @@ export default class Common {
             id : id,
             type : type
         }).then((result)=>{
-            // console.log(result);
             cb(result);
         })
     }
@@ -150,19 +149,18 @@ export default class Common {
             id : id,
             type : type
         }).then((result)=>{
-            console.log(result);
             cb(result);
         })
     }
 
-    static getRechargeList(cb) {
-        Common.httpRequest('/recharge/list', {
-            
+    // 获取用户信息
+    static getAccount(token, cb) {
+        Common.httpRequest('/account/getInfo', {
+            token: token
         }).then((result)=>{
-            console.log(result);
             cb(result);
         })
-    }   
+    } 
 
     static changePwd(oldPwd, newPwd, cb) {
         Common.httpRequest('/account/changePwd', {
@@ -171,7 +169,42 @@ export default class Common {
         }).then((result)=>{
             cb(result);
         })
-    }    
+    } 
+
+    static getRechargeList(cb) {
+        Common.httpRequest('/recharge/list', {
+            
+        }).then((result)=>{
+            cb(result);
+        })
+    }   
+
+    static restorePurchases(transactionIdentifiers, cb) {
+        Common.httpRequest('/recharge/restorePurchases', {
+            transactionIdentifiers: transactionIdentifiers
+        }).then((result) => {
+            cb(result);
+        });
+    }
+
+    static checkPurchase(name, transactionIdentifier, receiptData, cb) {
+        Common.httpRequest('/recharge/purchase', {
+            name: name,
+            transactionIdentifier: transactionIdentifier,
+            receiptData: receiptData
+        }).then((result) => {
+            cb(result);
+        });
+    }   
+
+    static login(phone, password, cb) {
+        Common.httpRequest('/login', {
+            phone: phone,
+            password: password
+        }).then((result)=>{
+            cb(result);
+        })
+    } 
 
     static parseObj(obj) {
         var str = '';

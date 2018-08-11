@@ -731,6 +731,24 @@ const Mockdata = {
     '/account/changePwd': {
         "msg": "SUCCESS",
         "code": 0
+    },
+    '/account/getInfo': {
+        "msg": "SUCCESS",
+        "code": 0,
+        "data": {
+            token: 'kdsljladlkjdlk',
+            uname: '一飞冲天',
+            phone: '13552774423'
+        }
+    },
+    '/login': {
+        "msg": "SUCCESS",
+        "code": 0,
+        "data": {
+            token: 'kdsljladlkjdlk',
+            uname: '一飞冲天',
+            phone: '13552774423'
+        }
     }
 }
 

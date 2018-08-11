@@ -6,9 +6,9 @@ import Common from './Common';
 import { NativeModules, Alert } from 'react-native';
 import { InAppUtils } from 'NativeModules';
 
-export default class IAP {
+class IAP {
 
-    static inst = new IAP();
+    // static inst = new IAP();
 
     constructor() {
         this.purchases = [];
@@ -17,6 +17,11 @@ export default class IAP {
             return;
         }
         this.loadProducts();
+
+        if (!inst) {
+            inst = this;
+        }
+        return inst;
     }
 
     loadProducts() {
@@ -38,14 +43,14 @@ export default class IAP {
         this.purchases = [];
     }
 
-    purchase(movieName, payIndex, cb) {
+    purchase(name, payIndex, cb) {
         if (Common.system == 'android') {
             cb('true');
             return;
         }
         if (this.products.length <= 0) {
             this.purchases.push({
-                movieName: movieName,
+                name: name,
                 payIndex: payIndex,
                 cb: cb
             });
@@ -58,7 +63,7 @@ export default class IAP {
                 //AlertIOS.alert('Purchase Successful', 'Your Transaction ID is ' + response.transactionIdentifier);
                 console.log('Purchase Successful');
                 //unlock store here.
-                this.receiptData(movieName, response.transactionIdentifier, cb);
+                this.receiptData(name, response.transactionIdentifier, cb);
             } else {
                 cb(null);
             }
@@ -86,7 +91,7 @@ export default class IAP {
         });
     }
 
-    receiptData(movieName, transactionIdentifier, cb) {
+    receiptData(name, transactionIdentifier, cb) {
         InAppUtils.receiptData((error, receiptData)=> {
             if (error) {
                 AlertIOS.alert('itunes Error', 'Receipt not found.');
@@ -95,7 +100,7 @@ export default class IAP {
                 console.log(receiptData);
                 //send to validation server
                 console.log('send to server');
-                Common.checkPurchase(movieName, transactionIdentifier, receiptData, (result) => {
+                Common.checkPurchase(name, transactionIdentifier, receiptData, (result) => {
                     cb(result);
                 });
             }
@@ -103,3 +108,6 @@ export default class IAP {
     }
 
 }
+
+// let inst = new IAP();
+export default IAP;

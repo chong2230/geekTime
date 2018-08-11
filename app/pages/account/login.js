@@ -1,133 +1,199 @@
-/**
- * Created by shaotingzhou on 2017/4/26.
- */
-//授权界面
-// https://api.weibo.com/oauth2/authorize?client_id=428058221&redirect_uri=http://www.baidu.com
 import React, { Component } from 'react';
 import {
     AppRegistry,
     StyleSheet,
     Text,
+    TextInput,
     View,
-    WebView,
-    Dimensions,
     AsyncStorage,
-    ActivityIndicator
+    Dimensions
 } from 'react-native';
 
+import Button from '../../components/Button';
+import ImageButton from '../../components/ImageButton';
+import Common from '../../utils/Common';
+import Storage from '../../utils/Storage';
 import Navigator1 from '../../utils/navigator1';
+import Toast from '../../utils/Toast';
 
+const deviceW = Dimensions.get('window').width;
 
-var {width,height} = Dimensions.get('window');
-var client_id = "308768878"   // appkey
-var redirect_uri = "http://www.baidu.com"  //授权回调页
-var client_secret = "43a1d0a73c0a4940ea5691b73cf3a577"  //App Secret
-export default class Login extends Component {
+export default class UpdatePassword extends Component {
 
-    render() {
-        let uri = 'https://api.weibo.com/oauth2/authorize?client_id=' + client_id + '&redirect_uri=' + redirect_uri
-        return (
-            <View style={styles.container}>
-                <Navigator1 leftText = '返回' centerText = '授权'  rightText = '  ' leftAction = {()=>this.leftAction()} rightAction = {() => this.rightAction()}/>
-
-                <WebView
-                    ref = "webView"
-                    onNavigationStateChange = {(e)=>this.onNavigationStateChange(e)}
-                    style={{width:width,height:height,backgroundColor:'gray'}}
-                    source={{uri:uri,method: 'GET'}}
-                    startInLoadingState = {true}
-                    renderLoading = {this.renderActivityIndicator}
-                />
-            </View>
-        );
-
-    }
-    renderActivityIndicator (){
-        return(
-            <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-            <ActivityIndicator />
-            </View>
-        )
+    constructor(props) {
+        super(props);
+        this.state = {
+            phone : '',
+            pwd : ''
+        };
     }
 
-    //获取code
-    onNavigationStateChange =(e) =>{
-        if(e.loading == true){
-            var indexStart = e.url.indexOf('=')
-            var indexEnd = e.url.indexOf('&')
-            var code =  e.url.substring(indexStart+1,indexEnd)
-            this.loginAction(code) // 获取授权
+    _check = () => {
+        if (this.state.phone == '') {
+            this.refs.toast.show('请输入手机号');
+            return false;
+        }  else if (this.state.pwd == '') {
+            this.refs.toast.show('请输入密码');
+            return false;
+        }
+        return true;
+    }
+
+    _checkLength = (str) => {
+        if (str.length < 6 || str.length.length > 24) return false;
+        else return true;
+    }
+
+    _login = () => {
+        if (this._check()) {
+            Common.login(this.state.phone, this.state.pwd, (result) => {
+                this.refs.toast.show('登录成功');
+                Storage.save('token', result.token).then(()=>{
+                    const { navigate, state } = this.props.navigation;
+                    if (state.params.refresh) state.params.refresh(result.token);
+                    setTimeout(function() {
+                        navigate('Main');
+                    }, 400);
+                });                
+            });
         }
     }
 
-    //获取授权
-    loginAction =(code) =>{
-        // 网络请求里面 有 存值 有 跳转  ? 性能问题
-        var uri = 'https://api.weibo.com/oauth2/access_token' + '?client_id=' + client_id + '&client_secret=' + client_secret + '&grant_type=' + 'authorization_code' + '&code=' + code + '&redirect_uri=' + redirect_uri
-        fetch(uri,{
-            method:'POST',
-        })
-            .then((response) => response.json())
-            .then((json) => {
-
-                if(json.access_token){
-                    //请求uid
-                    let url = 'https://api.weibo.com/2/account/get_uid.json?access_token=' + json.access_token
-                    fetch(url)
-                        .then((response) => response.json())
-                        .then((json) => {
-                            let uid = json.uid.toString()
-                            //存uid
-                            AsyncStorage.setItem(
-                                'uid',
-                                  uid,
-                            );
-
-                        })
-
-
-                    //存access_token
-                    AsyncStorage.setItem(
-                        'access_token',
-                        json.access_token,
-                        (error)=>{
-                            if (!error){
-                                //返回首页
-                                console.log(json.access_token);
-                                const { navigate } = this.props.navigation;
-                                navigate('Home');
-
-                            }
-                        }
-                    );
-                }
-            })
+    leftAction = () => {
+        // const { goBack } = this.props.navigation;
+        // goBack();
+        const { navigate, goBack, state } = this.props.navigation;
+        console.log(state.params.from);
+        if (state.params.from == 'setting') navigate('Main');
+        else goBack();
     }
 
-    leftAction =() =>{
-        const {goBack} = this.props.navigation;
-        goBack();
-    }
-
-    rightAction = () =>{
+    rightAction = () => {
 
     }
+
+    _wxLogin = () => {
+        console.log('wx login');        
+    }
+
+    _qqLogin = () => {
+        console.log('qq login');        
+    }
+
+    _wbLogin = () => {
+        console.log('wb login');        
+    }
+
+    render() {
+        return (
+            <View style={styles.container}>
+                <Navigator1 leftText = '返回' centerText = '密码登录'  rightText = '免密登录' leftAction = {()=>this.leftAction()} rightAction = {() => this.rightAction()}/>
+                <TextInput placeholder="输入手机号" keyboardType='numeric' style={styles.phone} onChangeText={(text)=>this.setState({phone: text})} />
+                <TextInput placeholder="输入密码" secureTextEntry={true} style={styles.password} onChangeText={(text)=>this.setState({pwd: text})}  />
+                <Button text="登录" style={styles.btn} containerStyle={styles.btnContainer} onPress={this._login} />
+                <View style={styles.other}>
+                    <Button text="注册" style={styles.registBtn} containerStyle={styles.registBtnContainer} onPress={this._changePwd} />
+                    <Button text="忘记密码" style={styles.forgetBtn} containerStyle={styles.forgetBtnContainer} onPress={this._changePwd} />
+                </View>
+                <View style={styles.bottom}>
+                    <Text style={styles.otherLogin}>其他方式登录</Text>
+                    <View style={styles.btns}>
+                        <ImageButton source={require('../../images/icon-wx.jpg')} style={styles.imageButton} onPress={this._wxLogin} />
+                        <ImageButton source={require('../../images/icon-qq.jpg')} style={styles.imageButton} onPress={this._qqLogin} />
+                        <ImageButton source={require('../../images/icon-wb.jpg')} style={styles.imageButton} onPress={this._wbLogin} />
+                    </View>
+                </View>
+                <Toast ref="toast" position="center" />
+            </View>
+        );
+    }
+
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        backgroundColor: 'white',
+        flex: 1
     },
-    welcome: {
-        fontSize: 20,
+    tip: {
+        fontSize: 13,
         textAlign: 'center',
+        margin: 10
+    },
+    phone: {
+        padding: 10,
+        marginLeft: 10,
+        marginRight: 10,
+        marginTop: 30,
+        height: 50,
+        fontSize: 15,
+        borderBottomColor: '#e0e0e0',
+        borderBottomWidth: 1
+    },
+    password: {
+        padding: 10,
+        marginLeft: 10,
+        marginRight: 10,
+        height: 50,
+        fontSize: 15,
+        borderBottomColor: '#e0e0e0',
+        borderBottomWidth: 1
+    },
+    btnContainer: {
+        borderColor: '#ea642e',
+        borderRadius: 5,
+        borderWidth: 1,
+        backgroundColor: '#ea642e',
+        width: deviceW - 20,
+        height: 40,
         margin: 10,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
-    instructions: {
+    btn: {        
+        color: 'white',
+        fontSize: 16,
+        textAlign: 'center'
+    },
+    other: {
+        flex: 1,
+        height: 30,
+        flexDirection: 'row',
+        marginTop: 20
+    },
+    registBtnContainer: {
+        flex: 1,
+        left: 20,
+
+    },
+    registBtn: {
+        fontSize: 15,
+        color: '#ea642e'
+    },
+    forgetBtnContainer: {
+        right: 20,
+        
+    },
+    forgetBtn: {
+        fontSize: 15,
+        color: '#828282'
+    },
+    bottom: {
+        bottom: 30
+    },
+    otherLogin: {
+        margin: 20,
         textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
+        color: '#828282'
     },
+    btns: {
+        flexDirection: 'row',
+        marginLeft: 60,
+        marginRight: 60
+    },
+    imageButton: {
+        width: 50,
+        height: 50,
+        margin: (deviceW-150-120)/6
+    }
 });
-
-
