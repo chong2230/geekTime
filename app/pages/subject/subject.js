@@ -14,6 +14,7 @@ import {
     Dimensions
 } from 'react-native';
 
+import Colors from '../../components/Colors';
 import Common from '../../utils/Common';
 
 const deviceW = Dimensions.get('window').width;
@@ -246,7 +247,7 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     cost: {
-        color: '#ea642e',
+        color: Colors.highlight,
         fontSize: 15,
         marginLeft: 10
     },

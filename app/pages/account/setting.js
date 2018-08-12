@@ -13,7 +13,7 @@ import {
     AsyncStorage
 } from 'react-native';
 
-import Navigator1 from '../../utils/navigator1';
+import Colors from '../../components/Colors';
 import Storage from '../../utils/Storage';
 import SettingItem from './settingItem';
 
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'        
     },
     logoutBtn: {
-        color: '#ea642e',
+        color: Colors.highlight,
         marginTop: 5,
         marginBottom: 5,
         fontWeight: '500'

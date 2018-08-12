@@ -16,8 +16,9 @@ import {
 } from 'react-native';
 
 // import Icon from 'react-native-vector-icons/Ionicons';
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon from 'react-native-vector-icons/FontAwesome';
 
+import Colors from '../../components/Colors';
 import Common from '../../utils/Common';
 import {formateMinSec} from '../../utils/FormatUtil';
 
@@ -49,7 +50,6 @@ export default class News extends Component<{}> {
         let listenStyle = {}
         let listenedView
         if (rowData.listened > 0) {
-            // listenStyle = { color: '#ea642e' };
             listenedView = <Text style={styles.listened}>已听{rowData.listened}%</Text>;
         }
         return (
@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
     },
     listened: {
         fontSize: 13,
-        color: '#ea642e',
+        color: Colors.highlight,
         marginLeft: 20
     }
     

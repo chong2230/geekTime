@@ -8,6 +8,8 @@ import {
     Dimensions,
     TouchableWithoutFeedback
 } from 'react-native';
+import Colors from '../../components/Colors';
+
 var {width,height} = Dimensions.get('window');
 
 export default class NewsItem extends Component {
@@ -17,20 +19,17 @@ export default class NewsItem extends Component {
         super(props);
         // 初始状态
         this.state = {
-            textStyle: {}
+            
         };
     }
 
     _onItemClick() {
-        // this.setState({
-        //     textStyle : { color: '#ea642e' }
-        // });
         this.props.onPress(this.props.item.id);
     }
 
     render() {
         let textStyle = {}
-        if (this.props.selectedNews == this.props.item.id) textStyle = { color: '#ea642e' };
+        if (this.props.selectedNews == this.props.item.id) textStyle = { color: Colors.highlight };
         return (
             <TouchableWithoutFeedback onPress={()=>{this._onItemClick()}}>
                 <View style={styles.item}>

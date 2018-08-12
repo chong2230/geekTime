@@ -18,6 +18,7 @@ import Orientation from 'react-native-orientation';
 import HTMLView from 'react-native-htmlview';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import Colors from '../../components/Colors';
 import Button from '../../components/Button';
 import Common from '../../utils/Common';
 import { formatDateString } from '../../utils/FormatUtil';
@@ -70,7 +71,7 @@ export default class SubjectDetail extends Component<{}> {
                     <View style={styles.latestTop}>
                         <Icon
                           name="hand-o-right"
-                          color="#ea642e"
+                          color={Colors.highlight}
                           backgroundColor="white"
                           size={15}
                           >
@@ -237,7 +238,7 @@ var styles = StyleSheet.create({
         flexDirection: 'row'
     },
     readContainer: {
-        borderColor: '#ea642e',
+        borderColor: Colors.highlight,
         borderRadius: 5,
         borderWidth: 1,
         backgroundColor: 'white',
@@ -248,15 +249,15 @@ var styles = StyleSheet.create({
         alignItems: 'center'
     },
     readBtn: {        
-        color: '#ea642e',
+        color: Colors.highlight,
         fontSize: 16,
         textAlign: 'center',
     },
     subscribeContainer: {
-        borderColor: '#ea642e',
+        borderColor: Colors.highlight,
         borderRadius: 5,
         borderWidth: 1,
-        backgroundColor: '#ea642e',
+        backgroundColor: Colors.highlight,
         width: deviceW * 2 / 3 - 20,
         height: 40,
         margin: 10,

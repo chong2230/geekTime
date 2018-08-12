@@ -24,6 +24,7 @@ import ViewPager from 'react-native-viewpager';
 import Orientation from 'react-native-orientation';
 
 import Button from '../../components/Button';
+import Colors from '../../components/Colors';
 import Common from '../../utils/Common';
 import DiscoverNews from './discoverNews';
 
@@ -695,7 +696,7 @@ const styles = StyleSheet.create({
     },
     cost: {
         fontSize: 12,
-        color: '#ea642e',
+        color: Colors.highlight,
         marginLeft: 10,
         marginRight: 10
     },

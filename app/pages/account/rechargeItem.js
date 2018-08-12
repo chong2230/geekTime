@@ -8,6 +8,8 @@ import {
     Dimensions,
     TouchableWithoutFeedback
 } from 'react-native';
+import Colors from '../../components/Colors';
+
 var {width,height} = Dimensions.get('window');
 
 export default class RechargeItem extends Component {
@@ -17,15 +19,11 @@ export default class RechargeItem extends Component {
         super(props);
         // 初始状态
         this.state = {
-            // textStyle: {},
-            // borderStyle: {}
+            
         };
     }
 
     _onItemClick() {
-        // this.setState({
-        //     textStyle : { color: '#ea642e' }
-        // });
         this.props.onPress(this.props.data.id);
     }
 
@@ -33,8 +31,8 @@ export default class RechargeItem extends Component {
         let textStyle = {}
         let borderStyle = {}
         if (this.props.selectId == this.props.data.id) {
-            textStyle = { color: '#ea642e' };
-            borderStyle = { borderColor: '#ea642e', borderWidth: 1 };
+            textStyle = { color: Colors.highlight };
+            borderStyle = { borderColor: Colors.highlight, borderWidth: 1 };
         }
         let data = this.props.data;
         return (

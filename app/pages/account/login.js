@@ -11,6 +11,7 @@ import {
 
 import Button from '../../components/Button';
 import ImageButton from '../../components/ImageButton';
+import Colors from '../../components/Colors';
 import Common from '../../utils/Common';
 import Storage from '../../utils/Storage';
 import Navigator1 from '../../utils/navigator1';
@@ -148,10 +149,10 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1
     },
     btnContainer: {
-        borderColor: '#ea642e',
+        borderColor: Colors.highlight,
         borderRadius: 5,
         borderWidth: 1,
-        backgroundColor: '#ea642e',
+        backgroundColor: Colors.highlight,
         width: deviceW - 20,
         height: 40,
         margin: 10,

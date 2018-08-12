@@ -18,6 +18,7 @@ import {
 
 import HTMLView from 'react-native-htmlview';
 import Button from '../../components/Button';
+import Colors from '../../components/Colors';
 import Common from '../../utils/Common';
 import IAP from '../../utils/IAP';
 import RechargeItem from './rechargeItem';
@@ -144,10 +145,10 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     payContainer: {
-        borderColor: '#ea642e',
+        borderColor: Colors.highlight,
         borderRadius: 5,
         borderWidth: 1,
-        backgroundColor: '#ea642e',
+        backgroundColor: Colors.highlight,
         height: 40,
         margin: 10,
         justifyContent: 'center',
