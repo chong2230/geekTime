@@ -1,3 +1,6 @@
+/**
+ * 账号安全
+ */
 import React, { Component } from 'react';
 import {
     AppRegistry,

@@ -13,11 +13,15 @@ import SubjectDetail from './app/pages/subject/subjectDetail';
 // import SubjectList from './app/pages/subject/list';
 // import SubjectDetail from './app/pages/subject/detail';
 import Login from './app/pages/account/login';
+import Regist from './app/pages/account/regist';
 import Recharge from './app/pages/account/recharge';
 import SafeAccount from './app/pages/account/safeAccount';
+import Profile from './app/pages/account/profile';
 import UpdatePassword from './app/pages/account/updatePassword';
 import Setting from './app/pages/account/setting';
-
+import About from './app/pages/account/about';
+import Service from './app/pages/account/service';
+import Contact from './app/pages/account/contact';
 
 const StackOptions = ({navigation}) => {
     let {state,goBack} = navigation;
@@ -73,17 +77,37 @@ const App = createStackNavigator({
     },
     Login: {
         screen: Login
-    },
-    Setting: {
-        screen: Setting,
+    }, 
+    Regist: {
+        screen: Regist,
         navigationOptions: ({navigation}) => StackOptions({navigation})
-    },
+    },     
     Recharge: {
         screen: Recharge,
         navigationOptions: ({navigation}) => StackOptions({navigation})
     },
     SafeAccount: {
         screen: SafeAccount,
+        navigationOptions: ({navigation}) => StackOptions({navigation})
+    },
+    Profile: {
+        screen: Profile,
+        navigationOptions: ({navigation}) => StackOptions({navigation})
+    },
+    Setting: {
+        screen: Setting,
+        navigationOptions: ({navigation}) => StackOptions({navigation})
+    },
+    About: {
+        screen: About,
+        navigationOptions: ({navigation}) => StackOptions({navigation})
+    },
+    Service: {
+        screen: Service,
+        navigationOptions: ({navigation}) => StackOptions({navigation})
+    },
+    Contact: {
+        screen: Contact,
         navigationOptions: ({navigation}) => StackOptions({navigation})
     },
     UpdatePassword: {

@@ -18,22 +18,26 @@ import Toast from '../../utils/Toast';
 
 const deviceW = Dimensions.get('window').width;
 
-export default class Login extends Component {
+export default class Regist extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            uname : '',
             phone : '',
-            pwd : ''
+            code : ''
         };
     }
 
     _check = () => {
-        if (this.state.phone == '') {
+        if (this.state.uname == '') {
+            this.refs.toast.show('请输入昵称');
+            return false;
+        } else if (this.state.phone == '') {
             this.refs.toast.show('请输入手机号');
             return false;
-        }  else if (this.state.pwd == '') {
-            this.refs.toast.show('请输入密码');
+        }  else if (this.state.code == '') {
+            this.refs.toast.show('请输入验证码');
             return false;
         }
         return true;
@@ -44,10 +48,10 @@ export default class Login extends Component {
         else return true;
     }
 
-    _login = () => {
+    _regist = () => {
         if (this._check()) {
-            Common.login(this.state.phone, this.state.pwd, (result) => {
-                this.refs.toast.show('登录成功');
+            Common.regist(this.state.uname, this.state.phone, this.state.code, (result) => {
+                this.refs.toast.show('注册成功');
                 Storage.save('token', result.token).then(()=>{
                     const { navigate, state } = this.props.navigation;
                     if (state.params.refresh) state.params.refresh(result.token);
@@ -59,25 +63,13 @@ export default class Login extends Component {
         }
     }
 
-    _regist = () => {
-        const { navigate, state } = this.props.navigation;
-        navigate('Regist', { isVisible: true, title: '注册', refresh: (token)=>{
-            if (state.params.refresh) state.params.refresh(token);
-        }});
+    _getCode = () => {
+
     }
 
-    _forgetPwd = () => {
-        
-    }
-
-    leftAction = () => {
-        const { navigate, goBack, state } = this.props.navigation;
-        if (state.params.from == 'setting') navigate('Main');
-        else goBack();
-    }
-
-    rightAction = () => {
-
+    _getService = () => {
+        const { navigate } = this.props.navigation;
+        navigate('Service', {isVisiable: true, title: ''});
     }
 
     _wxLogin = () => {
@@ -95,13 +87,16 @@ export default class Login extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Navigator1 leftText = '返回' centerText = '密码登录'  rightText = '免密登录' leftAction = {()=>this.leftAction()} rightAction = {() => this.rightAction()}/>
-                <TextInput placeholder="输入手机号" keyboardType='numeric' style={styles.phone} onChangeText={(text)=>this.setState({phone: text})} />
-                <TextInput placeholder="输入密码" secureTextEntry={true} style={styles.password} onChangeText={(text)=>this.setState({pwd: text})}  />
-                <Button text="登录" style={styles.btn} containerStyle={styles.btnContainer} onPress={this._login} />
+                <TextInput placeholder="输入昵称" style={styles.name} onChangeText={(text)=>this.setState({uname: text})} />
+                <TextInput placeholder="输入手机号" keyboardType='numeric' style={styles.inputStyle} onChangeText={(text)=>this.setState({phone: text})} />
+                <View style={styles.codeView}>
+                    <TextInput placeholder="输入验证码" secureTextEntry={true} style={styles.codeInputStyle} onChangeText={(text)=>this.setState({code: text})}  />
+                    <Button text="获取验证码" style={styles.codeBtn} containerStyle={styles.codeBtnContainer} onPress={this._getCode} />
+                </View>
+                <Button text="完成" style={styles.btn} containerStyle={styles.btnContainer} onPress={this._regist} />
                 <View style={styles.other}>
-                    <Button text="注册" style={styles.registBtn} containerStyle={styles.registBtnContainer} onPress={this._regist} />
-                    <Button text="忘记密码" style={styles.forgetBtn} containerStyle={styles.forgetBtnContainer} onPress={this._forgetPwd} />
+                    <Text style={styles.tip}>点击『完成』，即表示您同意并愿意遵守</Text>
+                    <Button text="《极客邦用户协议》" style={styles.serviceBtn} containerStyle={styles.serviceBtnContainer} onPress={this._getService} />
                 </View>
                 <View style={styles.bottom}>
                     <Text style={styles.otherLogin}>其他方式登录</Text>
@@ -123,12 +118,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         flex: 1
     },
-    tip: {
-        fontSize: 13,
-        textAlign: 'center',
-        margin: 10
-    },
-    phone: {
+    name: {
         padding: 10,
         marginLeft: 10,
         marginRight: 10,
@@ -138,7 +128,7 @@ const styles = StyleSheet.create({
         borderBottomColor: '#e0e0e0',
         borderBottomWidth: 1
     },
-    password: {
+    inputStyle: {
         padding: 10,
         marginLeft: 10,
         marginRight: 10,
@@ -146,6 +136,29 @@ const styles = StyleSheet.create({
         fontSize: 15,
         borderBottomColor: '#e0e0e0',
         borderBottomWidth: 1
+    },
+    codeView: {
+        flexDirection: 'row',
+        padding: 10,
+        marginLeft: 10,
+        marginRight: 10,
+        height: 50,
+        borderBottomColor: '#e0e0e0',
+        borderBottomWidth: 1,
+        alignItems: 'center'
+    },
+    codeInputStyle: {
+        flex: 1
+    },
+    codeBtnContainer: {
+        right: 10,
+        paddingLeft: 10,
+        borderLeftColor: '#e0e0e0',
+        borderLeftWidth: 1
+    },
+    codeBtn: {
+        fontSize: 15,
+        color: '#ea642e'
     },
     btnContainer: {
         borderColor: '#ea642e',
@@ -178,13 +191,18 @@ const styles = StyleSheet.create({
         fontSize: 15,
         color: '#ea642e'
     },
-    forgetBtnContainer: {
-        right: 20,
+    tip: {
+        marginLeft: 10,
+        fontSize: 13,
+        color: '#828282'
+    },
+    serviceBtnContainer: {
+        // right: 20,
         
     },
-    forgetBtn: {
-        fontSize: 15,
-        color: '#828282'
+    serviceBtn: {
+        fontSize: 13,
+        color: '#3584d9'
     },
     bottom: {
         bottom: 30

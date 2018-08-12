@@ -22,8 +22,8 @@ function px2dp(px) {
 
 export default class Main extends Component {
   state= {
-    // selectedTab: 'discover'
-    selectedTab: 'account'
+    selectedTab: 'discover'
+    // selectedTab: 'account'
   };
 
   constructor(props) {

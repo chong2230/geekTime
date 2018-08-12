@@ -95,7 +95,8 @@ export default class Setting extends Component {
     }
     
     _about = () => {
-        
+        const { navigate } = this.props.navigation;
+        navigate('About', {isVisiable: true, title: '关于'});
     }
 
     _recommend = () => {

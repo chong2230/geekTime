@@ -749,6 +749,15 @@ const Mockdata = {
             uname: '一飞冲天',
             phone: '13552774423'
         }
+    },
+    '/regist': {
+        "msg": "SUCCESS",
+        "code": 0,
+        "data": {
+            token: 'kdsljladlkjdlk',
+            uname: '一飞冲天',
+            phone: '13552774423'
+        }
     }
 }
 

@@ -1,3 +1,6 @@
+/**
+ * 账户和充值
+ */
 import React, { Component } from 'react';
 import {
     AppRegistry,

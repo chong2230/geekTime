@@ -424,17 +424,13 @@ export default class Discover extends React.Component {
             case 3:
                 navigate("Course", {isVisible: true, title: "视频课程", type: 3});
                 break;
-            case 4:
-                Alert.alert('', '程序猿们正在快马加鞭，敬请期待噢~');
-               break;
             case 5:
                 navigate("Course", {isVisible: true, title: "精品微课", type: 5});
                break;
+            case 4:
             case 6:
-                Alert.alert('', '程序猿们正在快马加鞭，敬请期待噢~');
-               break;
             case 7:
-                Alert.alert('', '程序猿们正在快马加鞭，敬请期待噢~');
+                Alert.alert('', '程序小哥正在快马加鞭，敬请期待噢~');
                break;
         }
     }

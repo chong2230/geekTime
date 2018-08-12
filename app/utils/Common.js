@@ -206,6 +206,16 @@ export default class Common {
         })
     } 
 
+    static regist(uname, phone, code, cb) {
+        Common.httpRequest('/regist', {
+            uname: uname,
+            phone: phone,
+            code: code
+        }).then((result)=>{
+            cb(result);
+        })
+    } 
+
     static parseObj(obj) {
         var str = '';
         for (var key in obj) {

@@ -17,7 +17,7 @@ import AccountItem from './accountItem';
 import Common from '../../utils/Common';
 import Storage from '../../utils/Storage';
 
-export default class Account_logined extends Component {
+export default class Account extends Component {
 
     // 构造
     constructor(props) {
@@ -41,6 +41,8 @@ export default class Account_logined extends Component {
 
     _getAccount = (token) => {
         Common.getAccount(token, (data)=>{
+            let phone = data.phone.substr(0, 3) + '****' + data.phone.substr(data.phone.length-4, 4);
+            data.phone = phone;
             this.setState({
                 token: token,
                 info : data
@@ -56,6 +58,7 @@ export default class Account_logined extends Component {
         const { navigate } = this.props.navigation;
         switch (type) {
             case 0:
+            navigate('Profile', {isVisiable: true, title: '个人信息', info: JSON.stringify(this.state.info)});
                 break;
             case 1:
                 navigate('Recharge', {isVisiable: true, title: '账户'});
@@ -67,7 +70,7 @@ export default class Account_logined extends Component {
             case 6:
             case 7:
             case 8:
-                Alert.alert('', '程序猿们正在快马加鞭，敬请期待噢~');
+                Alert.alert('', '程序小哥正在快马加鞭，敬请期待噢~');
                 break;
         }
     }
@@ -112,7 +115,7 @@ export default class Account_logined extends Component {
                             <Image source={require('../../images/defaultAvatar.jpg')} style={styles.avatarIcon} />
                             <View style={styles.avatarInfo}>
                                 <Text style={styles.name}>{this.state.info.uname || '未登录'}</Text>
-                                <Text style={styles.description}>{this.state.phone || '点击头像登录'}</Text>
+                                <Text style={styles.phone}>{this.state.info.phone || '点击头像登录'}</Text>
                             </View>
                         </View>    
                     </TouchableOpacity>                    
@@ -162,8 +165,8 @@ const styles = StyleSheet.create({
     name: {
         fontWeight: 'bold', 
     },
-    description: {
-        color: '#CCCCCC',
+    phone: {
+        color: '#828282',
         fontSize: 11, 
         top: 5
     },
