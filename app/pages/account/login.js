@@ -68,7 +68,10 @@ export default class Login extends Component {
     }
 
     _forgetPwd = () => {
-        
+        const { navigate, state } = this.props.navigation;
+        navigate('ForgetPassword', { isVisible: true, title: '安全验证', refresh: (token)=>{
+            if (state.params.refresh) state.params.refresh(token);
+        }});
     }
 
     leftAction = () => {
@@ -78,7 +81,10 @@ export default class Login extends Component {
     }
 
     rightAction = () => {
-
+        const { navigate, state } = this.props.navigation;
+        navigate('FreeLogin', { isVisible: true, title: '免密登录', refresh: (token)=>{
+            if (state.params.refresh) state.params.refresh(token);
+        }});
     }
 
     _wxLogin = () => {

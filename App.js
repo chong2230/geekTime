@@ -13,11 +13,14 @@ import SubjectDetail from './app/pages/subject/subjectDetail';
 // import SubjectList from './app/pages/subject/list';
 // import SubjectDetail from './app/pages/subject/detail';
 import Login from './app/pages/account/login';
+import FreeLogin from './app/pages/account/freeLogin';
 import Regist from './app/pages/account/regist';
 import Recharge from './app/pages/account/recharge';
 import SafeAccount from './app/pages/account/safeAccount';
 import Profile from './app/pages/account/profile';
 import UpdatePassword from './app/pages/account/updatePassword';
+import ForgetPassword from './app/pages/account/forgetPassword';
+import SetPassword from './app/pages/account/setPassword';
 import Setting from './app/pages/account/setting';
 import About from './app/pages/account/about';
 import Service from './app/pages/account/service';
@@ -78,6 +81,10 @@ const App = createStackNavigator({
     Login: {
         screen: Login
     }, 
+    FreeLogin: {
+        screen: FreeLogin,
+        navigationOptions: ({navigation}) => StackOptions({navigation})
+    },
     Regist: {
         screen: Regist,
         navigationOptions: ({navigation}) => StackOptions({navigation})
@@ -112,6 +119,14 @@ const App = createStackNavigator({
     },
     UpdatePassword: {
         screen: UpdatePassword,
+        navigationOptions: ({navigation}) => StackOptions({navigation})
+    },
+    ForgetPassword: {
+        screen: ForgetPassword,
+        navigationOptions: ({navigation}) => StackOptions({navigation})
+    },
+    SetPassword: {
+        screen: SetPassword,
         navigationOptions: ({navigation}) => StackOptions({navigation})
     }
 }, {

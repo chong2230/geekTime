@@ -82,6 +82,7 @@ export default class Common {
                 return Common.isHack ? Mockdata[url].data : json.data;
             })
             .catch((error) => {
+                Alert.alert(error.toString());
                 var text = "网络请求出错啦！";
                 if (['none','NONE','unknown','UNKNOWN'].indexOf(Common.netStatus) >= 0) text = "没有网络了！";
                 Alert.alert(text);
@@ -215,6 +216,35 @@ export default class Common {
             cb(result);
         })
     } 
+
+    // 安全验证
+    static safeValidate(phone, code, cb) {
+        Common.httpRequest('/account/safeValidate', {
+            phone: phone,
+            code: code
+        }).then((result)=>{
+            cb(result);
+        })
+    }
+
+    // 设置密码
+    static setPassword(pwd, cb) {
+        Common.httpRequest('/account/setPassword', {
+            pwd: pwd
+        }).then((result)=>{
+            cb(result);
+        })
+    }
+
+    // 免密登录
+    static freeLogin(phone, code, cb) {
+        Common.httpRequest('/account/freeLogin', {
+            phone: phone,
+            code: code
+        }).then((result)=>{
+            cb(result);
+        })
+    }
 
     static parseObj(obj) {
         var str = '';

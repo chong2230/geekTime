@@ -758,6 +758,23 @@ const Mockdata = {
             uname: '一飞冲天',
             phone: '13552774423'
         }
+    },
+    '/account/safeValidate': {
+        "msg": "SUCCESS",
+        "code": 0
+    },
+    '/account/setPassword': {
+        "msg": "SUCCESS",
+        "code": 0
+    },
+    '/account/freeLogin': {
+        "msg": "SUCCESS",
+        "code": 0,
+        "data": {
+            token: 'kdsljladlkjdlk',
+            uname: '一飞冲天',
+            phone: '13552774423'
+        }
     }
 }
 
