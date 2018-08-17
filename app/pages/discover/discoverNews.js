@@ -9,11 +9,10 @@ import {
     TouchableWithoutFeedback
 } from 'react-native';
 
-// import Sound from 'react-native-sound';
-
+import Sound from 'react-native-sound';
 import NewsItem from './newsItem';
 
-var {width,height} = Dimensions.get('window');
+let sound = null;
 
 export default class DiscoverNews extends Component {
 
@@ -22,20 +21,37 @@ export default class DiscoverNews extends Component {
         super(props);
         // 初始状态
         this.state = {
-            textStyle: {}
+            textStyle: {},
+            selectedNews: null
         };
     }
 
-    _onPress = (id) => {
-        /*
-        const s = new Sound('https://languagezenstorage.blob.core.windows.net/media0/xgcUXjHhP8.mp3',null, (e) => {
+    _onPress = (index, id, audio) => {
+        let self = this;
+        if (sound) {
+            sound.release();
+            sound = null;
+        } 
+        sound = new Sound(audio, null, (e) => {
             if (e) {
                  console.log('播放失败');
                 return;
             }
-            s.play(() => s.release());
+            sound.play(() => {
+                sound.release();
+                index++;    // 播放下一条
+                let item = self.props.item;
+                let nextId = null;
+                if (index < item.contents.length) {
+                    nextId = item.contents[index].id;
+                    self._onPress(index, nextId, item.contents[index].audio);
+                }
+                this.setState({
+                    selectedNews: nextId
+                });
+                return;
+            });
         });
-        */
         this.setState({
             selectedNews: id
         })
@@ -47,7 +63,7 @@ export default class DiscoverNews extends Component {
         for (let i=0; i<item.contents.length; i++) {
             let data = item.contents[i];
             listView.push(
-                <NewsItem key={i+1} item={item.contents[i]} selectedNews={this.state.selectedNews} onPress={this._onPress}></NewsItem>                
+                <NewsItem key={i+1} index={i} item={item.contents[i]} selectedNews={this.state.selectedNews} onPress={this._onPress}></NewsItem>                
             );
         }
         return (

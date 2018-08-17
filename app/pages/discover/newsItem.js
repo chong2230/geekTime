@@ -8,9 +8,9 @@ import {
     Dimensions,
     TouchableWithoutFeedback
 } from 'react-native';
-import Colors from '../../components/Colors';
 
-var {width,height} = Dimensions.get('window');
+import Icon from 'react-native-vector-icons/FontAwesome';
+import Colors from '../../components/Colors';
 
 export default class NewsItem extends Component {
 
@@ -24,17 +24,25 @@ export default class NewsItem extends Component {
     }
 
     _onItemClick() {
-        this.props.onPress(this.props.item.id);
+        this.props.onPress(this.props.index, this.props.item.id, this.props.item.audio);
     }
 
     render() {
         let textStyle = {}
-        if (this.props.selectedNews == this.props.item.id) textStyle = { color: Colors.highlight };
+        let playIcon;
+        if (this.props.selectedNews == this.props.item.id) {
+            textStyle = { color: Colors.highlight };
+            iconStyle = { opacity: 1 };
+            playIcon = <Icon name="pause-circle-o" color={Colors.highlight} style={[styles.icon, iconStyle]} />;
+        } else {
+            playIcon = <Icon name="play-circle-o" color={Colors.gray} style={styles.icon} />;
+        }
         return (
             <TouchableWithoutFeedback onPress={()=>{this._onItemClick()}}>
                 <View style={styles.item}>
-                    <Image source={require('../../images/button-play.png')} style={styles.icon}/>
+                    {playIcon}
                     <Text style={[styles.text, textStyle]}>{this.props.item.description}</Text>
+                    }
                 </View>
             </TouchableWithoutFeedback>
         );
@@ -48,10 +56,10 @@ const styles = StyleSheet.create({
         height: 20
     },
     icon: {
-        width: 15,
-        height: 15,
+        width: 20,
+        height: 20,
         marginLeft: 10,
-        marginRight: 10,
+        marginTop: 1,
         opacity: .6
     },
     text: {

@@ -9,7 +9,7 @@ import {
   View
 } from 'react-native';
 import TabNavigator from 'react-native-tab-navigator';
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon from 'react-native-vector-icons/FontAwesome';
 import {Dimensions} from 'react-native';
 import Colors from './app/components/Colors';
 
