@@ -8,12 +8,13 @@ import {
     Text,
     Image,
     View,
-    ListView,
+    FlatList,
     StatusBar,
     TouchableWithoutFeedback,
     Dimensions
 } from 'react-native';
 
+import Icon from 'react-native-vector-icons/FontAwesome';
 import Common from '../../utils/Common';
 //import SubjectDetail from './detail';
 
@@ -39,7 +40,7 @@ export default class SubjectList extends Component<{}> {
     componentWillMount() {
         const { params } = this.props.navigation.state;
         var data = JSON.parse(params.data);
-        Common.getSubjectChapter(data.id, (result)=>{
+        Common.getSubjectList(data.id, (result)=>{
             var ds = this.state.listData.cloneWithRows(result.list);
             this.setState({
                 listData: ds,
@@ -48,11 +49,12 @@ export default class SubjectList extends Component<{}> {
         });
     }
 
-    _renderRow(rowData) {
+    _renderItem(rowData) {
         return (
             <View style={styles.content}>
-                <TouchableWithoutFeedback onPress={()=>{this._onRecommendClick(rowData.id, rowData.name)}}>
+                <TouchableWithoutFeedback onPress={()=>{this._onItemClick(rowData.id, rowData.name)}}>
                     <View style={styles.item}>
+                        <Text>{rowData.title}</Text>
                         <Image resizeMode={'stretch'} source={{uri:Common.baseUrl + rowData.icon}}
                                style={styles.img}/>
                         <View style={styles.info}>
@@ -65,37 +67,70 @@ export default class SubjectList extends Component<{}> {
         );
     }
 
-    _onRecommendClick(id, name) {
+    _onItemClick(id, name) {
         const { navigate } = this.props.navigation;
         navigate("SubjectDetail", { id:id, title: name });
+    }
+
+    _header = () => {
+        return (
+            <View style={styles.headerStyle}>
+                <Icon name="bolt" size={px2dp(22)} color={Colors.highlight} />
+                <Text>倒序</Text>
+                <Text>已更新{this.state.count}篇</Text>
+            </View>
+        );
+    }
+
+    _footer = () => {
+        return <Text style={{height:55,backgroundColor:'#ECEFF2'}}></Text>;
+    }
+
+    _separator = () => {
+        return <View style={styles.separator} />;
+    }
+
+    refreshing(){
+        
+    }
+
+    _onload(){
+        
     }
 
     render() {
         const { params } = this.props.navigation.state;
         var data = JSON.parse(params.data);
         return (
-            <ListView
-                style={styles.list}
-                dataSource={this.state.listData}
-                renderRow={this._renderRow}
-                renderHeader={()=>{return(
-                <View>
-                    <StatusBar barStyle={'light-content'} />
-                    <Image source={{uri:Common.baseUrl + data.icon}} style={styles.topImg} />
-
-                    <Text style={styles.description}>{data.description}</Text>
-                    <Text style={styles.count}>{this.state.count}个动作</Text>
-                </View>)}}>
-            </ListView>
+            <FlatList 
+                    style={styles.list}
+                    ref={(flatList)=>this._flatList = flatList}
+                    keyExtractor={(item, index) => {return item.id.toString();}}
+                    ListHeaderComponent={this._header}
+                    ListFooterComponent={this._footer}
+                    ItemSeparatorComponent={this._separator}
+                    renderItem={this._renderItem}
+                    onRefresh={this.refreshing}
+                    refreshing={false}
+                    onEndReachedThreshold={0.1}
+                    onEndReached={
+                        this._onload
+                    }
+                    data={this.state.listData}>
+                    
+                    
+                </FlatList>
         );
     }
-
 }
 
 const styles = StyleSheet.create({
     list: {
         flex:1,
         backgroundColor: 'white'
+    },
+    headerStyle: {
+        flexDirection: 'row'
     },
     topImg: {
         width: deviceW,
@@ -158,5 +193,9 @@ const styles = StyleSheet.create({
         fontSize: 15,
         color: 'black',
         marginLeft: 10
+    },
+    separator: {
+        height: 5,
+        backgroundColor:'#ECEFF2'
     }
 });
