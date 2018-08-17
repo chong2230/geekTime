@@ -41,22 +41,22 @@ const Mockdata = {
                         {
                             id: 101,
                             "description": "苏宁易购乔新亮：最有效的研发管理经验",
-                            audio: ""
+                            audio: "https://languagezenstorage.blob.core.windows.net/media0/xgcUXjHhP8.mp3"
                         },
                         {
                             id: 102, 
                             "description": "HAP新方法：容器比虚拟机更安全",
-                            audio: ""
+                            audio: "https://languagezenstorage.blob.core.windows.net/media0/xgcUXjHhP8.mp3"
                         },
                         {
                             id: 103, 
                             "description": "敏捷测试需要注意的五种危险行为",
-                            audio: ""
+                            audio: "https://languagezenstorage.blob.core.windows.net/media0/xgcUXjHhP8.mp3"
                         },
                         {
                             id: 104, 
                             "description": "赛灵思收购深鉴科技，AI芯片并购加速",
-                            audio: ""
+                            audio: "https://languagezenstorage.blob.core.windows.net/media0/xgcUXjHhP8.mp3"
                         }                    
                     ],
                 },
