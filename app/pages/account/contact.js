@@ -31,9 +31,9 @@ export default class Contact extends Component {
                console.log('Can\'t handle url: ' + url);
            } else {
                Alert.alert('', this.state.tel, [
-			    {text: '取消', onPress: () => {}, style: 'cancel'},
-			    {text: '呼叫', onPress: () => {Linking.openURL(url)}},
-			  ])
+      			       {text: '取消', onPress: () => {}, style: 'cancel'},
+      			       {text: '呼叫', onPress: () => {Linking.openURL(url)}},
+      			   ])
            }
        });
     }

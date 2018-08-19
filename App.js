@@ -8,10 +8,9 @@ import Course from './app/pages/discover/course';
 import News from './app/pages/discover/news';
 import CourseDetail from './app/pages/discover/courseDetail';
 import SubjectDetail from './app/pages/subject/subjectDetail';
-// import List from './app/pages/discover/list';
-// import SubjectSub from './app/pages/subject/sub';
-// import SubjectList from './app/pages/subject/list';
-// import SubjectDetail from './app/pages/subject/detail';
+import Articles from './app/pages/subject/articles';
+import Article from './app/pages/subject/article';
+import Balance from './app/pages/subject/balance';
 import Login from './app/pages/account/login';
 import FreeLogin from './app/pages/account/freeLogin';
 import Regist from './app/pages/account/regist';
@@ -76,6 +75,18 @@ const App = createStackNavigator({
     },
     SubjectDetail: {
         screen: SubjectDetail,
+        navigationOptions: ({navigation}) => StackOptions({navigation})
+    },
+    Articles: {
+        screen: Articles,
+        navigationOptions: ({navigation}) => StackOptions({navigation})
+    },
+    Article: {
+        screen: Article,
+        navigationOptions: ({navigation}) => StackOptions({navigation})
+    },
+    Balance: {
+        screen: Balance,
         navigationOptions: ({navigation}) => StackOptions({navigation})
     },
     Login: {

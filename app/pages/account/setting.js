@@ -105,6 +105,7 @@ export default class Setting extends Component {
 
     _logout = () => {
         Storage.delete('token').then(()=>{
+            global.token = null;
             const { navigate, state } = this.props.navigation;
             setTimeout(function() {
                 if (state.params.refresh) state.params.refresh(null);

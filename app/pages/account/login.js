@@ -49,6 +49,7 @@ export default class Login extends Component {
         if (this._check()) {
             Common.login(this.state.phone, this.state.pwd, (result) => {
                 this.refs.toast.show('登录成功');
+                global.token = result.token;
                 Storage.save('token', result.token).then(()=>{
                     const { navigate, state } = this.props.navigation;
                     if (state.params.refresh) state.params.refresh(result.token);

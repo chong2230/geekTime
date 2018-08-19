@@ -350,7 +350,7 @@ const Mockdata = {
         }    
     },
 
-    // 文章列表
+    // 文章列表 params: {cid}
     '/subject/articles' : {
         "msg": "SUCCESS",
         "code": 0,
@@ -363,7 +363,7 @@ const Mockdata = {
                 "article_cover": "https://static001.geekbang.org/resource/image/c9/65/c9d5c20e2acd5c065dd729e4c262ac65.jpg",
                 "article_title": "01  | 多年前的那些工程师都去哪了？",
                 "article_summary": "也许是现在，也许是未来，总有那么一天，你会操心自己的职业发展。当你抬起头来，眺望自己的职业道路的时候，也许这篇文章可以给你一些指引。",
-                "had_viewed": false,
+                "had_viewed": true,
                 "article_could_preview": true,
                 "chapter_id": "0",
                 "score": 1534348800
@@ -491,6 +491,12 @@ const Mockdata = {
                 "count": 12
             }
         }
+    },
+
+    // 购买 params: {cid}
+    '/subject/buy' : {
+        "msg": "SUCCESS",
+        "code": 0
     },
 
     // 视频课程
@@ -743,6 +749,7 @@ const Mockdata = {
             "is_preorder" : true,
             "is_shareget" : false,
             "is_sharesale" : true,
+            "is_bought" : true,
             "sub_count" : 2174,
             "update_frequency" : "8月3日正式更新"
         }

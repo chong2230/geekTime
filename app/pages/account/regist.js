@@ -53,6 +53,7 @@ export default class Regist extends Component {
         if (this._check()) {
             Common.regist(this.state.uname, this.state.phone, this.state.code, (result) => {
                 this.refs.toast.show('注册成功');
+                global.token = result.token;
                 Storage.save('token', result.token).then(()=>{
                     const { navigate, state } = this.props.navigation;
                     if (state.params.refresh) state.params.refresh(result.token);

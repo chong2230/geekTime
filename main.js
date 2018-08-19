@@ -13,8 +13,9 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {Dimensions} from 'react-native';
 import Colors from './app/components/Colors';
 
-const deviceW = Dimensions.get('window').width;
+global.token = null;
 
+const deviceW = Dimensions.get('window').width;
 const basePx = 375;
 
 function px2dp(px) {

@@ -21,6 +21,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Colors from '../../components/Colors';
 import Button from '../../components/Button';
 import Common from '../../utils/Common';
+import Storage from '../../utils/Storage';
 import { formatDateString } from '../../utils/FormatUtil';
 
 const deviceW = Dimensions.get('window').width;
@@ -52,17 +53,64 @@ export default class SubjectDetail extends Component<{}> {
         });
     }
 
-    readFree = () => {
-
+    _readFree = () => {
+        const { navigate, state } = this.props.navigation;
+        navigate("Articles", {isVisible: true, title: this.state.detail.column_title, 
+            cid: this.state.detail.id, type: state.params.type})
     }
 
-    subscribe = () => {
+    _subscribe = () => {
+        let self = this;
+        Storage.get('token').then((val)=>{
+            if (val) {
+                self._goBalance();
+            } else {
+                self._goLogin();
+            }
+        });
+    }
 
+    _goLogin = () => {
+        const { navigate } = this.props.navigation;
+        navigate('Login', { isVisiable: true, title: '密码登录', transition: 'forVertical'});
+    }
+
+    _goBalance = () => {
+        const { navigate, state } = this.props.navigation;
+        navigate('Balance', { isVisiable: true, title: '结算台', 
+            detail: JSON.stringify(this.state.detail), cid: this.state.detail.id});   
+    }
+
+    // 开始阅读
+    _startRead = () => {
+        const { navigate, state } = this.props.navigation;
+        navigate("Articles", {isVisible: true, title: this.state.detail.column_title, 
+            cid: this.state.detail.id, type: state.params.type});
     }
 
     render() {
         let detail = this.state.detail;
-        let subscribeTxt = '订阅￠' + detail.column_price/100;
+        let bottom;
+        let subscribeTxt;
+        // 没有购买时，显示订阅按钮
+        if (!detail.is_bought) {
+            subscribeTxt = '订阅￠' + detail.column_price/100;
+            bottom = (                
+                <View style={styles.bottom}>
+                    <Button text="免费试读" onPress={this._readFree} 
+                        style={styles.readBtn} containerStyle={styles.readContainer} />
+                    <Button text={subscribeTxt} onPress={this._subscribe} 
+                        style={styles.subscribeBtn} containerStyle={styles.subscribeContainer} />
+                </View>
+            );
+        } else {
+            bottom = (                
+                <View style={styles.bottom}>                    
+                    <Button text="开始阅读" onPress={this._startRead} 
+                        style={styles.subscribeBtn} containerStyle={[styles.subscribeContainer, styles.startContainer]} />
+                </View>
+            );
+        }
         let latestView = [];
         for (let i=0; i<this.state.latest.length; i++) {
             let d = this.state.latest[i];
@@ -114,12 +162,7 @@ export default class SubjectDetail extends Component<{}> {
                         {latestView}
                     </View>
                 </ScrollView>
-                <View style={styles.bottom}>
-                    <Button text="免费试读" onPress={this.readFree} 
-                        style={styles.readBtn} containerStyle={styles.readContainer} />
-                    <Button text={subscribeTxt} onPress={this.subscribe} 
-                        style={styles.subscribeBtn} containerStyle={styles.subscribeContainer} />
-                </View>                
+                {bottom}                
             </View>
         )
     }
@@ -131,20 +174,6 @@ var styles = StyleSheet.create({
     },
     scrollView: {
         backgroundColor: '#ECEFF2'
-    },
-    header: {
-        backgroundColor:'white',
-        width: deviceW,
-        height: 55
-    },
-    headerTitle : {
-        width: deviceW,
-        height: 30,
-        marginTop: 25,
-        fontSize: 20,
-        color: 'black',
-        fontWeight: '400',
-        textAlign: 'center'
     },
     headerImg: {
         width: deviceW,
@@ -268,5 +297,8 @@ var styles = StyleSheet.create({
         color: 'white',
         fontSize: 16,
         textAlign: 'center'
+    },
+    startContainer: {
+        width: deviceW - 20
     }
 });

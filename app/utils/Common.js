@@ -73,9 +73,6 @@ export default class Common {
             mode: 'cors',
             headers: headers,
             body: Common.parseObj(params)
-            //body: JSON.stringify({
-            //    params: params,
-            //})
         })
             .then((resp) => resp.json())
             .then((json) => {
@@ -149,6 +146,36 @@ export default class Common {
         Common.httpRequest('/discover/latest', {
             id : id,
             type : type
+        }).then((result)=>{
+            cb(result);
+        })
+    }
+
+    // 文章列表
+    static getArticles(cid, cb) {
+        Common.httpRequest('/subject/articles', {
+            cid: cid,
+            token: global.token
+        }).then((result)=>{
+            cb(result);
+        })
+    }
+
+    // 文章详情
+    static getArticle(id, cb) {
+        Common.httpRequest('/subject/article', {
+            id: id,
+            token: global.token
+        }).then((result)=>{
+            cb(result);
+        })
+    }
+
+    // 购买
+    static buy(cid, cb) {
+        Common.httpRequest('/subject/buy', {
+            cid: cid,
+            token: global.token
         }).then((result)=>{
             cb(result);
         })

@@ -63,7 +63,7 @@ export default class Discover extends React.Component {
     }
 
     componentWillMount() {
-        // Orientation.lockToPortrait();
+        Orientation.lockToPortrait();
         Common.getBanners((result)=>{
             var dataSource = new ViewPager.DataSource({
                 pageHasChanged: (p1, p2) => p1 !== p2
