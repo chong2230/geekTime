@@ -78,7 +78,8 @@ export default class SubjectDetail extends Component<{}> {
     _goBalance = () => {
         const { navigate, state } = this.props.navigation;
         navigate('Balance', { isVisiable: true, title: '结算台', 
-            detail: JSON.stringify(this.state.detail), cid: this.state.detail.id});   
+            detail: JSON.stringify(this.state.detail), cid: this.state.detail.id, 
+            type: state.params.type});   
     }
 
     // 开始阅读

@@ -62,7 +62,9 @@ export default class Recharge extends Component {
     	const { params } = this.props.navigation.state;
     	Common.buy(params.cid, (result)=>{ 
         	Alert.alert('', '购买成功', [
-			    {text: '确定', onPress: () => {}},
+			    {text: '确定', onPress: () => {
+			    	navigate("SubjectDetail", {id: params.cid, type: params.type});
+			    }},
 			  ])
     	});
     }

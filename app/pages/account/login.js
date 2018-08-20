@@ -5,10 +5,12 @@ import {
     Text,
     TextInput,
     View,
-    AsyncStorage,
-    Dimensions
+    Alert,
+    Dimensions,
+    DeviceEventEmitter
 } from 'react-native';
 
+import openShare from 'react-native-open-share';
 import Button from '../../components/Button';
 import ImageButton from '../../components/ImageButton';
 import Colors from '../../components/Colors';
@@ -88,16 +90,64 @@ export default class Login extends Component {
         }});
     }
 
-    _wxLogin = () => {
-        console.log('wx login');        
+    _wechatLogin = () => {
+        var _this = this;
+        openShare.wechatLogin();
+
+        if(!_this.wechatLogin) {
+          _this.wechatLogin = DeviceEventEmitter.addListener(
+            'managerCallback',
+            (response) => {
+              Alert.alert(
+                'response',
+                JSON.stringify(response)
+              );
+              
+              _this.wechatLogin.remove();
+              delete _this.wechatLogin;
+            }
+          );
+        }
     }
 
     _qqLogin = () => {
-        console.log('qq login');        
+        var _this = this;
+        openShare.qqLogin();
+
+        if(!_this._qqLogin) {
+          _this._qqLogin = DeviceEventEmitter.addListener(
+            'managerCallback',
+            (response) => {
+              Alert.alert(
+                'response',
+                JSON.stringify(response)
+              );
+              
+              _this._qqLogin.remove();
+              delete _this._qqLogin;
+            }
+          );
+        }
     }
 
-    _wbLogin = () => {
-        console.log('wb login');        
+    _weiboLogin = () => {
+        var _this = this;
+        openShare.weiboLogin();
+
+        if(!_this._weiboLogin) {
+          _this._weiboLogin = DeviceEventEmitter.addListener(
+            'managerCallback',
+            (response) => {
+              Alert.alert(
+                'response',
+                JSON.stringify(response)
+              );
+              
+              _this._weiboLogin.remove();
+              delete _this._weiboLogin;
+            }
+          );
+        }
     }
 
     render() {
@@ -114,9 +164,9 @@ export default class Login extends Component {
                 <View style={styles.bottom}>
                     <Text style={styles.otherLogin}>其他方式登录</Text>
                     <View style={styles.btns}>
-                        <ImageButton source={require('../../images/icon-wx.jpg')} style={styles.imageButton} onPress={this._wxLogin} />
+                        <ImageButton source={require('../../images/icon-wx.jpg')} style={styles.imageButton} onPress={this._wechatLogin} />
                         <ImageButton source={require('../../images/icon-qq.jpg')} style={styles.imageButton} onPress={this._qqLogin} />
-                        <ImageButton source={require('../../images/icon-wb.jpg')} style={styles.imageButton} onPress={this._wbLogin} />
+                        <ImageButton source={require('../../images/icon-wb.jpg')} style={styles.imageButton} onPress={this._weiboLogin} />
                     </View>
                 </View>
                 <Toast ref="toast" position="center" />
