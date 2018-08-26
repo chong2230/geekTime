@@ -74,7 +74,7 @@ export default class Discover extends React.Component {
         });
 
         Common.getDiscoverList((result)=>{ 
-            this.setState({listData: result.list});
+            this.setState({listData: result});
         });
 
     }

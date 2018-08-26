@@ -29,6 +29,7 @@
     "react-native-sound": "^0.10.9",
     "react-native-tab-navigator": "^0.3.4",
     "react-native-vector-icons": "^4.6.0",
+    "react-native-video": "^3.2.0",
     "react-native-viewpager": "^0.2.13",
     "react-navigation": "^2.8.0"
   }

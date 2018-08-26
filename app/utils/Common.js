@@ -12,8 +12,9 @@ import {
 import Mockdata from '../mockdata/mockdata';
 
 export default class Common {
-    static httpServer = 'http://112.124.51.74:8085';
+    static httpServer = 'http://ishare.ireading.xyz:8081';
     static hackServer = 'http://rap2api.taobao.org/app/mock/24885';
+    // static baseUrl = 'http://ireading.xyz/img/';
     static baseUrl = 'http://download.ent98.cn/img/geektime/';
 
     static isHack = true;   // 默认为false，mock数据
@@ -87,9 +88,10 @@ export default class Common {
     }
 
     static getBanners(cb) {
-        Common.httpRequest('/discover/banner', {
+        Common.httpRequest('/discover/slide', {
 
         }).then((result)=>{
+            console.log(result);
             cb(result);
         })
     }
@@ -98,6 +100,7 @@ export default class Common {
         Common.httpRequest('/discover/list', {
 
         }).then((result)=>{
+            console.log(result);
             cb(result);
         })
     }

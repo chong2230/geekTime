@@ -1,6 +1,6 @@
 // banner轮播图
 const Mockdata = {
-    '/discover/banner' : {
+    '/discover/slide' : {
         "msg": "SUCCESS",
         "code": 0,
         "data": [
@@ -32,31 +32,30 @@ const Mockdata = {
     '/discover/list' : {
         "msg": "SUCCESS",
         "code": 0,
-        "data": {
-            list : [
+        "data": [
                 {
                     title: "极客新闻",
                     type: 1,
                     contents : [
                         {
                             id: 101,
-                            "description": "苏宁易购乔新亮：最有效的研发管理经验",
-                            audio: "https://languagezenstorage.blob.core.windows.net/media0/xgcUXjHhP8.mp3"
+                            "title": "苏宁易购乔新亮：最有效的研发管理经验",
+                            audio_url: "https://languagezenstorage.blob.core.windows.net/media0/xgcUXjHhP8.mp3"
                         },
                         {
                             id: 102, 
-                            "description": "HAP新方法：容器比虚拟机更安全",
-                            audio: "https://languagezenstorage.blob.core.windows.net/media0/xgcUXjHhP8.mp3"
+                            "title": "HAP新方法：容器比虚拟机更安全",
+                            audio_url: "https://languagezenstorage.blob.core.windows.net/media0/xgcUXjHhP8.mp3"
                         },
                         {
                             id: 103, 
-                            "description": "敏捷测试需要注意的五种危险行为",
-                            audio: "https://languagezenstorage.blob.core.windows.net/media0/xgcUXjHhP8.mp3"
+                            "title": "敏捷测试需要注意的五种危险行为",
+                            audio_url: "https://languagezenstorage.blob.core.windows.net/media0/xgcUXjHhP8.mp3"
                         },
                         {
                             id: 104, 
-                            "description": "赛灵思收购深鉴科技，AI芯片并购加速",
-                            audio: "https://languagezenstorage.blob.core.windows.net/media0/xgcUXjHhP8.mp3"
+                            "title": "赛灵思收购深鉴科技，AI芯片并购加速",
+                            audio_url: "https://languagezenstorage.blob.core.windows.net/media0/xgcUXjHhP8.mp3"
                         }                    
                     ],
                 },
@@ -251,8 +250,7 @@ const Mockdata = {
                     ],
                 },
 
-            ]                        
-        }
+            ]
     },
 
     // 专栏
@@ -708,6 +706,7 @@ const Mockdata = {
             ]
         }    
     },
+    // 精品专栏详情
     '/discover/detail' : {
         "msg": "SUCCESS",
         "code": 0,
@@ -749,10 +748,73 @@ const Mockdata = {
             "is_preorder" : true,
             "is_shareget" : false,
             "is_sharesale" : true,
-            "is_bought" : true,
+            // "is_bought" : true,
             "sub_count" : 2174,
             "update_frequency" : "8月3日正式更新"
         }
+    },
+    // 视频课程详情
+    '/discover/detail' : {
+        "msg": "SUCCESS",
+        "code": 0,
+        "data":{
+            "column_cover_wxlite":"https://static001.geekbang.org/resource/image/4c/f7/4ccbfebe1000add7619fda8b605b21f7.jpg",
+            "column_end_time":1846166400,
+            "is_include_preview":true,
+            "column_price_market":12900,
+            "author_header":"https://static001.geekbang.org/resource/image/43/73/43a0bf741f96a10e4d9c788726bcea73.jpg",
+            "column_title":"快速上手Kotlin开发",
+            "column_type":3,
+            "column_unit":"50讲",
+            // "column_video_media":'{"hd":{"size":27481516,"url":"https:\/\/res001.geekbang.org\/media\/video\/c2\/7c\/c2eb9c3f1168a0be65a61b6f45e46f7c\/hd\/hd.m3u8"},"sd":{"size":12915840,"url":"https:\/\/res001.geekbang.org\/media\/video\/c2\/7c\/c2eb9c3f1168a0be65a61b6f45e46f7c\/sd\/sd.m3u8"}}',
+            "column_video_media": "http://39.106.159.81/video/course/1.mp4",
+            "column_cover":"https://static001.geekbang.org/resource/image/28/aa/281d8cd886ab290ac623e92939f0a3aa.jpg",
+            "is_sharesale":true,
+            "is_shareget":false,
+            "column_begin_time":1530547200,
+            "is_onborad":true,
+            "column_sku":100009801,
+            "column_ctime":1530587589,
+            "update_frequency":"50课时·约450分钟",
+            "column_share_title":"张涛 · 快速上手Kotlin开发",
+            "id":105,
+            "groupbuy_list":[
+                {
+                    "want_ucount":1,
+                    "host_nickname":"aline",
+                    "code":"mbewxk3F8v",
+                    "host_avatar":"http://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKkkZBpiaOo4dDyiaGdyWg2yXia5PTDbFYtNaXbd49c0rNnhnrRibI4nmtor1DF2vZclEThGib9R7QRoLQ/132",
+                    "left_seconds":23803
+                }
+            ],
+            "column_bgcolor":"#FFFFFF",
+            "groupbuy":{
+                "could_groupbuy":true,
+                "price":9900,
+                "success_ucount":3,
+                "join_code":"",
+                "had_join":false
+            },
+            "column_poster_wxlite":"https://static001.geekbang.org/resource/image/80/4e/808a1cdb7abff2240c6f425facbd194e.jpg",
+            "column_sharesale_data":'{"promo_pic_url":"https:\/\/static001.geekbang.org\/resource\/image\/a2\/a3\/a20a5a3693e286118068560c3c3faaa3.jpg","promo_pic_color":"FFFFFF","original_pic_url":"https:\/\/static001.geekbang.org\/resource\/image\/5d\/29\/5dcf5bd3b683624e8302bf6c7a2eac29.jpg","original_pic_color":"FFFFFF","share_sale_price":1600,"share_sale_guest_price":800}',
+            "is_experience":false,
+            "had_sub":false,
+            "is_preorder":false,
+            "is_include_audio":false,
+            "author_intro":"“开源实验室”博主，资深Android开发工程师。",
+            "column_cover_inner":"",
+            "column_poster":"",
+            "column_intro":'<h2>课程背景</h2><p>在 Google I/O 2017 大会上，Google 宣布 Kotlin 成为 Android 开发的官方编程语言。</p><p>仅仅一年之后，就已经有 35% 的专业 Android 开发者在使用 Kotlin，其中 95% 的开发者都对 Kotlin 非常满意。</p><p>Kotlin 不仅仅可以用于 Android 应用开发，它简洁和表现力强地代码，与 Java 完全兼容和平滑的学习曲线，足以让程序员选择 Kotlin 在服务器端编程。同时，Kotlin 还可以用来开发前端 React 应用，真的是多个平台通吃。</p><p>在 Google 官方加持下，随着 Kotlin 跨平台等等特性的推出，可以预见未来 Kotlin 的使用者将越来越多。</p><p>所以，无论是想提高自己的技术水平，还是想获得更好的职业发展，学习 Kotlin 都是非常有必要的。</p><h2>课程特点</h2><p>本课程分为三部分。</p><p>第一部分会帮助你快速熟悉 Kotlin 的特有语法特性，以及在与 Java 项目产生冲突时如何解决。</p><p>第二部分将带你深入的理解 Kotlin 语言的高级特性以及 Kotlin 特有语法背后的运行原理，同时掌握 Kotlin 协程库和 Google 推出的 KTX 扩展库的使用与内部实现原理。</p><p>第三部分将为你讲解 Kotlin 作为跨平台语言的特性，并介绍将 Java 项目迁移至 Kotlin 时需要注意的地方，更深入地理解 Kotlin 的优势和劣势，灵活利用 Kotlin 的扩展库以及跨平台特性，帮助团队更高效地进行实际项目的开发。</p><h2>作者简介</h2><p>张涛，“开源实验室”博主，资深 Android 工程师，Kotlin 技术推广者。曾经主导过百万级用户的 App 实现开发语言向 Kotlin 的迁移和过渡，具有丰富的 Kotlin 开发经验。</p><p>2012 年开始从事 Android 开发，带过团队、做过架构、写过应用、做过开源社区。三年前开始使用 Kotlin 语言，曾参加GMTC、QCon、Droidcon 等大会并做 Kotlin 相关技术分享。</p><h2>课程收获</h2><ol><li>掌握 Kotlin 的语法和高级特性；</li><li>用 Kotlin 改造和迁移现有工程；</li><li>Kotlin 在团队协作中的注意事项；</li><li>深入学习 Kotlin 跨平台开发实战。</li></ol><h2>适宜人群</h2><ol><li>掌握 Java 编程技能的同学；</li><li>有一定经验的 Android 移动应用开发工程师。</li></ol><h2>课程大纲</h2><p><img src="https://static001.geekbang.org/resource/image/a1/d8/a17e90e5eec05569d16dfefb57b8a6d8.jpg" alt="" /></p><h2>如何在电脑端观看视频</h2><ol><li>用浏览器访问 <a href="https://time.geekbang.org">https://time.geekbang.org</a> ，登录极客时间账号；</li><li>然后访问 <a href="https://time.geekbang.org/paid-content">https://time.geekbang.org/paid-content</a> ，选择相应的内容。</li></ol><h2 class="js-audit">订阅须知</h2><ol class="js-audit"><li> 本课程为视频课程，共 50 讲，现已全部更新完毕，订阅成功后即可通过“极客时间”App端、小程序端、<a href="https://time.geekbang.org/paid-content">Web端</a>永久观看；</li><li>由于视频内容为虚拟商品，一经订阅，概不退款；</li><li>在课程学习过程中，如有任何问题，请邮件联系 service@geekbang.org。</li></ol>',
+            "column_sharesale":1,
+            "author_name":"张涛",
+            "lecture_url":"https://static001.geekbang.org/resource/image/4f/a0/4f040cc6855a3b4d0f1fc42ae5afaba0.jpg",
+            "column_subtitle":"Java/Android开发者的实战指南",
+            "column_wxlite_code":"https://static001.geekbang.org/product/wxa/trans-wxa_sku/100009801.png",
+            "column_video_cover":"https://static001.geekbang.org/resource/image/77/bf/77aa96cba2aeddc7c3dc3f0c4b3856bf.jpg",
+            "sub_count":2148,
+            "column_price":12900,
+            "column_utime":1534502250
+        },
     },
     '/discover/latest' : {
         "msg": "SUCCESS",

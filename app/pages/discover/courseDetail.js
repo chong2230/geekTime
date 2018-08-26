@@ -20,6 +20,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Button from '../../components/Button';
 import Colors from '../../components/Colors';
+import VideoPlayer from '../../components/VideoPlayer';
 import Common from '../../utils/Common';
 import { formatDateString } from '../../utils/FormatUtil';
 
@@ -30,8 +31,7 @@ export default class CourseDetail extends Component<{}> {
     constructor(props) {
         super(props);
         this.state = {
-            detail : {},
-            latest : []
+            detail : {}
         };
         
     }
@@ -41,15 +41,40 @@ export default class CourseDetail extends Component<{}> {
         const { params } = this.props.navigation.state;
         //var data = JSON.parse(params.data);
         Common.getDetail(params.id, params.type, (result)=>{
+            // console.log(result);
             this.setState({
                 detail : result
             });
         });
-        Common.getLatest(params.id, params.type, (result)=>{
+    }
+
+    _onOrientationChanged = (isFullScreen) => {
+        if (isFullScreen) {
+            Orientation.lockToPortrait();
+        } else {
+            Orientation.lockToLandscape();
+        }
+    }
+
+    _onClickBackButton = () => {
+        this.props.navigation.goBack();
+    }
+
+    _onLayoutChange = (event) => {
+        let {x, y, width, height} = event.nativeEvent.layout;
+        let isLandscape = (width > height);
+        if (isLandscape) {
             this.setState({
-                latest : result.list
+                isFullScreen: true,
             });
-        });
+            this.videoPlayer.updateLayout(width, height, true);
+        } else {
+            this.setState({
+                isFullScreen: false
+            });
+            this.videoPlayer.updateLayout(width, width * 9/16, false);
+        }
+        //Orientation.unlockAllOrientations();
     }
 
     readFree = () => {
@@ -62,27 +87,18 @@ export default class CourseDetail extends Component<{}> {
 
     render() {
         let detail = this.state.detail;
-        let subscribeTxt = '订阅￠' + detail.column_price/100;
-        let latestView = [];
-        for (let i=0; i<this.state.latest.length; i++) {
-            let d = this.state.latest[i];
-            let item = (
-                <View key={d.id} style={styles.latestItem}>
-                    <View style={styles.latestTop}>
-                        <Icon
-                          name="hand-o-right"
-                          color={Colors.highlight}
-                          backgroundColor="white"
-                          size={15}
-                          >
-                        </Icon>  
-                        <Text style={styles.latestItemTitle}>{d.article_title}</Text>
-                    </View>
-                    <Text style={styles.latestCtime}>{formatDateString(d.article_ctime)}</Text>
-                    <Text numberOfLines={1} style={styles.latestSummary}>{d.article_summary}</Text>
-                </View>
-            );
-            latestView.push(item);
+        console.log(detail);
+        let subscribeTxt = '加入学习￠' + detail.column_price/100;
+        let video;
+        if (detail.column_video_media) {
+            video = <VideoPlayer
+                            ref={(ref) => this.videoPlayer = ref}
+                            videoURL={detail.column_video_media}
+                            videoTitle={detail.column_title}
+                            videoCover={detail.column_cover}
+                            onChangeOrientation={this._onOrientationChanged}
+                            onTapBackButton={this._onClickBackButton}
+                        />;
         }
         return (
             <View style={styles.container}>
@@ -95,7 +111,7 @@ export default class CourseDetail extends Component<{}> {
                         barStyle={'dark-content'}>
                     </StatusBar>    
                     <View>
-                        <Image source={{uri:detail.column_cover_inner}} style={styles.headerImg} />
+                        {video}
                     </View>
                     <View style={styles.author}>
                         <View style={styles.authorAvatar}>
@@ -108,11 +124,7 @@ export default class CourseDetail extends Component<{}> {
                         </View>
                         <Text style={styles.subCount}>{detail.sub_count}购买</Text>
                     </View>
-                    <HTMLView value={detail.column_intro} style={styles.htmlStyle} />
-                    <View style={styles.latest}>
-                        <Text style={styles.latestTitle}>最近更新</Text>
-                        {latestView}
-                    </View>
+                    <HTMLView value={detail.column_intro} style={styles.htmlStyle} />                    
                 </ScrollView>
                 <View style={styles.bottom}>
                     <Button text="免费试读" onPress={this.readFree} 
@@ -200,39 +212,6 @@ var styles = StyleSheet.create({
         marginTop: 10,
         padding: 10,
         backgroundColor: 'white'
-    },
-    latest: {
-        marginTop: 10,
-        backgroundColor: 'white'  
-    }, 
-    latestTitle: {
-        fontSize: 20, 
-        fontWeight: '500',
-        marginTop: 10,
-        marginLeft: 10
-    },
-    latestItem: {
-        marginLeft: 10
-    },
-    latestTop: {
-        marginTop: 10,
-        flexDirection: 'row',
-    },
-    latestItemTitle: {
-        fontSize: 15,
-        fontWeight: '500',
-        marginLeft: 10
-    },
-    latestCtime: {
-        marginTop: 6,        
-        fontSize: 13,
-        color: '#828282'
-    },
-    latestSummary: {
-        marginTop: 6,
-        marginBottom: 5,
-        fontSize: 13,
-        color: '#828282'
     },
     bottom: {
         flexDirection: 'row'
