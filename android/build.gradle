@@ -17,8 +17,17 @@ allprojects {
         mavenLocal()
         jcenter()
         maven {
+            url 'https://maven.google.com'
+        }
+        maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url "$rootDir/../node_modules/react-native/android"
         }
+    }
+    project.ext {
+        compileSdkVersion = 23
+        buildToolsVersion = "23.0.1"
+        minSdkVersion = 16
+        targetSdkVersion = 22
     }
 }
