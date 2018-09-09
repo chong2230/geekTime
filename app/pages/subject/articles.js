@@ -14,7 +14,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Common from '../../utils/Common';
 import Colors from '../../components/Colors';
-import { formatDateString } from '../../utils/FormatUtil';
+import { formatDateString } from '../../utils/Util';
 
 const deviceW = Dimensions.get('window').width;
 const imgHeight = deviceW*640/1142;
@@ -40,10 +40,12 @@ export default class Articles extends Component<{}> {
         const { params } = this.props.navigation.state;
         // TODO: 排序
         Common.getArticles(params.cid, (result)=>{
-            this.setState({
-                listData: result.list,
-                count: result.list.length,
-            });
+            if (result.code == 0) {
+                this.setState({
+                    listData: result.data.list,
+                    count: result.data.list.length,
+                });
+            }
         });
     }
 

@@ -40,22 +40,22 @@ const Mockdata = {
                         {
                             id: 101,
                             "title": "苏宁易购乔新亮：最有效的研发管理经验",
-                            audio_url: "https://languagezenstorage.blob.core.windows.net/media0/xgcUXjHhP8.mp3"
+                            audio: "https://languagezenstorage.blob.core.windows.net/media0/xgcUXjHhP8.mp3"
                         },
                         {
                             id: 102, 
                             "title": "HAP新方法：容器比虚拟机更安全",
-                            audio_url: "https://languagezenstorage.blob.core.windows.net/media0/xgcUXjHhP8.mp3"
+                            audio: "https://languagezenstorage.blob.core.windows.net/media0/xgcUXjHhP8.mp3"
                         },
                         {
                             id: 103, 
                             "title": "敏捷测试需要注意的五种危险行为",
-                            audio_url: "https://languagezenstorage.blob.core.windows.net/media0/xgcUXjHhP8.mp3"
+                            audio: "https://languagezenstorage.blob.core.windows.net/media0/xgcUXjHhP8.mp3"
                         },
                         {
                             id: 104, 
                             "title": "赛灵思收购深鉴科技，AI芯片并购加速",
-                            audio_url: "https://languagezenstorage.blob.core.windows.net/media0/xgcUXjHhP8.mp3"
+                            audio: "https://languagezenstorage.blob.core.windows.net/media0/xgcUXjHhP8.mp3"
                         }                    
                     ],
                 },

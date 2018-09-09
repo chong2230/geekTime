@@ -5,7 +5,8 @@ import {
     Text,
     TextInput,
     View,
-    Dimensions
+    Dimensions,
+    DeviceEventEmitter
 } from 'react-native';
 
 import Button from '../../components/Button';
@@ -18,42 +19,38 @@ export default class UpdatePassword extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            oldPwd : '',
-            newPwd : '',
-            confirmPwd : ''
+            phone : ''
         };
     }
 
-    _checkPwd = () => {
-        if (this.state.oldPwd == '' || this.state.newPwd == '') {
-            this.refs.toast.show('请输入密码');
+    _check = () => {
+        var reg = /^1\d{10}$/; 
+        if (this.state.phone == '') {
+            this.refs.toast.show('请输入手机号');
             return false;
-        } else if (!this._checkLength(this.state.oldPwd) || !this._checkLength(this.state.newPwd)) {
-            this.refs.toast.show('请输入6-24位的密码');
-            return false;
-        } else if (this.state.newPwd != this.state.confirmPwd) {
-            this.refs.toast.show('两次输入的密码不一致');
+        } else if (!reg.test(this.state.phone)) {
+            this.refs.toast.show('手机号格式不正确');
             return false;
         }
         return true;
     }
 
-    _checkLength = (str) => {
-        if (str.length < 6 || str.length.length > 24) return false;
-        else return true;
-    }
-
-    _changePwd = () => {
-        if (this._checkPwd()) {
-            Common.changePwd(this.state.oldPwd, this.state.newPwd, (result) => {
+    _changePhone = () => {
+        if (this._check()) {
+            let user = {
+                phone : this.state.phone
+            };
+            Common.updateUser(user, (result) => {
                 if (result.code == 0) {
-                    this.refs.toast.show('修改密码成功');
+                    this.refs.toast.show('修改成功');
+                    DeviceEventEmitter.emit('refreshAccount', user);
                     const { goBack } = this.props.navigation;
                     setTimeout(function() {
                         goBack();
                     }, 500);
+                } else {
+                    this.refs.toast.show(result.msg);
                 }
-                
             });
         }
     }
@@ -61,11 +58,9 @@ export default class UpdatePassword extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text style={styles.tip}>密码长度6~24位，可以是数字、字母等任意字符</Text>
-                <TextInput placeholder="输入旧密码" secureTextEntry={true} style={styles.password} onChangeText={(text)=>this.setState({oldPwd: text})} />
-                <TextInput placeholder="输入新密码" secureTextEntry={true} style={styles.password} onChangeText={(text)=>this.setState({newPwd: text})}  />
-                <TextInput placeholder="确认新密码" secureTextEntry={true} style={styles.password} onChangeText={(text)=>this.setState({confirmPwd: text})}  />
-                <Button text="完成" style={styles.btn} containerStyle={styles.btnContainer} onPress={this._changePwd} />
+                <Text style={styles.tip}>更换手机号后，您需要使用新的手机号登录</Text>
+                <TextInput placeholder="输入新手机号" style={styles.phone} onChangeText={(text)=>this.setState({phone: text})} />
+                <Button text="完成" style={styles.btn} containerStyle={styles.btnContainer} onPress={this._changePhone} />
                 <Toast ref="toast" position="center" />
             </View>
         );
@@ -82,7 +77,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         margin: 10
     },
-    password: {
+    phone: {
         padding: 10,
         marginLeft: 10,
         marginRight: 10,

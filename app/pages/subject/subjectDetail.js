@@ -22,7 +22,7 @@ import Colors from '../../components/Colors';
 import Button from '../../components/Button';
 import Common from '../../utils/Common';
 import Storage from '../../utils/Storage';
-import { formatDateString } from '../../utils/FormatUtil';
+import { formatDateString } from '../../utils/Util';
 
 const deviceW = Dimensions.get('window').width;
 
@@ -42,14 +42,18 @@ export default class SubjectDetail extends Component<{}> {
         const { params } = this.props.navigation.state;
         //var data = JSON.parse(params.data);
         Common.getDetail(params.id, params.type, (result)=>{
-            this.setState({
-                detail : result
-            });
+            if (result.code == 0) {
+                this.setState({
+                    detail : result.data
+                });
+            }
         });
         Common.getLatest(params.id, params.type, (result)=>{
-            this.setState({
-                latest : result.list
-            });
+            if (result.code == 0) {
+                this.setState({
+                    latest : result.data.list
+                });
+            }
         });
     }
 

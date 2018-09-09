@@ -20,9 +20,9 @@ import {
     TouchableWithoutFeedback,
     Dimensions
 } from 'react-native';
-import ViewPager from 'react-native-viewpager';
 import Orientation from 'react-native-orientation';
 
+import ViewPager from '../../components/ViewPager';
 import Button from '../../components/Button';
 import Colors from '../../components/Colors';
 import Common from '../../utils/Common';
@@ -65,16 +65,20 @@ export default class Discover extends React.Component {
     componentWillMount() {
         Orientation.lockToPortrait();
         Common.getBanners((result)=>{
-            var dataSource = new ViewPager.DataSource({
-                pageHasChanged: (p1, p2) => p1 !== p2
-            });
-            this.setState({
-                dataSource: dataSource.cloneWithPages(result),
-            })
+            if (result.code == 0) {
+                var dataSource = new ViewPager.DataSource({
+                    pageHasChanged: (p1, p2) => p1 !== p2
+                });
+                this.setState({
+                    dataSource: dataSource.cloneWithPages(result.data),
+                })
+            }
         });
 
         Common.getDiscoverList((result)=>{ 
-            this.setState({listData: result});
+            if (result.code == 0) {
+                this.setState({listData: result.data});
+            }
         });
 
     }

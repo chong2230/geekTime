@@ -22,7 +22,7 @@ import Button from '../../components/Button';
 import Colors from '../../components/Colors';
 import VideoPlayer from '../../components/VideoPlayer';
 import Common from '../../utils/Common';
-import { formatDateString } from '../../utils/FormatUtil';
+import { formatDateString } from '../../utils/Util';
 
 const deviceW = Dimensions.get('window').width;
 
@@ -41,10 +41,12 @@ export default class CourseDetail extends Component<{}> {
         const { params } = this.props.navigation.state;
         //var data = JSON.parse(params.data);
         Common.getDetail(params.id, params.type, (result)=>{
-            // console.log(result);
-            this.setState({
-                detail : result
-            });
+            if (result.code == 0) {
+                // console.log(result);
+                this.setState({
+                    detail : result.data
+                });
+            }
         });
     }
 

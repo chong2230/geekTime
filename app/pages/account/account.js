@@ -10,7 +10,8 @@ import {
     Image,
     TouchableOpacity,
     ScrollView,
-    Alert
+    Alert,
+    DeviceEventEmitter
 } from 'react-native';
 
 import AccountItem from './accountItem';
@@ -37,16 +38,28 @@ export default class Account extends Component {
                 self._getAccount(val);
             }
         });
+        this.emitter = DeviceEventEmitter.addListener('refreshAccount', (data) => {
+            console.log(data);
+            if (data.phone) {
+                data.phone = data.phone.substr(0, 3) + '****' + data.phone.substr(data.phone.length-4, 4);
+            }
+            self.setState({
+                info: Object.assign({}, self.state.info, data)
+            })
+        })
     }
 
     _getAccount = (token) => {
-        Common.getAccount(token, (data)=>{
-            let phone = data.phone.substr(0, 3) + '****' + data.phone.substr(data.phone.length-4, 4);
-            data.phone = phone;
-            this.setState({
-                token: token,
-                info : data
-            });
+        Common.getAccount(token, (result)=>{
+            if (result.code == 0) {
+                let data = result.data;
+                let phone = data.phone.substr(0, 3) + '****' + data.phone.substr(data.phone.length-4, 4);
+                data.phone = phone;
+                this.setState({
+                    token: token,
+                    info : data
+                });
+            }
         });
     }
 
@@ -135,7 +148,11 @@ export default class Account extends Component {
                 </ScrollView>
             </View>
         );
-    }    
+    }
+
+    componentWillUnmount() {
+        this.emitter.remove();
+    }      
 }
 
 const styles = StyleSheet.create({

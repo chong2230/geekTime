@@ -7,6 +7,7 @@ const Colors = {
 	gray: "#828282",					// 加灰文本颜色
 	white: "rgba(255, 255, 255, 1)",  
   	black: "rgba(3, 3, 3, 1)",
+  	blue: "#4f8fd8"
 }
 
 export default Colors;

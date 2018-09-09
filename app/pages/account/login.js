@@ -14,6 +14,7 @@ import openShare from 'react-native-open-share';
 import Button from '../../components/Button';
 import ImageButton from '../../components/ImageButton';
 import Colors from '../../components/Colors';
+import ThirdPartyLogin from '../../components/ThirdPartyLogin';
 import Common from '../../utils/Common';
 import Storage from '../../utils/Storage';
 import Navigator1 from '../../utils/navigator1';
@@ -50,15 +51,19 @@ export default class Login extends Component {
     _login = () => {
         if (this._check()) {
             Common.login(this.state.phone, this.state.pwd, (result) => {
-                this.refs.toast.show('登录成功');
-                global.token = result.token;
-                Storage.save('token', result.token).then(()=>{
-                    const { navigate, state } = this.props.navigation;
-                    if (state.params.refresh) state.params.refresh(result.token);
-                    setTimeout(function() {
-                        navigate('Main');
-                    }, 400);
-                });                
+                if (result.code == 0) {
+                    this.refs.toast.show('登录成功');
+                    global.token = result.data.token;
+                    Storage.save('token', result.data.token).then(()=>{
+                        const { navigate, state } = this.props.navigation;
+                        if (state.params.refresh) state.params.refresh(result.data.token);
+                        setTimeout(function() {
+                            navigate('Main');
+                        }, 400);
+                    });  
+                } else {
+                    this.refs.toast.show(result.msg);
+                }               
             });
         }
     }
@@ -90,64 +95,8 @@ export default class Login extends Component {
         }});
     }
 
-    _wechatLogin = () => {
-        var _this = this;
-        openShare.wechatLogin();
-
-        if(!_this.wechatLogin) {
-          _this.wechatLogin = DeviceEventEmitter.addListener(
-            'managerCallback',
-            (response) => {
-              Alert.alert(
-                'response',
-                JSON.stringify(response)
-              );
-              
-              _this.wechatLogin.remove();
-              delete _this.wechatLogin;
-            }
-          );
-        }
-    }
-
-    _qqLogin = () => {
-        var _this = this;
-        openShare.qqLogin();
-
-        if(!_this._qqLogin) {
-          _this._qqLogin = DeviceEventEmitter.addListener(
-            'managerCallback',
-            (response) => {
-              Alert.alert(
-                'response',
-                JSON.stringify(response)
-              );
-              
-              _this._qqLogin.remove();
-              delete _this._qqLogin;
-            }
-          );
-        }
-    }
-
-    _weiboLogin = () => {
-        var _this = this;
-        openShare.weiboLogin();
-
-        if(!_this._weiboLogin) {
-          _this._weiboLogin = DeviceEventEmitter.addListener(
-            'managerCallback',
-            (response) => {
-              Alert.alert(
-                'response',
-                JSON.stringify(response)
-              );
-              
-              _this._weiboLogin.remove();
-              delete _this._weiboLogin;
-            }
-          );
-        }
+    _loginCallback = (type, data) => {
+        console.log(type, data);
     }
 
     render() {
@@ -161,14 +110,7 @@ export default class Login extends Component {
                     <Button text="注册" style={styles.registBtn} containerStyle={styles.registBtnContainer} onPress={this._regist} />
                     <Button text="忘记密码" style={styles.forgetBtn} containerStyle={styles.forgetBtnContainer} onPress={this._forgetPwd} />
                 </View>
-                <View style={styles.bottom}>
-                    <Text style={styles.otherLogin}>其他方式登录</Text>
-                    <View style={styles.btns}>
-                        <ImageButton source={require('../../images/icon-wx.jpg')} style={styles.imageButton} onPress={this._wechatLogin} />
-                        <ImageButton source={require('../../images/icon-qq.jpg')} style={styles.imageButton} onPress={this._qqLogin} />
-                        <ImageButton source={require('../../images/icon-wb.jpg')} style={styles.imageButton} onPress={this._weiboLogin} />
-                    </View>
-                </View>
+                <ThirdPartyLogin loginCallback={this._loginCallback}></ThirdPartyLogin> 
                 <Toast ref="toast" position="center" />
             </View>
         );

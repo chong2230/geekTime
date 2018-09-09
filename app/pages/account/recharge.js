@@ -35,7 +35,9 @@ export default class Recharge extends Component {
 
     componentWillMount() {
         Common.getRechargeList((result)=>{ 
-            this.setState({listData: result.list});
+            if (result.code == 0) {
+                this.setState({listData: result.list});
+            }
         });
     }
 

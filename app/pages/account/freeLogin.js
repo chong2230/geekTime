@@ -46,14 +46,16 @@ export default class FreeLogin extends Component {
     _login = () => {
         if (this._check()) {
             Common.freeLogin(this.state.phone, this.state.code, (result) => {
-                this.refs.toast.show('登录成功');
-                Storage.save('token', result.token).then(()=>{
-                    const { navigate, state } = this.props.navigation;
-                    if (state.params.refresh) state.params.refresh(result.token);
-                    setTimeout(function() {
-                        navigate('Main');
-                    }, 400);
-                });     
+                if (result.code == 0) {
+                    this.refs.toast.show('登录成功');
+                    Storage.save('token', result.token).then(()=>{
+                        const { navigate, state } = this.props.navigation;
+                        if (state.params.refresh) state.params.refresh(result.token);
+                        setTimeout(function() {
+                            navigate('Main');
+                        }, 400);
+                    });   
+                }  
             });
         }
     }

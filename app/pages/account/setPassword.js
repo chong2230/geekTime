@@ -45,14 +45,15 @@ export default class SetPassword extends Component {
     _changePwd = () => {
         if (this._checkPwd()) {
             Common.setPassword(this.state.newPwd, (result) => {
-                this.refs.toast.show('设置密码成功');
-                const { navigate } = this.props.navigation;
-                setTimeout(function() {
-                    navigate('Login', { isVisiable: true, title: '密码登录', transition: 'forVertical', refresh: (token)=>{
-                        if (state.params.refresh) state.params.refresh(token);
-                    }});
-                }, 400);
-                
+                if (result.code == 0) {
+                    this.refs.toast.show('设置密码成功');
+                    const { navigate } = this.props.navigation;
+                    setTimeout(function() {
+                        navigate('Login', { isVisiable: true, title: '密码登录', transition: 'forVertical', refresh: (token)=>{
+                            if (state.params.refresh) state.params.refresh(token);
+                        }});
+                    }, 400);
+                }
             });
         }
     }

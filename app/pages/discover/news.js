@@ -20,7 +20,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Colors from '../../components/Colors';
 import Common from '../../utils/Common';
-import {formateMinSec} from '../../utils/FormatUtil';
+import {formateMinSec} from '../../utils/Util';
 
 const deviceW = Dimensions.get('window').width;
 const len = 280;
@@ -37,10 +37,12 @@ export default class News extends Component<{}> {
     }
 
     componentWillMount() {
-        Common.getNews((data)=>{
-            this.setState({
-                listData: data.list
-            });
+        Common.getNews((result)=>{
+            if (result.code == 0) {
+                this.setState({
+                    listData: result.data.list
+                });
+            }
         })
     }
 

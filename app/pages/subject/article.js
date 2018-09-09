@@ -22,7 +22,7 @@ import Colors from '../../components/Colors';
 import Button from '../../components/Button';
 import Common from '../../utils/Common';
 import Storage from '../../utils/Storage';
-import { formatDateString } from '../../utils/FormatUtil';
+import { formatDateString } from '../../utils/Util';
 
 const deviceW = Dimensions.get('window').width;
 const imgHeight = deviceW*640/1142;
@@ -42,14 +42,18 @@ export default class Article extends Component<{}> {
         //Orientation.lockToLandscape();
         const { params } = this.props.navigation.state;
         Common.getDetail(params.cid, params.type, (result)=>{
-            this.setState({
-                detail : result
-            });
+            if (result.code == 0) {
+                this.setState({
+                    detail : result.data
+                });
+            }
         });
         Common.getArticle(params.id, (result)=>{
-            this.setState({
-                data : result
-            });
+            if (result.code == 0) {
+                this.setState({
+                    data : result.data
+                });
+            }
         });
     }
 

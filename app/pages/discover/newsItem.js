@@ -24,7 +24,7 @@ export default class NewsItem extends Component {
     }
 
     _onItemClick() {
-        this.props.onPress(this.props.index, this.props.item.id, this.props.item.audio_url);
+        this.props.onPress(this.props.index, this.props.item.id, this.props.item.audio);
     }
 
     render() {
@@ -42,7 +42,6 @@ export default class NewsItem extends Component {
                 <View style={styles.item}>
                     {playIcon}
                     <Text style={[styles.text, textStyle]}>{this.props.item.title}</Text>
-                    }
                 </View>
             </TouchableWithoutFeedback>
         );

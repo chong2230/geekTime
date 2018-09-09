@@ -36,11 +36,13 @@ export default class Subject extends Component<{}> {
     }
 
     componentWillMount() {
-        Common.getSubjectList((data)=>{
-            this.setState({
-                headerImg: data.headerImg,
-                listData: data.list
-            });
+        Common.getSubjectList((result)=>{
+            if (result.code == 0) {
+                this.setState({
+                    headerImg: result.data.headerImg,
+                    listData: result.data.list
+                });
+            }
         })
     }
 

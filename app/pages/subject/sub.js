@@ -33,9 +33,11 @@ export default class SubjectSub extends Component<{}> {
     componentWillMount() {
         const { params } = this.props.navigation.state;
         Common.getSubjectList(params.id, (result)=>{
-            console.log("result: %j", result);
-            var ds = this.state.listData.cloneWithRows(result);
-            this.setState({listData: ds});
+            if (result.code == 0) {
+                console.log("result: %j", result);
+                var ds = this.state.listData.cloneWithRows(result);
+                this.setState({listData: ds});
+            }
         })
     }
 

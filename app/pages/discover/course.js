@@ -33,10 +33,12 @@ export default class Course extends Component<{}> {
 
     componentWillMount() {
         const { params } = this.props.navigation.state;
-        Common.getCourseList(params.type, (data)=>{
-            this.setState({
-                listData: data.list
-            });
+        Common.getCourseList(params.type, (result)=>{
+            if (result.code == 0) {
+                this.setState({
+                    listData: result.data.list
+                });
+            }
         })
     }
 

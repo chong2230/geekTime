@@ -20,6 +20,7 @@ import Profile from './app/pages/account/profile';
 import UpdatePassword from './app/pages/account/updatePassword';
 import ForgetPassword from './app/pages/account/forgetPassword';
 import SetPassword from './app/pages/account/setPassword';
+import UpdatePhone from './app/pages/account/updatePhone';
 import Setting from './app/pages/account/setting';
 import About from './app/pages/account/about';
 import Service from './app/pages/account/service';
@@ -138,6 +139,10 @@ const App = createStackNavigator({
     },
     SetPassword: {
         screen: SetPassword,
+        navigationOptions: ({navigation}) => StackOptions({navigation})
+    },
+    UpdatePhone: {
+        screen: UpdatePhone,
         navigationOptions: ({navigation}) => StackOptions({navigation})
     }
 }, {

@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 //var DeviceInfo = require('react-native-device-info');
 import Mockdata from '../mockdata/mockdata';
+import Storage from './Storage';
 
 export default class Common {
     static httpServer = 'http://ishare.ireading.xyz:8081';
@@ -66,7 +67,8 @@ export default class Common {
     static httpRequest(url, params) {
         var headers = {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + global.token   // header中添加token
         };
         if (params) headers['Content-Type'] = 'application/x-www-form-urlencoded';
         return fetch((Common.isHack ? Common.hackServer : Common.httpServer) + url, {
@@ -77,10 +79,15 @@ export default class Common {
         })
             .then((resp) => resp.json())
             .then((json) => {
-                return Common.isHack ? Mockdata[url].data : json.data;
+                // token 失效                
+                if (json.code == 2) {
+                    global.token = null;
+                    Storage.delete('token');
+                }
+                return Common.isHack ? Mockdata[url] : json;
             })
             .catch((error) => {
-                Alert.alert(error.toString());
+                Alert.alert(url + ' ' + error.toString());
                 var text = "网络请求出错啦！";
                 if (['none','NONE','unknown','UNKNOWN'].indexOf(Common.netStatus) >= 0) text = "没有网络了！";
                 Alert.alert(text);
@@ -91,7 +98,6 @@ export default class Common {
         Common.httpRequest('/discover/slide', {
 
         }).then((result)=>{
-            console.log(result);
             cb(result);
         })
     }
@@ -100,7 +106,6 @@ export default class Common {
         Common.httpRequest('/discover/list', {
 
         }).then((result)=>{
-            console.log(result);
             cb(result);
         })
     }
@@ -157,8 +162,7 @@ export default class Common {
     // 文章列表
     static getArticles(cid, cb) {
         Common.httpRequest('/subject/articles', {
-            cid: cid,
-            token: global.token
+            cid: cid
         }).then((result)=>{
             cb(result);
         })
@@ -167,8 +171,7 @@ export default class Common {
     // 文章详情
     static getArticle(id, cb) {
         Common.httpRequest('/subject/article', {
-            id: id,
-            token: global.token
+            id: id
         }).then((result)=>{
             cb(result);
         })
@@ -177,8 +180,7 @@ export default class Common {
     // 购买
     static buy(cid, cb) {
         Common.httpRequest('/subject/buy', {
-            cid: cid,
-            token: global.token
+            cid: cid
         }).then((result)=>{
             cb(result);
         })
@@ -187,7 +189,7 @@ export default class Common {
     // 获取用户信息
     static getAccount(token, cb) {
         Common.httpRequest('/account/getInfo', {
-            token: token
+            
         }).then((result)=>{
             cb(result);
         })
@@ -198,6 +200,12 @@ export default class Common {
             oldPwd: oldPwd,
             newPwd: newPwd
         }).then((result)=>{
+            cb(result);
+        })
+    } 
+
+    static updateUser(user, cb) {
+        Common.httpRequest('/user/update', user).then((result)=>{
             cb(result);
         })
     } 

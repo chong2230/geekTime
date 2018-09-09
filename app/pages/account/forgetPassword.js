@@ -48,13 +48,15 @@ export default class ForgetPassword extends Component {
     _next = () => {
         if (this._check()) {
             Common.safeValidate(this.state.phone, this.state.code, (result) => {
-                this.refs.toast.show('验证成功');
-                const { navigate, state } = this.props.navigation;
-                setTimeout(function() {
-                    navigate('SetPassword', { isVisible: true, title: '设置密码', refresh: (token)=>{
-                        if (state.params.refresh) state.params.refresh(token);
-                    }});
-                }, 400);
+                if (result.code == 0) {
+                    this.refs.toast.show('验证成功');
+                    const { navigate, state } = this.props.navigation;
+                    setTimeout(function() {
+                        navigate('SetPassword', { isVisible: true, title: '设置密码', refresh: (token)=>{
+                            if (state.params.refresh) state.params.refresh(token);
+                        }});
+                    }, 400);
+                }
             });
         }
     }

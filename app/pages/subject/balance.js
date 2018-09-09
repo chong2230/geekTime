@@ -16,6 +16,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Button from '../../components/Button';
 import Colors from '../../components/Colors';
 import Common from '../../utils/Common';
+import Toast from '../../utils/Toast';
 
 const deviceW = Dimensions.get('window').width;
 const imgWidth = 91;
@@ -61,11 +62,15 @@ export default class Recharge extends Component {
     _buy = () => {
     	const { params } = this.props.navigation.state;
     	Common.buy(params.cid, (result)=>{ 
-        	Alert.alert('', '购买成功', [
-			    {text: '确定', onPress: () => {
-			    	navigate("SubjectDetail", {id: params.cid, type: params.type});
-			    }},
-			  ])
+            if (result.code == 0) {
+            	Alert.alert('', '购买成功', [
+    			    {text: '确定', onPress: () => {
+    			    	navigate("SubjectDetail", {id: params.cid, type: params.type});
+    			    }},
+    			  ])
+            } else {
+                this.refs.toast.show(result.msg);
+            }
     	});
     }
 
@@ -109,7 +114,8 @@ export default class Recharge extends Component {
                 <View style={styles.separator} />
                 <Text style={styles.tip}>提示：礼券不与其他优惠同享</Text>            
                 <Button text={btnTxt} onPress={this._handle} 
-                        style={styles.payBtn} containerStyle={styles.payContainer} />                                
+                        style={styles.payBtn} containerStyle={styles.payContainer} />  
+                <Toast ref="toast" position="center" />                                      
             </View>
         );
     }

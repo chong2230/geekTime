@@ -47,3 +47,9 @@ export const formateMinSec = (sec) => {
   if (second < 10) second = '0' + second;
   return minite + ':' + second;
 };
+
+// 移除字符串前后的空白字符
+export const trim = (str) => {
+  return str.replace(/(^\s*)|(\s*$)/g, '');
+}
+
