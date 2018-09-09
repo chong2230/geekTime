@@ -206,6 +206,7 @@ export default class Common {
 
     static updateUser(user, cb) {
         Common.httpRequest('/user/update', user).then((result)=>{
+            alert(result)
             cb(result);
         })
     } 

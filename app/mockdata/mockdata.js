@@ -944,6 +944,14 @@ const Mockdata = {
         "msg": "SUCCESS",
         "code": 0
     },
+    '/user/update': {
+        "msg": "SUCCESS",
+        "code": 0,
+        "data": {
+            uname: '一飞冲天',
+            phone: '13552774425'
+        }
+    },
     '/account/getInfo': {
         "msg": "SUCCESS",
         "code": 0,
