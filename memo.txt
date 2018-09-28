@@ -1,0 +1,168 @@
+1.npm不支持node9要怎样解决？
+把node更新到v9.2.0了，但是发现npm支持，重新安装node8也安装不了
+手动安装低版本node，用nvm/n管理的你的node版本
+npm uninstall -g npm
+npm install -g npm
+
+利用N来管理nodejs的版本问题
+http://blog.csdn.net/jiangbo_phd/article/details/51476155
+
+2. node、npm、react-native版本查看，下面列举的是我所用的版本
+node -v
+v8.9.0
+
+npm --version
+5.6.0
+
+react-native --version
+react-native-cli: 2.0.1
+
+npm i react-native-cli
+npm info react-native
+
+react-native-cli: 2.0.1
+react-native: 0.51.0
+
+3. 项目初始化命令
+react-native init ishare_rn
+cd ishare_rn
+react-native --version
+
+4. react-native run-ios报错
+error: react-native No bundle URL present
+删除ios目录下的build的目录，关闭模拟器，重新react-native run-ios大多数情况下可以解决
+
+5. 安装react-navigation、react-native-tab-navigator、react-native-viewpager...
+npm install --save react-navigation
+npm install react-native-tab-navigator --save
+npm i -d react-native-viewpager --save
+
+git pull项目后，运行npm install即可安装
+
+6. npm ERR! Unexpected end of JSON input while parsing near '...4.1","babel-preset-es'
+npm cache clean --force
+
+7.undefined is not an object(evaluating 'Reat.PropTypes.func')
+node_modules/react-native-viewpager下的ViewPager.js和DefaultViewPageIndicator.js，由于react版本升级，需要修改，可从APP/Lib下对应的文件进行替换
+
+8.引入react-native-video
+https://github.com/react-native-community/react-native-video
+
+npm i -S react-native-video
+react-native link
+
+9.引入视频播放组件react-native-video运行后报错，看起来react-native link并未起作用
+undefined is not an object (evaluating NativeModuels.UIManager.RCTVideo.Constants')
+https://github.com/react-native-community/react-native-video/issues/184
+react-native link react-native-video
+
+10.react-native开发踩坑之 ios上react-native-vector-icons 的error：unRecognized font family 'FontAwesome'
+http://blog.csdn.net/jiangcs520/article/details/69366245
+首先，npm install react-native-vector-icons --save
+其次，把node_modules/react-native-vector-icons下的fonts文件添加到工程中，这时候往往忽略了一个重点，后面那一句
+Make sure your app is checked under “Add to targets” and that “Create groups” is checked if you add the whole folder
+确认必须要确认是Add to targets和Create groups
+
+Info.plist添加Fonts provided by application（array），包含Item 0，值为FontAwesome.ttf
+
+11. Error: The <Image> component cannot contain children.
+http://blog.csdn.net/fengyuzhengfan/article/details/78808574
+React Native 0.50版本中<Image>组件迎来了比较大的一个特性的改变，即在React Native 0.50及以上版本中<Image>不在支持包裹内容。
+
+12. React Native报错：Application XXX has not been registered.
+参考：http://stackoverflow.com/questions/38340360/react-native-application-has-not-been-registered
+
+    首先，通过命令：ps aux | grep react-native 查看正在运行的进程，然后，找到launchPackager.command进程，再使用命令：kill加进程id 来结束该进程。
+
+13. 按上述步骤操作后，又出现了新的问题：Could not connect to development server.
+同样还有跨域问题。
+
+打开：项目目录/ios/项目名/Info.plist 文件
+
+在NSAppTransportSecurity下添加
+
+
+    <key>NSAppTransportSecurity</key>
+
+    <dict><key>NSAllowsArbitraryLoads</key><true/></dict>
+
+    再重新运行该项目，成功显示。
+
+14. 打包
+react-native bundle --entry-file index.js --bundle-output ./ios/ishare/main.jsbundle --platform ios --assets-dest ./ios/ishare --dev false
+
+
+android环境搭建时遇到的问题
+
+1. No cached version of com.android.tools.build:gradle:3.1.2 available for offline mode.
+之前为了优化gradle的编译速度，选择了Offline Work模式，取消即可
+Settings-Build.Execution,Deployment-Build Tools-Gradle–取消勾选的Offline Work, 重新编译，AS会自动下载.
+
+2.Uninitialized object exists on backward branch 70 原因及解决办法
+system exists different jdk ，IDE depend on inner JDK，gradle depend on env jdk . 
+其实简单来说就是Android Studio和Gradle使用了不同的JDk版本。
+解决方法：
+Project Structure -> SDK Location --> 将Use embeded JDK前面的勾打上即可。
+
+3.Could not download auto-value.jar(...):No cached version available for offline mod
+这个错的原因是有些下载项需要访问谷歌下载，但是国内要访问必须得翻墙，所以添加这俩段代码在你的根gradle中：
+    
+ maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven{ url 'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
+  放在这俩个位置就好了。等待编译完成。
+
+4. Gradle sync failed: Minimum supported Gradle version is 4.4. Current version is 2.14.1. If using the gradle wrapper, try editing the distributionUrl in /Users/cluo/repo/ishare_rn/android/gradle/wrapper/gradle-wrapper.properties to gradle-4.4-all.zip
+按照提示进行修改
+
+5. Gradle sync failed: Failed to find target with hash string 'android-25' in: /Users/cluo/Library/Android/sdk
+安装android-25
+
+6. The specified Android SDK Build Tools version (23.0.1) is ignored, as it is below the minimum supported version (27.0.3) for Android Gradle Plugin 3.1.2.
+Android SDK Build Tools 27.0.3 will be used.
+To suppress this warning, remove "buildToolsVersion '23.0.1'" from your build.gradle file, as each version of the Android Gradle Plugin now has a default version of the build tools.
+
+从android/app/build.gradle和android/build.gradle中remove buildToolsVersion '23.0.1'
+一般创建一个android项目后回出现两个gradle:一个build.gradle(app)，一个build.gradle(Project)，顾名思义就是一个是用来配置整个工程的的一个是用来配置app的。
+
+7. android studio 3.1 升级gradle4.4时所踩到的坑
+https://blog.csdn.net/Public_x/article/details/80224838
+项目使用的Gradle是3.3版本的，而Android studio3.1 所使用的Gradle版本是4.4
+
+8. Configuration 'compile' is obsolete and has been replaced with 'implementation' and 'api'.
+It will be removed at the end of 2018. 
+For more information see: http://d.android.com/r/tools/update-dependency-configurations.html
+分析，配置里面有些api过时了 https://blog.csdn.net/Song_74110/article/details/80387307
+需要改成如下： 
+compile 改成 implementation 
+androidTestCompile 改成 androidTestImplementation 
+testCompile 改成 testImplementation
+provided 改成 compileOnly
+
+9. @TargetApi(Build.VERSION_CODES.LOLLIPOP)报错
+原因 api版本过低，要5.0以上的(api20)
+如何修改SDK版本，修改工程目录中的Gradle Scripts->build.gradle(Module:app)中的相关行，compileSdkVersion和targetSdkVersion。或者右键工程目录选择“Open Module Settings”,然后修改Compile Sdk Version
+
+10.Android Studio打包时候报错:
+org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':app:lintVitalRelease'.
+Lint found fatal errors while assembling a release target. 
+To proceed, either fix the issues identified by lint, or modify your build script as follows:
+android {
+	lintOptions {
+	    checkReleaseBuilds false
+	    abortOnError false
+	}
+}
+
+11.implementation "com.android.support:appcompat-v7:23.0.1"
+在项目的build.gradle文件里，用传统的自动依赖处理方式：
+compile 'com.android.support:appcompat-v7:+'
+
+12. 打包
+react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
+
+13. Android Studio 打包apk后应用未安装
+经过打包实践会发现：
+如果只选V1，打包之后的apk在android7.0+或者7.0以下的手机安装均正常；
+如果只选V2，打包之后的apk在android7.0+的手机上安装正常，在android7.0以下的手机安装失败。
+如果同时勾选V1，V2，打包后的apk在android7.0+或者7.0以下的手机安装也都正常；
+https://blog.csdn.net/yx1166/article/details/77254053
