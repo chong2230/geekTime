@@ -91,6 +91,15 @@ React Native 0.50版本中<Image>组件迎来了比较大的一个特性的改�
 14. 打包
 react-native bundle --entry-file index.js --bundle-output ./ios/ishare/main.jsbundle --platform ios --assets-dest ./ios/ishare --dev false
 
+15. react-native打印__nw_connection_get_connected_socket_block_invoke Connection has no connected handler
+解决办法是：
+1. Xcode menu -> Product -> Edit Scheme...
+2. Environment Variables -> Add -> Name: "OS_ACTIVITY_MODE", Value:"disable"
+3. Run your app again, done!
+
+16. debug a React page
+yarn global add react-devtools
+
 
 android环境搭建时遇到的问题
 
@@ -166,3 +175,21 @@ react-native bundle --platform android --dev false --entry-file index.js --bundl
 如果只选V2，打包之后的apk在android7.0+的手机上安装正常，在android7.0以下的手机安装失败。
 如果同时勾选V1，V2，打包后的apk在android7.0+或者7.0以下的手机安装也都正常；
 https://blog.csdn.net/yx1166/article/details/77254053
+
+14. react-native-http-cache
+android编译错误，找不到
+getSmallImageDiskStorageCache() 改为 getMainFileCache
+getMainDickStorageCache() 改为 getSmallImageFileCache
+
+15. Native module VectorIconsModule tried to override VectorIconsModule for the module name RNVectorIconsModule
+修改android/app/src/main/java/com/bigavideo/MainApplication.java文件
+将    
+@Override    
+protected List<ReactPackage> getPackages() {      
+	return Arrays.<ReactPackage>asList(          
+		new MainReactPackage(),            
+		new VectorIconsPackage()      
+	);    
+}
+中重复的new VectorIconsPackage()删除
+

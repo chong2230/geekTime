@@ -21,11 +21,14 @@ import {
 // import Picker from 'react-native-picker';
 import Colors from '../../components/Colors';
 import DisplayItem from '../../components/DisplayItem';
+import CameraButton from '../../components/CameraButton'
 import Common from '../../utils/Common';
 import Toast from '../../utils/Toast';
 import { trim } from '../../utils/Util';
 import SexModal from './SexModal';
 import EducationModal from './EducationModal';
+
+let FileUpload = NativeModules.FileUpload;
 
 export default class Profile extends Component {
     constructor(props) {
@@ -177,6 +180,56 @@ export default class Profile extends Component {
         return str;
     }
 
+    onFileUpload = (file, fileName) => {
+        var obj = {
+            uploadUrl: 'http://127.0.0.1:3000',
+            method: 'POST', // default 'POST',support 'POST' and 'PUT'
+            headers: {
+              'Accept': 'application/json',
+            },
+            fields: {
+                'hello': 'world',
+            },
+            files: [
+              {
+                name: 'one', // optional, if none then `filename` is used instead
+                filename: 'one.w4a', // require, file name
+                filepath: '/xxx/one.w4a', // require, file absoluete path
+                filetype: 'audio/x-m4a', // options, if none, will get mimetype from `filepath` extension
+              },
+            ]
+        };
+        FileUpload.upload(obj, function(err, result) {
+          console.log('upload:', err, result);
+        })
+        console.log('onFileUpload');
+        console.log(file);
+        console.log(fileName);
+    }
+
+    uploadImage(){
+        let formData = new FormData();
+        let file = {uri: uri, type: 'multipart/form-data', name: 'a.jpg'};
+     
+        formData.append("images",file);
+     
+        fetch(url,{
+          method:'POST',
+          headers:{
+            'Content-Type':'multipart/form-data',
+          },
+          body:formData,
+        })
+        .then((response) => response.text() )
+        .then((responseData)=>{
+     
+          console.log('responseData',responseData);
+        })
+        .catch((error)=>{console.error('error',error)});
+     
+    }
+
+
     render() {  
         let sex = this._getSex();
         let education = this._getEducation();
@@ -184,6 +237,9 @@ export default class Profile extends Component {
             <View style={styles.container}>
                 <View style={styles.avatar}>
                     <Text>头像</Text>
+                    <CameraButton style={styles.cameraBtn}
+                          photos={[]}
+                          onFileUpload={this.onFileUpload} />
                 </View>
                 <View style={styles.separator}></View>
                 <DisplayItem txt1="昵称" />
@@ -216,11 +272,15 @@ const styles = StyleSheet.create({
     avatar: {
         flexDirection:'row',
         alignItems: 'center',
-        paddingTop: 40,
-        paddingBottom: 40,
+        justifyContent:'space-between',
+        paddingTop: 20,
+        paddingBottom: 20,
         paddingLeft: 30,
         borderBottomColor: '#e0e0e0',
         borderBottomWidth: 1,
+    },
+    cameraBtn: {
+
     },
     separator: {
         backgroundColor: '#eceff2',

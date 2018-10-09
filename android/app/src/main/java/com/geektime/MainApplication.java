@@ -3,6 +3,9 @@ package com.geektime;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import cn.reactnative.httpcache.HttpCachePackage;
+import com.yoloci.fileupload.FileUploadPackage;
+import com.imagepicker.ImagePickerPackage;
 import com.brentvatne.react.ReactVideoPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.zmxv.RNSound.RNSoundPackage;
@@ -28,6 +31,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new HttpCachePackage(),
+            new FileUploadPackage(),
+            new ImagePickerPackage(),
             new ReactVideoPackage(),
             new VectorIconsPackage(),
             new RNSoundPackage(),

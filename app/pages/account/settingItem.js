@@ -17,6 +17,7 @@ export default class SettingItem extends Component {
             <TouchableOpacity  onPress={this.props.onPress}>
                 <View style={styles.item}>
                     <Text style={{marginLeft: 10}}>{this.props.txt1}</Text>
+                    <Text style={styles.count}>{this.props.count}   </Text>                    
                     <Image source={require('../../images/account/right-arrow.png')} style={styles.rightIcon} />
                 </View>
             </TouchableOpacity>
@@ -40,5 +41,10 @@ const styles = StyleSheet.create({
         height: 10,
         position: 'absolute',
         right: 20
+    },
+    count: {
+        color: '#828282',
+        position: 'absolute',
+        right: 35
     }
 });

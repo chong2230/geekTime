@@ -25,6 +25,11 @@ import Setting from './app/pages/account/setting';
 import About from './app/pages/account/about';
 import Service from './app/pages/account/service';
 import Contact from './app/pages/account/contact';
+import Note from './app/pages/account/note';
+import Ticket from './app/pages/account/ticket';
+import HistoryTicket from './app/pages/account/historyTicket';
+import Message from './app/pages/account/message';
+import Suggest from './app/pages/account/suggest';
 
 const StackOptions = ({navigation}) => {
     let {state,goBack} = navigation;
@@ -143,6 +148,26 @@ const App = createStackNavigator({
     },
     UpdatePhone: {
         screen: UpdatePhone,
+        navigationOptions: ({navigation}) => StackOptions({navigation})
+    },
+    Note: {
+        screen: Note,
+        navigationOptions: ({navigation}) => StackOptions({navigation})
+    },
+    Ticket: {
+        screen: Ticket,
+        navigationOptions: ({navigation}) => StackOptions({navigation})
+    },
+    HistoryTicket: {
+        screen: HistoryTicket,
+        navigationOptions: ({navigation}) => StackOptions({navigation})
+    },
+    Message: {
+        screen: Message,
+        navigationOptions: ({navigation}) => StackOptions({navigation})
+    },
+    Suggest: {
+        screen: Suggest,
         navigationOptions: ({navigation}) => StackOptions({navigation})
     }
 }, {

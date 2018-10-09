@@ -17,14 +17,12 @@ import Colors from '../../components/Colors';
 import Storage from '../../utils/Storage';
 import SettingItem from './settingItem';
 
-// var CalendarManager = NativeModules.CalendarManager;  //导入iOS端原生
-
 export default class Setting extends Component {
     constructor(props) {
         super(props);
 
         this.state = ({
-            cache: 0,   //缓存大小
+            cacheSize: 0,   //缓存大小
             token: null
         });
     }
@@ -36,37 +34,24 @@ export default class Setting extends Component {
                 });
             }
         });
-        //通过原生计算缓存大小
-        // Platform.OS === 'ios' ?
-        //     CalendarManager.cacheSize((error, events) => {
-        //         if (error) {
-        //             console.error(error);
-        //         } else {
-        //             this.setState({
-        //                 cache:Math.round((events/1024/1024)*100)
-        //             })
-        //         }
-        //     })
-        //     :
-        //     console.log('安卓清除缓存未实现')
+        this.getCacheSize();
     }
 
-    //清除缓存
-    clearCache =() =>{
-        /*
-        Platform.OS === 'ios' ?
-            CalendarManager.cleanCache((error, events) => {
-                if (error) {
-                    console.error(error);
-                } else {
-                    this.setState({
-                        cache:0
-                    })
-                }
-            })
-            :
-            console.log('安卓清除缓存未实现')
-            */
+    // 获得缓存大小
+    async getCacheSize() {
+        const data = await CacheManager.getCacheSize();
+        const size = data / (1024 * 1024);
+        this.setState({ cacheSize: size.toFixed(2) + 'M'});
+    }
+
+    // 清除缓存
+    async clearCache() {
+        await CacheManager.clearCache();
+        // this.getCacheSize();
+        // 这里貌似清除不能全部清除为0，这里直接写死0即可。
+        this.setState({cacheSize: '0M'});
+        this.refs.toast.show('清除缓存成功');
+        
     }
 
     _safeAccount = () => {
@@ -86,12 +71,21 @@ export default class Setting extends Component {
         
     }
 
-    _clearCache = () => {
+    _appraise = () => {
+        let appId = '1180401298';   // 爱运动
+        // iOS 7以下的版本 itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=APP_ID
+        // iOS 7 itms-apps://itunes.apple.com/app/idAPP_ID
+        // iOS 8+ itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=APP_ID&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&type=Purple+Software";
+        let url = 'itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id='+appId+'&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&type=Purple+Software'
+        if (Platform.OS === 'ios') {
+            Linking.openURL(url).catch(err => console.error('An error occurred', err)); 
+        } 
         
     }
 
-    _appraise = () => {
-        
+    _suggest = () => {
+        const { navigate } = this.props.navigation;
+        navigate('Suggest', {isVisiable: true, title: '意见与建议'});
     }
     
     _about = () => {
@@ -136,7 +130,7 @@ export default class Setting extends Component {
                     <View style={styles.separator}></View>
                     <SettingItem txt1 = '推送设置' onPress={this._setPull}/>
                     <SettingItem txt1 = '播放和下载' onPress={this._setPlay}/>
-                    <SettingItem txt1 = '清除缓存'  onPress={this._clearCache}/>
+                    <SettingItem txt1 = '清除缓存' count = {this.state.cacheSize} onPress={this.clearCache.bind(this)}/>
                     <View style={styles.separator}></View>
                     <SettingItem txt1 = '给应用评分' onPress={this._appraise}/>
                     <SettingItem txt1 = '帮助与反馈' onPress={this._suggest}/>
